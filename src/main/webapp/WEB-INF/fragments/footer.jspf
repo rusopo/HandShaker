@@ -1,0 +1,23 @@
+<footer id="pie" class="container">
+	 	<div  class="col-md-12">
+			
+			<div id="pie-izq" class="col-md-6" align="left">
+				
+				Proyecto Ingeniería Web <br>
+				Universidad Complutense de Madrid
+			
+			</div>
+			
+			<div id="pie-der" class="col-md-6" align="right">
+			
+			
+			</div>
+			            
+         </div>	
+     </footer>
+                
+	    <script src="resources/bootstrap/js/bootstrap.js"></script>
+	    
+	    	    
+    </body>
+</html>

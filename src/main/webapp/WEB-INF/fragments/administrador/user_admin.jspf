@@ -1,0 +1,95 @@
+	
+<div id="panel-control-admin" class="col-md-12">
+						<table id="tabla-administracion" class="table">
+							 	<thead>
+							 		<tr>
+							 			
+							 			<th>id_usuario</th>
+							 			<th>alias</th>
+							 			<th>nombre</th>
+							 			<th>foto</th>
+							 			<th>habilidades</th>
+							 			<th>intereses</th>
+							 			
+							 			
+							 		</tr>
+							 		
+							 	</thead>
+							 	
+							 	<tbody>
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 			
+							 		
+							 		</tr> 	
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 		
+							 		</tr> 
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 		
+							 		</tr> 
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 		
+							 		</tr> 
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 		
+							 		</tr>
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 		
+							 		</tr>
+							 		<tr>
+							 			
+							 			<td>919239123</td>
+							 			<td>programador_12</td>
+							 			<td>Juan</td>
+							 			<td>esta_es_mi_foto.url</td>
+							 			<td>estas_son_mis_habilidades</td>
+							 			<td>estos_son_mis_intereses</td>
+							 		
+							 		</tr> 
+							 	</tbody>
+							 	
+							</table>
+			
+         </div>	

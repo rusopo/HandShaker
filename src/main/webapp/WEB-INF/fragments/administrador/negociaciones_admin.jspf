@@ -1,0 +1,56 @@
+<div id="panel-control-admin" class="col-md-12">
+						<table id="tabla-administracion" class="table">
+							 	<thead>
+							 		<tr>
+							 			<th>id_negociacion</th>
+							 			<th>id_usuario1</th>
+							 			<th>idusuario2</th>
+							 			<th>lista comentarios</th>
+							 			<th>aceptada</th>
+							 		</tr>
+							 		
+							 	</thead>
+							 	
+							 	<tbody>
+							 		<tr>
+							 			
+							 			<td>8793223</td>
+							 			<td>0000012</td>
+							 			<td>1312151</td>
+							 			<td>esto es una lista</td>
+							 			<td>false</td>
+							 			
+							 		</tr>
+							 		<tr>
+							 		    
+							 			<td>8793223</td>
+							 			<td>0000012</td>
+							 			<td>1312151</td>
+							 			<td>esto es una lista</td>
+							 			<td>false</td>
+							 			
+							 		</tr> 
+							 		<tr>
+							 		    
+							 			<td>8793223</td>
+							 			<td>0000012</td>
+							 			<td>1312151</td>
+							 			<td>esto es una lista</td>
+							 			<td>false</td>
+							 			
+							 		</tr> 
+							 		<tr>
+							 			
+							 			<td>8793223</td>
+							 			<td>0000012</td>
+							 			<td>1312151</td>
+							 			<td>esto es una lista</td>
+							 			<td>false</td>
+							 			
+							 		</tr>  	
+							 	</tbody>
+							 	
+							</table>
+			
+      </div>	
+

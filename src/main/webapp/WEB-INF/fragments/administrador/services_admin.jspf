@@ -1,0 +1,55 @@
+			
+			<div id="panel-control-admin" class="col-md-12">
+						<table id="tabla-administracion" class="table">
+							 	<thead>
+							 	
+	
+							 		<tr>
+							 			
+							 			<th>id_servicio</th>
+							 			<th>nombre</th>
+							 			<th>categoria</th>
+							 			<th>descripcion</th>
+							 		
+							 		</tr>
+							 		
+							 	</thead>
+							 	
+							 	<tbody>
+							 		<tr>
+							 			
+							 			<td>00011</td>
+							 			<td>Arreglar enchufe</td>
+							 			<td>Hogar</td>
+							 			<td>Me gusta arreglar enchufes</td>
+							 		
+							 		</tr> 	
+							 		<tr>
+							 			
+							 			<td>00011</td>
+							 			<td>Arreglar enchufe</td>
+							 			<td>Hogar</td>
+							 			<td>Me gusta arreglar enchufes</td>
+							 		
+							 		</tr> 	
+							 		<tr>
+							 			
+							 			<td>00011</td>
+							 			<td>Arreglar enchufe</td>
+							 			<td>Hogar</td>
+							 			<td>Me gusta arreglar enchufes</td>
+							 		
+							 		</tr> 	
+							 		<tr>
+							 			
+							 			<td>00011</td>
+							 			<td>Arreglar enchufe</td>
+							 			<td>Hogar</td>
+							 			<td>Me gusta arreglar enchufes</td>
+							 		
+							 		</tr> 	
+							 	</tbody>
+							 	
+							</table>
+			
+         </div>	
