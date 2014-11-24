@@ -1,15 +1,15 @@
 package com.j2r2a.handshaker.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ExisteCategoria",query="select c from Categoria c where c.nombreCategoria = :CategoriaMetida")
+    @NamedQuery(name="ExisteCategoria",query="select c from Categoria c where c.nombreCategoria = :CategoriaMetida"),
+    @NamedQuery(name="ListaCategorias",query="select c from Categoria c")
 })
 
 @Entity
@@ -17,19 +17,20 @@ public class Categoria{
 	
 	private long id_categoria;
 	private String nombreCategoria;
-	private Servicio servicio;
+	//private Servicio servicio;
 	
 	public Categoria (){}
 	
-	public static Categoria createCategoria(String nombreCategoria,Servicio servicio){
+	public static Categoria createCategoria(String nombreCategoria){
 		Categoria c= new Categoria();
 		c.nombreCategoria= nombreCategoria;
-		c.servicio=servicio;
+		//c.servicio=servicio;
 		
 		return c;
 	}
 	
 	@Id
+	@GeneratedValue
 	public long getId_categoria() {
 		return id_categoria;
 	}
@@ -42,6 +43,8 @@ public class Categoria{
 	public void setNombreCategoria(String nombreCategoria) {
 		this.nombreCategoria = nombreCategoria;
 	}
+	
+	/*
 	@OneToOne(targetEntity=Servicio.class) //Un usuario tiene n intereses de tipo Servicio
 	@JoinColumn(name="id_servicio") 
 	public Servicio getServicio() {
@@ -50,6 +53,6 @@ public class Categoria{
 	public void setServicio(Servicio servicio) {
 		this.servicio = servicio;
 	}
-	
+	*/
 	
 }

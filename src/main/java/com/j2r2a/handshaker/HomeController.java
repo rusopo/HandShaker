@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.j2r2a.handshaker.model.Categoria;
 import com.j2r2a.handshaker.model.Usuario;
 
 /**
@@ -257,7 +258,10 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
 		
-		//logger.info("Welcome home! The client locale is {}.", locale);		
+		//logger.info("Welcome home! The client locale is {}.", locale);
+		
+		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
+		model.addAttribute("listaCategorias", listaCategorias);
 		
 		model.addAttribute("listaActiva1","class='active'");
 
@@ -270,7 +274,10 @@ public class HomeController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexHome(Locale locale, Model model) {
 		
-		//logger.info("Welcome home! The client locale is {}.", locale);		
+		//logger.info("Welcome home! The client locale is {}.", locale);
+		
+		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
+		model.addAttribute("listaCategorias", listaCategorias);
 		
 		model.addAttribute("listaActiva1","class='active'");
 

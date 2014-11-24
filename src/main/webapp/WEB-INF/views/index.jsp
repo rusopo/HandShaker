@@ -18,12 +18,12 @@
 			 
 						 </div>
 						 
-						 <select class="form-control">
-						  <option>Informática</option>
-						  <option>Cocina</option>
-						  <option>Limpieza</option>
-						  <option>Mudanzas</option>
-						  <option>Coches</option>
+						 <select id="lista_categorias" class="form-control">
+						 
+							 <c:forEach items="${listaCategorias}" var="c">
+								  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
+							  </c:forEach>
+							  
 						</select>
 						 
 						   <div class="form-group">
@@ -34,7 +34,7 @@
 					</form>
 				</div>
 				
-				<div class="col-md-12">
+				<div id="resultados_busqueda" class="col-md-12">
 				
 					<ul class="lista-busqueda">
 				
