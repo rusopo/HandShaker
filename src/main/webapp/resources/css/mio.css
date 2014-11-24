@@ -307,18 +307,12 @@ body{
 		margin-left: 40%;
 	}
 	
-	#pie-izq{
+	#footer{
 	
 		font-weight: bold;
-		margin-top: 2.5%;
+		margin-top: 2%;
 	}
-	
-	#pie-der{
-
-		font-weight: bold;
-		margin-top: 2.5%;
-	}
-	
+		
 	#panel-botones-admin{
 	
 		margin-top: 2%;

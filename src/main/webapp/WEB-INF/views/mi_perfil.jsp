@@ -68,14 +68,10 @@
 								<h3 align="center" class="h3-perfil">Mis Habilidades</h3>
 							
 								<ol>
-								
-									<li>Fregar Platos</li>
-									<li>Fregar Platos</li>
-									<li>Fregar Platos</li>
-									<li>Fregar Platos</li>
-									<li>Fregar Platos</li>
-									<li>Fregar Platos</li>
-								
+									<c:forEach items="${listaServiciosUsuario}" var="s">
+										<li>${s.nombre}</li>
+									</c:forEach>
+									
 								</ol>
 							
 						</div>

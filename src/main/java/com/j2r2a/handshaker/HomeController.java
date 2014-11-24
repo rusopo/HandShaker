@@ -242,6 +242,17 @@ public class HomeController {
 			model.addAttribute("usuario", u);
 		}
 		
+		//BORRAR ESTE IF MAS ADELANTE XQ ES SOLO PARA DEPURAR
+		if(u.getAlias().equals("admin") || u.getAlias().equals("rusopo") || u.getAlias().equals("test1")){
+			u.setHabilidades(null);
+		}
+		
+		List<Servicio> listaServiciosUsuario= u.getHabilidades();
+		
+		if(listaServiciosUsuario!=null){
+			model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
+		}
+		
 		model.addAttribute("listaActiva2","class='active'");
 		
 		return "mi_perfil";
@@ -394,9 +405,15 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/servicio", method = RequestMethod.GET)
-	public String servicioHome(Locale locale, Model model) {
+	public String servicioHome(HttpServletRequest request,Locale locale, Model model) {
 		
-		//logger.info("Welcome home! The client locale is {}.", locale);		
+		//logger.info("Welcome home! The client locale is {}.", locale);
+		
+		long id_servicio_pulsado= Long.parseLong(request.getParameter("id_servicio"));
+		
+		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
+		
+		model.addAttribute("servicio", s);
 		
 		return "servicio";
 	}

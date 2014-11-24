@@ -1,6 +1,17 @@
 <%@ include file="../fragments/header.jspf" %> 
 
 <div id="cuerpo" class="container">
+
+<c:choose>
+	
+      <c:when test="${empty usuario}">
+     
+     	<div class="col-md-12">
+     		<h3><strong>Necesitas estar registrado para poder visitar tu historial. Hazlo más arriba!</strong></h3>
+     	</div>
+      </c:when>
+
+      <c:otherwise>
 					
 				<div class="col-md-12">	
 					
@@ -52,9 +63,12 @@
 							</table>
 							
 				
-				</div>			
-						
+				</div>
+							
+	</c:otherwise>
+	
+	</c:choose>					
 			
-		 </div>
+</div>
 		 
   <%@ include file="../fragments/footer.jspf" %>	

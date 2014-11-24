@@ -8,10 +8,10 @@
 					
 						<div class="panel panel-primary">
 						  <div class="panel-heading">
-						    <h3 class="panel-title">Programación en Java</h3>
+						    <h3 class="panel-title">${servicio.nombre}</h3>
 						  </div>
 						  <div class="panel-body">
-						    Desarrollo de aplicaciones en JAVA.
+						    ${servicio.descripcion}
 						  </div>
 					   </div>
 											

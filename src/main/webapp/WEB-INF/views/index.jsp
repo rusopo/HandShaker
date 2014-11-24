@@ -40,15 +40,19 @@
 					
 					<c:forEach items="${ListarPorCategoria}" var="s">
 				
-						<li>											
+						<li>
+																															
 							 <div class="col-md-12">
 								<div class="panel panel-primary">
 								  <div class="panel-heading">
 								    <h3 class="panel-title">
 								    <c:choose>
 								    	<c:when test="${not empty usuario}">
-								    		<a href="servicio">${s.nombre}</a>
-								    	
+								    		
+								    		<form action="servicio" method="get">
+								    			<input type="hidden" name="id_servicio" value="${s.id_servicio}">
+								    		</form>								    	
+								    		<a href="servicio?id_servicio=${s.id_servicio}">${s.nombre}</a>								    	
 								    	</c:when>
 								    	<c:otherwise>
 								    		${s.nombre}
