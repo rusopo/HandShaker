@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
+import com.j2r2a.handshaker.model.Servicio;
 import com.j2r2a.handshaker.model.Usuario;
 
 /**
@@ -263,6 +264,9 @@ public class HomeController {
 		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
 		model.addAttribute("listaCategorias", listaCategorias);
 		
+		List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("ListarTodo").getResultList();
+		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+		
 		model.addAttribute("listaActiva1","class='active'");
 
 		return "index";
@@ -279,8 +283,37 @@ public class HomeController {
 		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
 		model.addAttribute("listaCategorias", listaCategorias);
 		
+		List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
+		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+		
 		model.addAttribute("listaActiva1","class='active'");
 
+		return "index";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/busquedaIndex", method = RequestMethod.POST)
+	@Transactional
+	
+	public String busquedaIndexForm(HttpServletRequest request, Model model, HttpSession session) {
+		
+		String formTextoBuscado=request.getParameter("texto-abuscar");
+		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("lista_categorias"));
+		
+		if(formCategoriaSeleccionada==1){
+			
+			List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
+			model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+		}
+		else{
+		
+			List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
+			model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
+		
+		}
+		
 		return "index";
 	}
 	

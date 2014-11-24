@@ -4,10 +4,10 @@
 					
 				<div id="barra-buscador" class="col-md-12">	
 				
-					<form class="form-inline" role="form">
+					<form id="form-busqueda-index" name="form-busqueda-index" action="busquedaIndex" class="form-inline" role="form" method="post">
 					
 					  <div class="col-md-5">
-					    	<input type="text" class="form-control" id="texto-buscar" placeholder="Escribe aquí">
+					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aquí">
 						
 					  </div>
 					  
@@ -18,7 +18,7 @@
 			 
 						 </div>
 						 
-						 <select id="lista_categorias" class="form-control">
+						 <select name="lista_categorias" id="lista_categorias" class="form-control">
 						 
 							 <c:forEach items="${listaCategorias}" var="c">
 								  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
@@ -37,6 +37,8 @@
 				<div id="resultados_busqueda" class="col-md-12">
 				
 					<ul class="lista-busqueda">
+					
+					<c:forEach items="${ListarPorCategoria}" var="s">
 				
 						<li>											
 							 <div class="col-md-12">
@@ -45,11 +47,11 @@
 								    <h3 class="panel-title">
 								    <c:choose>
 								    	<c:when test="${not empty usuario}">
-								    		<a href="servicio">Programación en Java</a>
+								    		<a href="servicio">${s.nombre}</a>
 								    	
 								    	</c:when>
 								    	<c:otherwise>
-								    		Programación en Java
+								    		${s.nombre}
 								    	</c:otherwise>
 								    </c:choose>
 								    </h3>
@@ -59,7 +61,7 @@
 								  	<div class="col-md-12">
 								  		
 								  		<div class="col-md-10">
-								  			Desarrollo de aplicaciones en JAVA.
+								  			${s.descripcion}
 								  		</div>
 								  		
 								  		<div class="col-md-2" align="center">
@@ -80,175 +82,9 @@
 							</div>
 							
 						</li>
-						<li>											
-							 <div class="col-md-12">
-								<div class="panel panel-primary">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">
-								    <c:choose>
-								    	<c:when test="${not empty usuario}">
-								    		<a href="servicio">Programación en Java</a>
-								    	
-								    	</c:when>
-								    	<c:otherwise>
-								    		Programación en Java
-								    	</c:otherwise>
-								    </c:choose>
-								    </h3>
-								  </div>
-								  <div class="panel-body">
-								  	
-								  	<div class="col-md-12">
-								  		
-								  		<div class="col-md-10">
-								  			Desarrollo de aplicaciones en JAVA.
-								  		</div>
-								  		
-								  		<div class="col-md-2" align="center">
-								  			<div class="icono-usuarios">
-						          				<img src="resources/images/usuario.jpg" height="60px" width="90px" />						          				 	
-						          			</div>
-						          			<div>
-						          				<h5><strong>X Usuarios</strong></h5>
-						          			</div>
-								  		</div>
-								  	
-								  	</div>
-								  	
-								    
-								  </div>
-								 </div>
-								 
-							</div>
-							
-						</li>
-						<li>											
-							 <div class="col-md-12">
-								<div class="panel panel-primary">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">
-								    <c:choose>
-								    	<c:when test="${not empty usuario}">
-								    		<a href="servicio">Programación en Java</a>
-								    	
-								    	</c:when>
-								    	<c:otherwise>
-								    		Programación en Java
-								    	</c:otherwise>
-								    </c:choose>
-								    </h3>
-								  </div>
-								  <div class="panel-body">
-								  	
-								  	<div class="col-md-12">
-								  		
-								  		<div class="col-md-10">
-								  			Desarrollo de aplicaciones en JAVA.
-								  		</div>
-								  		
-								  		<div class="col-md-2" align="center">
-								  			<div class="icono-usuarios">
-						          				<img src="resources/images/usuario.jpg" height="60px" width="90px" />						          				 	
-						          			</div>
-						          			<div>
-						          				<h5><strong>X Usuarios</strong></h5>
-						          			</div>
-								  		</div>
-								  	
-								  	</div>
-								  	
-								    
-								  </div>
-								 </div>
-								 
-							</div>
-							
-						</li>
-						<li>											
-							 <div class="col-md-12">
-								<div class="panel panel-primary">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">
-								    <c:choose>
-								    	<c:when test="${not empty usuario}">
-								    		<a href="servicio">Programación en Java</a>
-								    	
-								    	</c:when>
-								    	<c:otherwise>
-								    		Programación en Java
-								    	</c:otherwise>
-								    </c:choose>
-								    </h3>
-								  </div>
-								  <div class="panel-body">
-								  	
-								  	<div class="col-md-12">
-								  		
-								  		<div class="col-md-10">
-								  			Desarrollo de aplicaciones en JAVA.
-								  		</div>
-								  		
-								  		<div class="col-md-2" align="center">
-								  			<div class="icono-usuarios">
-						          				<img src="resources/images/usuario.jpg" height="60px" width="90px" />						          				 	
-						          			</div>
-						          			<div>
-						          				<h5><strong>X Usuarios</strong></h5>
-						          			</div>
-								  		</div>
-								  	
-								  	</div>
-								  	
-								    
-								  </div>
-								 </div>
-								 
-							</div>
-							
-						</li>
-						<li>											
-							 <div class="col-md-12">
-								<div class="panel panel-primary">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">
-								    <c:choose>
-								    	<c:when test="${not empty usuario}">
-								    		<a href="servicio">Programación en Java</a>
-								    	
-								    	</c:when>
-								    	<c:otherwise>
-								    		Programación en Java
-								    	</c:otherwise>
-								    </c:choose>
-								    </h3>
-								  </div>
-								  <div class="panel-body">
-								  	
-								  	<div class="col-md-12">
-								  		
-								  		<div class="col-md-10">
-								  			Desarrollo de aplicaciones en JAVA.
-								  		</div>
-								  		
-								  		<div class="col-md-2" align="center">
-								  			<div class="icono-usuarios">
-						          				<img src="resources/images/usuario.jpg" height="60px" width="90px" />						          				 	
-						          			</div>
-						          			<div>
-						          				<h5><strong>X Usuarios</strong></h5>
-						          			</div>
-								  		</div>
-								  	
-								  	</div>
-								  	
-								    
-								  </div>
-								 </div>
-								 
-							</div>
-							
-						</li>
-											
+						
+						</c:forEach>
+																	
 					</ul>
 				
 				</div>	

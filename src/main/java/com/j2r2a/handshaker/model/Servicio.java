@@ -4,9 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 @Entity
+
+@NamedQueries({
+	
+	@NamedQuery(name="ListarTodo",query="SELECT DISTINCT s FROM Servicio s"),
+    @NamedQuery(name="BusquedaPorCategoria",query="SELECT DISTINCT s FROM Servicio s JOIN s.categoria sCat WHERE sCat.id_categoria= :CategoriaMetida")
+   
+})
+
 public class Servicio{
 	
 	
@@ -63,7 +73,9 @@ public class Servicio{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	@OneToOne(targetEntity=Servicio.class)
+	
+	
+	@OneToOne(targetEntity=Categoria.class)
 	public Categoria getCategoria() {
 		return categoria;
 	}
