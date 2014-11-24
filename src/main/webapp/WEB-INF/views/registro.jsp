@@ -69,11 +69,11 @@
 											<div class="col-md-5">
 											
 												 <select name="categoria" class="form-control">
-												  <option>Informática</option>
-												  <option>Cocina</option>
-												  <option>Limpieza</option>
-												  <option>Mudanzas</option>
-												  <option>Coches</option>
+												 												 
+												  <c:forEach items="${listaCategorias}" var="c">
+													  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
+												  </c:forEach>
+												  
 												</select>
 												
 											</div>
@@ -81,12 +81,13 @@
 											<div class="col-md-7">
 											
 												<select name="servicio" class="form-control">
-												  <option>Programación Java</option>
-												  <option>Programación C++</option>
-												  <option>Programación Android</option>
-												  <option>Programación C</option>
-												  <option>Programación Web</option>
+												
+												<c:forEach items="${ListarPorCategoria}" var="s">												
+												  <option value="${s.id_servicio}">${s.nombre}</option>												  											
+					     						</c:forEach>
+												  
 												</select>
+												
 											</div>
 											
 											<div class="col-md-12">

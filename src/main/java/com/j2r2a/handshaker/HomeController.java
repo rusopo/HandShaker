@@ -118,10 +118,27 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/registro", method = RequestMethod.GET)
-	public String registroHome(Locale locale, Model model) {
+	public String registroHome(HttpServletRequest request,Locale locale, Model model) {
 		
 		//logger.info("Welcome home! The client locale is {}.", locale);
-						
+		
+		/*
+		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
+		model.addAttribute("listaCategorias", listaCategorias);
+		
+		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
+		
+		List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
+		model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
+		
+		*/
+		
+		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
+		model.addAttribute("listaCategorias", listaCategorias);
+		
+		List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("ListarTodo").getResultList();
+		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+		
 		return "registro";
 	}
 	
@@ -192,13 +209,14 @@ public class HomeController {
 			
 			Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);
 			
-			/*
+			
 			List<Servicio> lista_habilidades=user.getHabilidades();
-			String formServicioCategoria=request.getParameter("categoria");
-			String formServicioNombre=request.getParameter("servicio");
-			Servicio s = Servicio.crearServicio(formServicioNombre, formServicioCategoria, "prueba", user);
+			long formServicioCategoria=Long.parseLong(request.getParameter("categoria"));
+			long formServicioNombre=Long.parseLong(request.getParameter("servicio"));
+			
+			Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", formServicioNombre).getSingleResult();
 			lista_habilidades.add(s);
-			*/
+			
 			
 			entityManager.persist(user);				
 			session.setAttribute("usuario", user);
