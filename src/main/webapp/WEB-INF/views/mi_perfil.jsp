@@ -68,9 +68,18 @@
 								<h3 align="center" class="h3-perfil">Mis Habilidades</h3>
 							
 								<ol>
-									<c:forEach items="${listaServiciosUsuario}" var="s">
-										<li>${s.nombre}</li>
-									</c:forEach>
+									<c:choose>
+		
+	      							<c:when test="${not empty usuario}">
+										<c:forEach items="${listaServiciosUsuario}" var="s">
+											<li>${s.nombre}</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										No tiene servicios.
+									
+									</c:otherwise>
+									</c:choose>
 									
 								</ol>
 							

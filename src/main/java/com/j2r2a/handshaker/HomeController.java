@@ -79,7 +79,7 @@ public class HomeController {
 					
 					session.setAttribute("usuario", u);
 					
-					if(u.getAlias().equals("admin") && u.getContrasenia().equals("4e472a2779abd6d6571c76b0f845cb5d20e084e7")){ //Contraseña:admin cifrada
+					if(u.getAlias().equals("admin") && u.getContrasenia().equals("4e472a2779abd6d6571c76b0f845cb5d20e084e7")){ //Contraseï¿½a:admin cifrada
 						
 						return "redirect: /administrador";
 					}
@@ -243,16 +243,21 @@ public class HomeController {
 		}
 		
 		//BORRAR ESTE IF MAS ADELANTE XQ ES SOLO PARA DEPURAR
-		if(u.getAlias().equals("admin") || u.getAlias().equals("rusopo") || u.getAlias().equals("test1")){
-			u.setHabilidades(null);
+		
+		if(u != null){
+			if(u.getAlias().equals("admin") || u.getAlias().equals("rusopo") || u.getAlias().equals("test1")){
+				u.setHabilidades(null);
+			}
 		}
 		
-		List<Servicio> listaServiciosUsuario= u.getHabilidades();
-		
-		if(listaServiciosUsuario!=null){
-			model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
+		if(u != null){
+			List<Servicio> listaServiciosUsuario= u.getHabilidades();
+						
+			if(listaServiciosUsuario!=null){
+				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
+			}
 		}
-		
+					
 		model.addAttribute("listaActiva2","class='active'");
 		
 		return "mi_perfil";
