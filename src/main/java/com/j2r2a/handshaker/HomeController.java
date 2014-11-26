@@ -328,8 +328,8 @@ public class HomeController {
 	
 	public String busquedaIndexForm(HttpServletRequest request, Model model, HttpSession session) {
 		
-		String formTextoBuscado=request.getParameter("texto-abuscar");
-		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("lista_categorias"));
+		String formTextoBuscado=request.getParameter("textoBuscado");
+		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
 		
 		if(formCategoriaSeleccionada==1){
 			
@@ -343,7 +343,7 @@ public class HomeController {
 		
 		}
 		
-		return "resultados_busqueda";
+		return "resultadosBusqueda";
 	}
 	
 	/**
