@@ -1,21 +1,30 @@
 <%@ include file="../fragments/headerRegistro.jspf" %>
 
 <script type="text/javascript">
-var serv = [{id: 1, nombre: "juegos", valores : [{id: 2, nombre: "Parchis"}]}, 
+var serv = [{id: 1, nombre: "juegos",    valores: 
+				[{id: 2, nombre: "Parchis"}]}, 
             {id: 2, nombre: "cocktails", valores: 
             	[{id: 5, nombre: "Mojito"}, {id: 4, nombre: "Cubata"}]}
             ];
             
  $(function() {
 	 var cats = $("#catsel");
-	 $.each(serv, function(i, o) {
+	 $.each(serv, function(i,o) {
 		 var v = $("<option value='" + o.id + "'>" + o.nombre + "</option>");
-		 cats.append(v);
+		 cats.append(v);	
+		 var servs = $("#sersel");
+		 $.each(o.valores, function(a,u) {
+		 	var s = $("<option value='" + u.id + "'>" +u.nombre + "</option>");
+		 	servs.append(s);
+		 });
 	 });
+	 
+	 
 	 
 	 cats.change(function() {
 		 actualiza($(this))		 
 	 });
+	 
  })
             
  function actualiza(que) {
@@ -23,7 +32,17 @@ var serv = [{id: 1, nombre: "juegos", valores : [{id: 2, nombre: "Parchis"}]},
 	 var buscado = que.val();
 	 $.each(que.children(), function (i, o){
 		console.log(i, o, buscado);
-		if ($(o).val() == buscado) bueno = i;
+		
+		if ($(o).val() == buscado){
+			bueno = i;
+			var servs = $("#sersel");
+			$.each(serv[bueno].valores, function(a,u) {
+			 	var s = $("<option value='" + u.id + "'>" + u.nombre + "</option>");
+			 	servs.append(s);
+			 });
+			 
+		} 
+			
 	 });
 	 console.log(serv[bueno]);
  }
