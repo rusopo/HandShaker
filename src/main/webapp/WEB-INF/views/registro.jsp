@@ -1,5 +1,37 @@
 <%@ include file="../fragments/headerRegistro.jspf" %>
 
+<script type="text/javascript">
+var serv = [{id: 1, nombre: "juegos", valores : [{id: 2, nombre: "Parchis"}]}, 
+            {id: 2, nombre: "cocktails", valores: 
+            	[{id: 5, nombre: "Mojito"}, {id: 4, nombre: "Cubata"}]}
+            ];
+            
+ $(function() {
+	 var cats = $("#catsel");
+	 $.each(serv, function(i, o) {
+		 var v = $("<option value='" + o.id + "'>" + o.nombre + "</option>");
+		 cats.append(v);
+	 });
+	 
+	 cats.change(function() {
+		 actualiza($(this))		 
+	 });
+ })
+            
+ function actualiza(que) {
+	 var bueno;
+	 var buscado = que.val();
+	 $.each(que.children(), function (i, o){
+		console.log(i, o, buscado);
+		if ($(o).val() == buscado) bueno = i;
+	 });
+	 console.log(serv[bueno]);
+ }
+ 
+//${losServicios};
+</script>
+
+
 <div id="cuerpo" class="container">
 		
 				<div class="col-md-12" align="center">
@@ -68,24 +100,16 @@
 									
 											<div class="col-md-5">
 											
-												 <select name="categoria" class="form-control">
-												 												 
-												  <c:forEach items="${listaCategorias}" var="c">
-													  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
-												  </c:forEach>
-												  
+												 <select id="catsel" name="categoria" class="form-control">
+												 												  
 												</select>
 												
 											</div>
 											
 											<div class="col-md-7">
 											
-												<select name="servicio" class="form-control">
-												
-												<c:forEach items="${ListarPorCategoria}" var="s">												
-												  <option value="${s.id_servicio}">${s.nombre}</option>												  											
-					     						</c:forEach>
-												  
+												<select id="sersel" name="servicio" class="form-control">
+																							  
 												</select>
 												
 											</div>

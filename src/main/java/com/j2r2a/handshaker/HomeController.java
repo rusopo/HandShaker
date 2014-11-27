@@ -188,22 +188,9 @@ public class HomeController {
 				
 			}	
 			else{
-	
-				try {
-					
-					BufferedOutputStream stream2 = new BufferedOutputStream(new FileOutputStream(ContextInitializer.getFile("usuario", id_usuario)));
-					stream2.close();
-					
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}					
-				 catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+								
+				logger.info( "El usuario con id " + id_usuario + "no ha elegido ninguna foto");
 				
-				logger.info( "You failed to upload a photo for " + id_usuario + " because the file was empty.");
 			}
 			
 			
