@@ -4,10 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,7 +20,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -332,6 +334,68 @@ public class HomeController {
 		
 		return "resultadosBusqueda";
 	}
+	
+	@RequestMapping(value = "/dameServicios", method = RequestMethod.POST)
+	@Transactional // needed to allow lazy init to work
+	
+	public ResponseEntity<String> dameServicios(HttpServletRequest request) {
+		try {
+			
+			List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
+			
+			StringBuilder sb = new StringBuilder("[");
+			
+			for(int i=0; i < listaCategorias.size();i++){
+				
+				if (sb.length()>1) sb.append(",");
+				
+				sb.append("{ "
+						+ "\"id\": \"" + listaCategorias.get(i).getId_categoria() + "\", "
+						+ "\"nombre\": \"" + listaCategorias.get(i).getNombreCategoria() + "\", "
+						+ "\"valores\":");
+				
+				//long id_categoria=listaCategorias.get(i).getId_categoria();				
+				//List<Servicio> listaServicios = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",id_categoria).getResultList();
+				
+				List<Servicio> listaServicios = entityManager.createQuery("select s from Servicio s").getResultList();
+					
+				StringBuilder sb2 = new StringBuilder("[");
+				
+				for(int j=0;j < listaServicios.size();j++){
+					
+					if(listaCategorias.get(i).getId_categoria()==1){
+						
+						if (sb2.length()>1) sb2.append(",");
+						sb2.append("{ "
+								+ "\"id\": \"" + listaServicios.get(j).getId_servicio() + "\", "
+								+ "\"nombre\": \"" + listaServicios.get(j).getNombre() + "\"}");
+					}
+					
+					else{
+					
+						if(listaServicios.get(j).getCategoria().getId_categoria() == listaCategorias.get(i).getId_categoria()){
+						
+							if (sb2.length()>1) sb2.append(",");
+							sb2.append("{ "
+									+ "\"id\": \"" + listaServicios.get(j).getId_servicio() + "\", "
+									+ "\"nombre\": \"" + listaServicios.get(j).getNombre() + "\"}");
+						}
+					}
+				}
+				sb2.append("]");				
+				sb.append(sb2);				
+				sb.append("}");
+			}
+			
+			logger.info(sb + "]");
+			
+			return new ResponseEntity<String>(sb + "]", HttpStatus.OK);
+			
+		} catch (NoResultException nre) {
+			logger.error("No existen servicios o categorias", nre);
+		}
+		return new ResponseEntity<String>("Error: No existen categorias o servicios de alguna categoria", HttpStatus.BAD_REQUEST);		
+	}			
 	
 	/**
 	 * Simply selects the home view to render by returning its name.

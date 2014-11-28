@@ -49,23 +49,6 @@
 	    	
 		<script type="text/javascript" src="${prefix}resources/js/google-maps-registro.js"></script>
 		
-		<script type="text/javascript">
-		
-			function anadirServicio(){
-				
-				document.getElementById('boton-anadir-servicio').style.display='none';					
-				document.getElementById('anadir-servicio').style.display='block';
-				document.getElementById('boton-eliminar-servicio').style.display='inline';			
-			};
-			
-			function quitarServicio(){
-				
-				document.getElementById('boton-anadir-servicio').style.display='inline';					
-				document.getElementById('anadir-servicio').style.display='none';
-				document.getElementById('boton-eliminar-servicio').style.display='none';
-				
-			};
-		</script>
 	         
     </head>
     

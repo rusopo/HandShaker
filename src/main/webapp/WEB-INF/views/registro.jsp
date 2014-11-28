@@ -1,53 +1,94 @@
 <%@ include file="../fragments/headerRegistro.jspf" %>
 
 <script type="text/javascript">
-var serv = [{id: 1, nombre: "juegos",    valores: 
-				[{id: 2, nombre: "Parchis"}]}, 
-            {id: 2, nombre: "cocktails", valores: 
-            	[{id: 5, nombre: "Mojito"}, {id: 4, nombre: "Cubata"}]}
-            ];
+
+$(document).ready(function(){
+
+	$(function() {
+		
+			$.ajax({
+				dataType: "json",
+				url: "dameServicios",
+				type: "POST",
+				success: function(data) {
+					obtenerServicios(data);
+				}
+			});		
+			
+	});
+
+});
+
+/*var serv = [
+            {id: 1, nombre: "juegos",    valores:[{id: 2, nombre: "Parchis"}]}, 
+            {id: 2, nombre: "cocktails", valores:[{id: 5, nombre: "Mojito"}, {id: 4, nombre: "Cubata"}]}
+            ];*/
             
- $(function() {
+function obtenerServicios(serv) {
+          	
+     console.log(serv);
+     
 	 var cats = $("#catsel");
 	 $.each(serv, function(i,o) {
+		 
 		 var v = $("<option value='" + o.id + "'>" + o.nombre + "</option>");
 		 cats.append(v);	
-		 var servs = $("#sersel");
-		 $.each(o.valores, function(a,u) {
-		 	var s = $("<option value='" + u.id + "'>" +u.nombre + "</option>");
-		 	servs.append(s);
-		 });
 	 });
-	 
-	 
-	 
+	 	 	 	 
 	 cats.change(function() {
-		 actualiza($(this))		 
+		 actualiza($(this),serv);		 
 	 });
 	 
- })
+ }
             
- function actualiza(que) {
+ function actualiza(que,serv) {
+	 
 	 var bueno;
 	 var buscado = que.val();
+	 var servs;
+	 
 	 $.each(que.children(), function (i, o){
-		console.log(i, o, buscado);
 		
 		if ($(o).val() == buscado){
+			
 			bueno = i;
-			var servs = $("#sersel");
+			
+			servs = document.getElementById("sersel");
+			
+			if ( servs.hasChildNodes() ){
+				while ( servs.childNodes.length >= 1 )
+				{
+					servs.removeChild( servs.firstChild );
+				}
+			}
+			
+			servs = $("#sersel");
+			
+			console.log(serv[bueno].valores);
+								
 			$.each(serv[bueno].valores, function(a,u) {
 			 	var s = $("<option value='" + u.id + "'>" + u.nombre + "</option>");
 			 	servs.append(s);
 			 });
 			 
 		} 
-			
+		
 	 });
-	 console.log(serv[bueno]);
+	 	 
+	 
+	 servs.change(function() {
+		var posicion=document.getElementById("sersel").options.selectedIndex; //posicion
+		 
+		 document.getElementById("serv-selec").innerHTML = "<strong>Seleccionado: </strong>" + document.getElementById("sersel").options[posicion].text;		 		 
+	 });
+		 
+		 
+	 
+	 
+	 
+	 	 
  }
  
-//${losServicios};
 </script>
 
 
@@ -89,14 +130,14 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="ContraseniaRegistro" class="col-sm-2 control-label">Contraseña</label>
+						    <label for="ContraseniaRegistro" class="col-sm-2 control-label">ContraseÃ±a</label>
 						    <div class="col-sm-10">
 						      <input type="password" class="form-control" id="ContraseniaRegistro" name="ContraseniaRegistro">
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
-						    <label for="Contrasenia2Registro" class="col-sm-2 control-label">Verificar Contraseña</label>
+						    <label for="Contrasenia2Registro" class="col-sm-2 control-label">Verificar ContraseÃ±a</label>
 						    <div class="col-sm-10">
 						      <input type="password" class="form-control" id="Contrasenia2Registro" name="Contrasenia2Registro">
 						    </div>
@@ -112,12 +153,12 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 								
 								<div>
 								
-									<button type="button" class="btn btn-success btn-xs" id="boton-anadir-servicio" onClick="anadirServicio()">Añadir Servicio</button>
-									<button type="button" class="btn btn-danger btn-xs" id="boton-eliminar-servicio" onClick="quitarServicio()" style="display: none">Quitar Servicio</button>								
-															
-									<div id="anadir-servicio" class="col-md-12" style="display: none;">
+									
+									<div id="anadir-servicio" class="col-md-12">
 									
 											<div class="col-md-5">
+											
+												<div align="center" style="margin-bottom: 1%"><strong>Categorias</strong></div>
 											
 												 <select id="catsel" name="categoria" class="form-control">
 												 												  
@@ -127,6 +168,8 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 											
 											<div class="col-md-7">
 											
+												<div align="center" style="margin-bottom: 1%"><strong>Servicios</strong></div>
+											
 												<select id="sersel" name="servicio" class="form-control">
 																							  
 												</select>
@@ -134,7 +177,7 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 											</div>
 											
 											<div class="col-md-12">
-												<h5><strong>Seleccionado:</strong> X</h5>
+												<h5 id="serv-selec"><strong></strong></h5>
 											</div>
 									
 									</div>									
@@ -144,7 +187,7 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 								
 							
 							  <div class="col-md-12">	
-							  	<h5>Si realiza otro servicio de los predeterminados, añada su/s servicio/s:</h5>
+							  	<h5>Si realiza otro servicio de los predeterminados, aÃ±ada su/s servicio/s:</h5>
 							  	
 							  	<div class="form-group">
 								    <label for="inputTitulo3" class="col-sm-2 control-label">Titulo</label>
@@ -154,10 +197,10 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 								</div>
 								
 								<div class="form-group">
-								    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
+								    <label for="inputCategoria3" class="col-sm-2 control-label">CategorÃ­a</label>
 								    <div class="col-sm-10">
 								       <select class="form-control">
-										  <option>Informática</option>
+										  <option>InformÃ¡tica</option>
 										  <option>Cocina</option>
 										  <option>Limpieza</option>
 										  <option>Mudanzas</option>
@@ -166,7 +209,7 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 								    </div>
 								</div>
 								
-								<label for="inputDescripcion3" class="col-sm-2 control-label">Descripción</label>
+								<label for="inputDescripcion3" class="col-sm-2 control-label">DescripciÃ³n</label>
 								<textarea class="form-control" rows="6"></textarea>
 							  								  								  	
 							  </div>
@@ -188,14 +231,14 @@ var serv = [{id: 1, nombre: "juegos",    valores:
 					
 					  <div align="center">
 					  
-						<h3><strong>Mi Localización</strong></h3>
+						<h3><strong>Mi LocalizaciÃ³n</strong></h3>
 							
 							<div class="form-group">
 								<label for="direccion" class="col-sm-2 control-label">Direcci&oacute;n</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="direccion" name="direccion" value=""/> 
 								</div>
-								<button class="btn btn-primary" id="boton-pasar-direccion-mapa">Insertar Dirección en Mapa</button>
+								<button class="btn btn-primary" id="boton-pasar-direccion-mapa">Insertar DirecciÃ³n en Mapa</button>
 							</div>	 
 								<!-- div donde se dibuja el mapa-->
 								<div id="mapa-registro" class="col-md-12"></div>
