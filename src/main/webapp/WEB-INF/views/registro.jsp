@@ -18,17 +18,16 @@ $(document).ready(function(){
 	});
 
 });
-
-/*var serv = [
-            {id: 1, nombre: "juegos",    valores:[{id: 2, nombre: "Parchis"}]}, 
-            {id: 2, nombre: "cocktails", valores:[{id: 5, nombre: "Mojito"}, {id: 4, nombre: "Cubata"}]}
-            ];*/
             
 function obtenerServicios(serv) {
           	
      console.log(serv);
      
 	 var cats = $("#catsel");
+	 
+	 $("#catsel").empty();
+	 $("#catsel").append("<option value='0'>--Selecciona--</option>");
+	 
 	 $.each(serv, function(i,o) {
 		 
 		 var v = $("<option value='" + o.id + "'>" + o.nombre + "</option>");
@@ -39,6 +38,27 @@ function obtenerServicios(serv) {
 		 actualiza($(this),serv);		 
 	 });
 	 
+	 var list = $("<ol id='listaServsRegistro' name='listaServsRegistro'>");
+	 
+	 var servs = $("#sersel");
+	 
+	 
+	 servs.change(function() {
+		 
+		 var li = $("<li>");
+		 
+		 var posicion=document.getElementById("sersel").options.selectedIndex; //posicion
+		 
+		 li.append("<strong>Seleccionado: </strong>" + document.getElementById("sersel").options[posicion].text + " <span onclick='eliminar(this)'>X</span>");
+		 
+		 list.append(li);
+		 		 	 
+	 });
+		 
+	 var servsSelec = $("#servicios-selec");	 
+	 
+	 servsSelec.append(list);
+	 	 
  }
             
  function actualiza(que,serv) {
@@ -48,8 +68,12 @@ function obtenerServicios(serv) {
 	 var servs;
 	 
 	 $.each(que.children(), function (i, o){
+		 
+		var selec = parseInt($(o).val());
 		
-		if ($(o).val() == buscado){
+		selec = selec + 1;
+		
+		if (selec == buscado){
 			
 			bueno = i;
 			
@@ -64,6 +88,9 @@ function obtenerServicios(serv) {
 			
 			servs = $("#sersel");
 			
+			$("#sersel").empty();
+			$("#sersel").append("<option value='0'>--Selecciona--</option>");
+			
 			console.log(serv[bueno].valores);
 								
 			$.each(serv[bueno].valores, function(a,u) {
@@ -74,21 +101,22 @@ function obtenerServicios(serv) {
 		} 
 		
 	 });
-	 	 
-	 
-	 servs.change(function() {
-		var posicion=document.getElementById("sersel").options.selectedIndex; //posicion
-		 
-		 document.getElementById("serv-selec").innerHTML = "<strong>Seleccionado: </strong>" + document.getElementById("sersel").options[posicion].text;		 		 
-	 });
-		 
-		 
-	 
-	 
-	 
-	 	 
+	 	 	 	 
  }
  
+ /**
+  * Funcion para eliminar los elementos
+  * Tiene que recibir el elemento pulsado
+  */
+  
+  /*
+ function eliminar(elemento)
+ {
+     var id=elemento.parentNode.getAttribute("id");
+     node=document.getElementById(id);
+     node.parentNode.removeChild(node);
+ }
+ */
 </script>
 
 
@@ -149,7 +177,7 @@ function obtenerServicios(serv) {
 						 		
 						 		<h4><strong>Mis Servicios</strong></h4>
 						
-								<p>Seleccione sus habilidades/capacidades:</p>
+								<p style="margin-bottom: -5px;">Seleccione sus habilidades/capacidades:</p>
 								
 								<div>
 								
@@ -176,8 +204,8 @@ function obtenerServicios(serv) {
 												
 											</div>
 											
-											<div class="col-md-12">
-												<h5 id="serv-selec"><strong></strong></h5>
+											<div id="servicios-selec" class="col-md-12">
+												<!--  <h5 id="serv-selec"><strong></strong></h5>-->
 											</div>
 									
 									</div>									

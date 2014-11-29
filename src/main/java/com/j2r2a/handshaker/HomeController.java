@@ -199,12 +199,10 @@ public class HomeController {
 			Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);
 			
 			
-			List<Servicio> lista_habilidades=user.getHabilidades();
-			long formServicioCategoria=Long.parseLong(request.getParameter("categoria"));
-			long formServicioNombre=Long.parseLong(request.getParameter("servicio"));
+			String[] lista_habilidades=request.getParameterValues("listado");
 			
-			Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", formServicioNombre).getSingleResult();
-			lista_habilidades.add(s);
+			//Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", formServicioNombre).getSingleResult();
+			//lista_habilidades.add(s);
 			
 			
 			entityManager.persist(user);				

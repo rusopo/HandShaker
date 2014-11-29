@@ -6,21 +6,22 @@
 				
 					
 					  <div class="col-md-5">
-					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aquí">
+					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aquï¿½">
 						
 					  </div>
 					  
 					  <div class="col-md-7">
 					  
 						  <div class="col-md-3" align="right">
-							    <h4><label for="inputCategoria3" class="col-sm-2 control-label"><strong>Categoría</strong></label></h4>
+							    <h4><label for="inputCategoria3" class="col-sm-2 control-label"><strong>Categoria</strong></label></h4>
 			 
 						 </div>
 						 
 						 <div class="col-md-4" align="left">
 						 
 							 <select name="lista_categorias" id="lista_categorias" class="form-control">
-							 
+							 	
+							 	<option>--Selecciona--</option>
 								 <c:forEach items="${listaCategorias}" var="c">
 									  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
 								  </c:forEach>
