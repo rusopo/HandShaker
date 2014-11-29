@@ -42,16 +42,19 @@ function obtenerServicios(serv) {
 	 
 	 var servs = $("#sersel");
 	 
+	 var contador=1;
 	 
 	 servs.change(function() {
 		 
-		 var li = $("<li>");
+		 var li = $("<li id='contador'>");
 		 
 		 var posicion=document.getElementById("sersel").options.selectedIndex; //posicion
 		 
 		 li.append("<strong>Seleccionado: </strong>" + document.getElementById("sersel").options[posicion].text + " <span onclick='eliminar(this)'>X</span>");
 		 
 		 list.append(li);
+		 
+		 contador++;
 		 		 	 
 	 });
 		 
@@ -109,14 +112,14 @@ function obtenerServicios(serv) {
   * Tiene que recibir el elemento pulsado
   */
   
-  /*
+  
  function eliminar(elemento)
  {
      var id=elemento.parentNode.getAttribute("id");
      node=document.getElementById(id);
      node.parentNode.removeChild(node);
  }
- */
+ 
 </script>
 
 
