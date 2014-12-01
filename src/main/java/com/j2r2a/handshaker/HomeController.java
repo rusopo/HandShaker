@@ -241,6 +241,15 @@ public class HomeController {
 			if(listaServiciosUsuario!=null){
 				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
 			}
+			
+		}if(u != null){
+			List<Servicio> listaInteresesUsusario = u.getIntereses();
+			
+			if(listaInteresesUsusario != null){
+				
+				model.addAttribute("listaInteresesUsuario",listaInteresesUsusario);
+			}
+			
 		}
 					
 		model.addAttribute("listaActiva2","class='active'");

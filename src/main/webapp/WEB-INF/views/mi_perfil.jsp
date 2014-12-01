@@ -90,14 +90,17 @@
 							<h3 align="center" class="h3-perfil">Mis Intereses</h3>
 						
 							<ol>
-							
-								<li>Programar Java</li>
-								<li>Programar Java</li>
-								<li>Programar Java</li>
-								<li>Programar Java</li>
-								<li>Programar Java</li>
-								<li>Programar Java</li>
-							
+								<c:choose>
+								
+								<c:when test="${not empty usuario } ">
+									<c:forEach items="${listaInteresesUsusario} " var ="i">
+										<li>${nombre}</li>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									No tiene Intereses soso.
+								</c:otherwise>
+								</c:choose>
 							</ol>
 							
 						</div>
