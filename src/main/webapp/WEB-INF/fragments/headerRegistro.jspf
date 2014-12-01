@@ -82,7 +82,26 @@
 			           	    <c:choose>
 							<c:when test="${not empty usuario}">
 							
-							 	<h4>Registrado como <em>${usuario.alias}</em> ( <a style="color:#FFFFFF" href="logout">Salir</a> )</h4>
+							 	<div class="col-md-5">
+							
+							</div>
+							
+							<div class="col-md-7">
+							
+								<div class="col-md-5" align="right">
+									<h4 align="right">( <a style="color:#FFFFFF" href="logout">Salir</a> ) </h4>
+								</div>
+								
+								<div class="col-md-7" align="center">
+									
+									<img id="foto-index" src="mi_perfil/usuario?id_usuario=${usuario.id}" height="100px" width="90px"/>
+							 	
+							 		<h4 style="color: #FFFFFF"><strong>${usuario.alias}</strong></h4>
+							 		
+							 				
+								</div>
+							
+							</div>
 
 							</c:when>
 							<c:otherwise>

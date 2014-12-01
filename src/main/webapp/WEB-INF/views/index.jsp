@@ -6,7 +6,7 @@
 				
 					
 					  <div class="col-md-5">
-					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aqu�">
+					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aquí">
 						
 					  </div>
 					  
