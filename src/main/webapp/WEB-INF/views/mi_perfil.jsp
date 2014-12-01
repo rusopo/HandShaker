@@ -94,7 +94,7 @@
 								
 								<c:when test="${not empty usuario } ">
 									<c:forEach items="${listaInteresesUsusario} " var ="i">
-										<li>${nombre}</li>
+										<li>${i.nombre}</li>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
