@@ -3,6 +3,7 @@ package com.j2r2a.handshaker.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({
 	
     @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido")
+   
 })
 
 public class Usuario{
@@ -188,7 +190,22 @@ public class Usuario{
 	public List<Servicio> getIntereses() {
 		return intereses;
 	}
-
+	public void annadirInteres(Servicio s){
+		//Iterator it = this.intereses.iterator();
+		boolean esta=false;
+		for(Servicio serv : this.intereses){
+			if(serv.getNombre().toUpperCase() == s.getNombre().toUpperCase()){
+				esta=true;
+			}
+		}
+		if(!esta){
+			this.intereses.add(s);
+		}
+	}
+	/*public void eliminaInteres(Servicio s){
+		
+		this.intereses.remove(s);
+	}*/
 
 	public void setIntereses(List<Servicio> intereses) {
 		this.intereses = intereses;

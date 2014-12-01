@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 	@NamedQuery(name="ListarTodo",query="SELECT DISTINCT s FROM Servicio s"),
     @NamedQuery(name="BusquedaPorCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE sCat.id_categoria= :CategoriaMetida"),
 	@NamedQuery(name="ExisteServicioPorNombre",query="SELECT s FROM Servicio s WHERE s.id_servicio = :IdServicioMetido")
+	
 })
 
 public class Servicio{

@@ -65,8 +65,6 @@
 						
 						<div id="info-habilidades" class="col-md-12">
 						
-								<h3 align="center" class="h3-perfil">Mis Habilidades</h3>
-							
 								<ol>
 									<c:choose>
 		
@@ -89,7 +87,28 @@
 						<div id="info-intereses" class="col-md-12">
 											
 							<h3 align="center" class="h3-perfil">Mis Intereses</h3>
+							
+								<div class ="col-md-5">
+									<select name="lista_categorias" id="lista_categorias" class="form-control">
+							 	
+							 			<option>--Selecciona--</option>
+								 		<c:forEach items="${listaCategorias}" var="c">
+									  		<option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
+								  		</c:forEach>
+								  
+									</select>
 						
+								
+								</div>
+								<div class ="col-md-5">
+									
+									<input type="text" class="form-control" name="nuevo-interes" id="texto-abuscar" placeholder="Escribe aqu�">
+									<!-- aqui ira el campo de texto el cual se incorporara un nuevo interes -->
+								</div>
+								<div class ="col-md-2">
+									<button id="boton-nuevo-interes" class="btn btn-lg btn-primary" >nuevo</button>
+								</div>
+		
 							<ol>
 								<c:choose>
 								
