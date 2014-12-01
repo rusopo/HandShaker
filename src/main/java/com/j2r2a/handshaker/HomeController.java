@@ -223,6 +223,7 @@ public class HomeController {
 				
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
+		
 		if(u!=null){
 			model.addAttribute("usuario", u);
 		}
@@ -232,24 +233,32 @@ public class HomeController {
 		if(u != null){
 			if(u.getAlias().equals("admin") || u.getAlias().equals("rusopo") || u.getAlias().equals("test1")){
 				u.setHabilidades(null);
+				//pruebas
+				u.setIntereses(null);
+				
 			}
 		}
 		
 		if(u != null){
 			List<Servicio> listaServiciosUsuario= u.getHabilidades();
-						
+					
 			if(listaServiciosUsuario!=null){
 				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
 			}
 			
 		}if(u != null){
-			List<Servicio> listaInteresesUsusario = u.getIntereses();
+			List<Servicio>listaInteresesUsuario = u.getIntereses();
 			
-			if(listaInteresesUsusario != null){
+			if(listaInteresesUsuario != null){
 				
-				model.addAttribute("listaInteresesUsuario",listaInteresesUsusario);
+				//model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
+				Servicio s = new Servicio();
+				s.setNombre("prueba");
+				listaInteresesUsuario.add(s);
+				model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
 			}
 			
+	
 		}
 					
 		model.addAttribute("listaActiva2","class='active'");
