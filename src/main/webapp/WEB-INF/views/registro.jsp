@@ -124,19 +124,6 @@ function obtenerServicios(serv) {
 	 	 	 	 
  }
  
- /**
-  * Funcion para eliminar los elementos
-  * Tiene que recibir el elemento pulsado
-  */
-  
-  /*
- function eliminar(elemento)
- {
-     var id=elemento.parentNode.getAttribute("id");
-     node=document.getElementById(id);
-     node.parentNode.removeChild(node);
- }*/
- 
 </script>
 
 

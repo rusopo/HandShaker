@@ -123,23 +123,6 @@ public class HomeController {
 	@RequestMapping(value = "/registro", method = RequestMethod.GET)
 	public String registroHome(HttpServletRequest request,Locale locale, Model model) {
 		
-			
-		/*
-		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
-		model.addAttribute("listaCategorias", listaCategorias);
-		
-		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
-		
-		List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
-		model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
-		
-		*/
-		
-		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
-		model.addAttribute("listaCategorias", listaCategorias);
-		
-		List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("ListarTodo").getResultList();
-		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 		
 		return "registro";
 	}
@@ -196,34 +179,23 @@ public class HomeController {
 			}
 			
 			
-			Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);
-			
-			
-			String habilidades_metidas=request.getParameter("servs");
-			
-			//String habilidades_metidas="{'1':'true','3':'true','4':'true','5':'true'}";
-		
-			//String[] prueba = habilidades_metidas.replaceAll("(true)|(:)|(,)|(' ')|(')");
-			
+			Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);			
+			String habilidades_metidas=request.getParameter("servs");					
 			List<Servicio> lista_habilidades = new ArrayList<Servicio>();
 			
 			String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < aux.length();i++){
 				
-				long id_serv =aux.charAt(i);
-				
-				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();
-				
+				long id_serv =(long)(aux.charAt(i)-'0');				
+				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();				
 				lista_habilidades.add(s);
 			}
 			
 			user.setHabilidades(lista_habilidades);
-			
-			
+						
 			entityManager.persist(user);				
-			session.setAttribute("usuario", user);
-			
+			session.setAttribute("usuario", user);			
 			user.printUsuario();
 				
 		}
@@ -385,10 +357,7 @@ public class HomeController {
 						+ "\"id\": \"" + listaCategorias.get(i).getId_categoria() + "\", "
 						+ "\"nombre\": \"" + listaCategorias.get(i).getNombreCategoria() + "\", "
 						+ "\"valores\":");
-				
-				//long id_categoria=listaCategorias.get(i).getId_categoria();				
-				//List<Servicio> listaServicios = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",id_categoria).getResultList();
-				
+								
 				List<Servicio> listaServicios = entityManager.createQuery("select s from Servicio s").getResultList();
 					
 				StringBuilder sb2 = new StringBuilder("[");
