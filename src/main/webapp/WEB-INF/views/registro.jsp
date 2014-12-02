@@ -18,7 +18,10 @@ $(document).ready(function(){
 	});
 
 });
-            
+
+var losServicios = {};
+var serviciosSeleccionados = {};
+
 function obtenerServicios(serv) {
           	
      console.log(serv);
@@ -29,9 +32,13 @@ function obtenerServicios(serv) {
 	 $("#catsel").append("<option value='0'>--Selecciona--</option>");
 	 
 	 $.each(serv, function(i,o) {
-		 
 		 var v = $("<option value='" + o.id + "'>" + o.nombre + "</option>");
-		 cats.append(v);	
+		 cats.append(v);
+		 losServicios[o.id] = o;
+		 o.servicios = {};
+		 $.each(o.valores, function (i, o2){
+		 	o.servicios[o2.id] = o2;
+		 });
 	 });
 	 	 	 	 
 	 cats.change(function() {
@@ -41,20 +48,30 @@ function obtenerServicios(serv) {
 	 var list = $("<ol id='listaServsRegistro' name='listaServsRegistro'>");
 	 
 	 var servs = $("#sersel");
-	 
-	 var contador=1;
-	 
+	  
 	 servs.change(function() {
+		 var cat = losServicios[$("#catsel").val()];
+		 var ser = cat.servicios[$("#sersel").val()];
+		 serviciosSeleccionados[ser.id] = 'true';
+		 $('#servs').val(JSON.stringify(serviciosSeleccionados));
 		 
-		 var li = $("<li id='contador'>");
+		 var li = $("<li id='" + ser.id + "'>");
 		 
 		 var posicion=document.getElementById("sersel").options.selectedIndex; //posicion
 		 
-		 li.append("<strong>Seleccionado: </strong>" + document.getElementById("sersel").options[posicion].text + " <span onclick='eliminar(this)'>X</span>");
+		 li.append("<strong>Seleccionado: </strong>" + 
+				 document.getElementById("sersel").options[posicion].text)
+				 
+		 var laEquis = $("<span>X</span>");
+		 li.append(laEquis);
+		 laEquis.click(function() {
+			 li.remove();
+			 delete(serviciosSeleccionados[ser.id]);
+			 $('#servs').val(JSON.stringify(serviciosSeleccionados));
+		 });
 		 
 		 list.append(li);
-		 
-		 contador++;
+		 console.log(this);		 	 
 		 		 	 
 	 });
 		 
@@ -112,13 +129,13 @@ function obtenerServicios(serv) {
   * Tiene que recibir el elemento pulsado
   */
   
-  
+  /*
  function eliminar(elemento)
  {
      var id=elemento.parentNode.getAttribute("id");
      node=document.getElementById(id);
      node.parentNode.removeChild(node);
- }
+ }*/
  
 </script>
 
@@ -210,7 +227,8 @@ function obtenerServicios(serv) {
 											<div id="servicios-selec" class="col-md-12">
 												<!--  <h5 id="serv-selec"><strong></strong></h5>-->
 											</div>
-									
+											
+											<input type='hidden' name='servs' id='servs'/>									
 									</div>									
 																	
 								</div>

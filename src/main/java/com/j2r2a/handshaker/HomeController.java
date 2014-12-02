@@ -199,10 +199,26 @@ public class HomeController {
 			Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);
 			
 			
-			String[] lista_habilidades=request.getParameterValues("listado");
+			String habilidades_metidas=request.getParameter("servs");
 			
-			//Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", formServicioNombre).getSingleResult();
-			//lista_habilidades.add(s);
+			//String habilidades_metidas="{'1':'true','3':'true','4':'true','5':'true'}";
+		
+			//String[] prueba = habilidades_metidas.replaceAll("(true)|(:)|(,)|(' ')|(')");
+			
+			List<Servicio> lista_habilidades = new ArrayList<Servicio>();
+			
+			String aux = habilidades_metidas.replaceAll("[^0-9]+","");
+			
+			for(int i=0; i < aux.length();i++){
+				
+				long id_serv =aux.charAt(i);
+				
+				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();
+				
+				lista_habilidades.add(s);
+			}
+			
+			user.setHabilidades(lista_habilidades);
 			
 			
 			entityManager.persist(user);				
