@@ -21,8 +21,8 @@ import javax.persistence.OneToMany;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido")
-   
+    @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido"),
+    @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c")
 })
 
 public class Usuario{

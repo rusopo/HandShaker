@@ -84,7 +84,7 @@ public class HomeController {
 					
 					if(u.getAlias().equals("admin") && u.getContrasenia().equals("4e472a2779abd6d6571c76b0f845cb5d20e084e7")){ //Contrase�a:admin cifrada
 						
-						return "redirect: /administrador";
+						return "redirect: administrador";
 					}
 										
 				} else {
@@ -259,10 +259,10 @@ public class HomeController {
 		 * Returns a users' photo
 		 * @param id id of user to get photo from
 		 * @return
-		 */
-		@ResponseBody
-		@RequestMapping(value="/mi_perfil/usuario", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-		public byte[] userPhoto(HttpSession session) throws IOException {
+	 */
+	@ResponseBody
+	@RequestMapping(value="/mi_perfil/usuario", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	 public byte[] userPhoto(HttpSession session) throws IOException {
 			
 			Usuario u = (Usuario)session.getAttribute("usuario");
 			
@@ -402,10 +402,20 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/administrador", method = RequestMethod.GET)
-	public String administradorHome(Model model) {
+	public String administradorHome(Model model, HttpSession session) {
 		
-				
+        Usuario u = (Usuario)session.getAttribute("usuario");
 		
+		
+		if(u!=null){
+			model.addAttribute("usuario", u);
+		}
+		
+		List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
+		List<Usuario> lista_servicios = entityManager.createNamedQuery("ListarTodo").getResultList();
+		
+		model.addAttribute("lista_todos_usuarios", lista_usuarios);
+		model.addAttribute("lista_todos_servicios", lista_servicios);
 		model.addAttribute("listaActiva5","class='active'");
 		
 		return "administrador";

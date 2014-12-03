@@ -1,6 +1,7 @@
 	
 <div id="panel-control-admin" class="col-md-12">
 						<table id="tabla-administracion" class="table">
+							
 							 	<thead>
 							 		<tr>
 							 			
@@ -15,7 +16,7 @@
 							 		</tr>
 							 		
 							 	</thead>
-							 	
+										
 							 	<tbody>
 							 		<tr>
 							 			
