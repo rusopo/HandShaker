@@ -467,12 +467,24 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/servicio/{id}", method = RequestMethod.GET)
-	public String servicioHome(@PathVariable("id") long id_servicio_pulsado,HttpServletRequest request, Model model) {
+	public String servicioHome(@PathVariable("id") long id_servicio_pulsado,HttpServletRequest request, Model model, HttpSession session) {
 				
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
+		Usuario u = (Usuario)session.getAttribute("usuario");
+
 		
+		if(u != null){
+			List<Servicio> listaServiciosUsuario= u.getHabilidades();
+					
+			if(listaServiciosUsuario!=null){
+				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
+			}
+			
+		}
+		
+		model.addAttribute("usuario",u);
 		model.addAttribute("servicio", s);
-		
+		model.addAttribute("usuario_registrado", u);
 		model.addAttribute("prefix", "../");
 		
 		return "servicio";

@@ -54,16 +54,15 @@
 										    <span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+										
 										<c:choose>
-		
 	      									<c:when test="${not empty listaInteresesUsuario}">
 												<c:forEach items="${listaInteresesUsuario}" var="s">
 													<li role="presentation"><a role="menuitem" tabindex="-1" href="#" > ${s.nombre} </a></li>
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-											No tiene servicios.
-									
+												No tiene servicios.
 											</c:otherwise>
 										</c:choose>
 									

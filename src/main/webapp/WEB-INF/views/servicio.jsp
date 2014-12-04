@@ -34,23 +34,9 @@
 								      <div class="panel-body">
 								      	<div class="checkbox">
 										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Pepe</a>
+										      <input type="checkbox"><a href="mi_perfil">${servicio.usuario.nombre}</a>
 										    </label>
-										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Pepe</a>
-										    </label>
-										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Pepe</a>
-										    </label>
-										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Pepe</a>
-										    </label>
-										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Pepe</a>
-										    </label>
-										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Pepe</a>
-										    </label>
+										    
 									  	</div>
 								      </div>
 								   
@@ -67,7 +53,7 @@
 								
 								  <div class="col-md-6">
 								  																		  
-										<h4>Pepe</h4>
+										<h4>${servicio.usuario.nombre}</h4>
 										<label>
 										      <input type="checkbox">Ofrecer Servicio
 										</label>
@@ -77,7 +63,19 @@
 										<div class="form-group">
 										    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
 										    <div class="col-sm-10">
+										    	<c:choose>
+	      											<c:when test="${not empty u}">
+														<c:forEach items="${listaServiciosUsuario}" var="s">
+															<option>${s.nombre}</option>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														No tiene servicios.
+													</c:otherwise>
+												</c:choose>
+										    
 										       <select class="form-control">
+										       
 												  <option>Informática</option>
 												  <option>Cocina</option>
 												  <option>Limpieza</option>
