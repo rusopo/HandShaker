@@ -183,13 +183,17 @@ public class HomeController {
 			String habilidades_metidas=request.getParameter("servs");					
 			List<Servicio> lista_habilidades = new ArrayList<Servicio>();
 			
+			
 			String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < aux.length();i++){
 				
 				long id_serv =(long)(aux.charAt(i)-'0');				
 				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();				
+				s.setUsuario(user);
 				lista_habilidades.add(s);
+				
+				
 			}
 			
 			user.setHabilidades(lista_habilidades);
