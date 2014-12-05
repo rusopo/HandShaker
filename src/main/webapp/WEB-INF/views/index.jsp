@@ -63,7 +63,7 @@
 						 
 							 <select name="lista_categorias" id="lista_categorias" class="form-control">
 							 	
-							 	<option>--Selecciona--</option>
+							 	<option>-- Selecciona --</option>
 								 <c:forEach items="${listaCategorias}" var="c">
 									  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
 								  </c:forEach>
@@ -87,13 +87,13 @@
 					<div id="paginacion" class="col-md-12" align="center">
 					
 						<ul class="pagination">
-						  <li class="disabled"><a href="#">&laquo;</a></li>
-	  					  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-						  <li><a href="#">2</a></li>
-						  <li><a href="#">3</a></li>
-						  <li><a href="#">4</a></li>
-						  <li><a href="#">5</a></li>
-						  <li><a href="#">&raquo;</a></li>
+						  <li class="disabled"><a href="#resultados_busqueda">&laquo;</a></li>
+	  					  <li class="active"><a href="#resultados_busqueda">1 <span class="sr-only">(current)</span></a></li>
+						  <li><a href="#resultados_busqueda">2</a></li>
+						  <li><a href="#resultados_busqueda">3</a></li>
+						  <li><a href="#resultados_busqueda">4</a></li>
+						  <li><a href="#resultados_busqueda">5</a></li>
+						  <li><a href="#resultados_busqueda">&raquo;</a></li>
 						</ul>
 					
 					</div>	

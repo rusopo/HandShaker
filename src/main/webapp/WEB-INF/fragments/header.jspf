@@ -172,7 +172,7 @@
 					        
 					         <c:choose>
 							<c:when test="${not empty usuario}">
-							
+								
 								<li ${listaActiva2}><a href="mi_perfil?usuario=${usuario.id}">Mi Perfil</a></li>
 							</c:when>
 							<c:otherwise>

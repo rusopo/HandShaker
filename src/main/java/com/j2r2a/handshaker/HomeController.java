@@ -26,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -478,17 +479,33 @@ public class HomeController {
 		
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");
-
 		
-		if(u != null){
-			List<Servicio> listaServiciosUsuario= u.getHabilidades();
-					
-			if(listaServiciosUsuario!=null){
-				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
-			}
+		List<Usuario> usuariosServicio = new ArrayList<Usuario>();
 			
+		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuarios").getResultList();
+		
+		for(int i=0; i< listaUsuarios.size();i++){
+			
+			Usuario aux = listaUsuarios.get(i);
+			
+			List<Servicio> servicios = entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ aux.getId() +"").getResultList();
+			
+			boolean encontrado=false;
+			
+			for(int j=0; j < servicios.size() && !encontrado;j++){
+				
+				if(servicios.get(j).getId_servicio()==id_servicio_pulsado){
+					
+					encontrado=true;
+					usuariosServicio.add(aux);
+				}
+			}
 		}
 		
+		if(listaUsuarios!=null){
+			model.addAttribute("listaUsuariosServicio",usuariosServicio);
+		}
+					
 		model.addAttribute("usuario",u);
 		model.addAttribute("servicio", s);
 		model.addAttribute("usuario_registrado", u);

@@ -33,10 +33,15 @@
 								    </div>
 								      <div class="panel-body">
 								      	<div class="checkbox">
+								      	
+								      	 <c:forEach items="${listaUsuariosServicio}" var="u">
+								      		
 										    <label>
-										      <input type="checkbox"><a href="mi_perfil">Paco</a>
+											   
+										      <input type="checkbox"><a href="mi_perfil?usuario=${u.id}">${u.alias}</a>
 										    </label>
 										    
+										  </c:forEach> 
 									  	</div>
 								      </div>
 								   

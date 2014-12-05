@@ -22,7 +22,8 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 	
     @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido"),
-    @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c")
+    @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c"),
+    @NamedQuery(name="ExisteUsuarioPorID",query="select u from Usuario u where u.id = :IDMetido")
 })
 
 public class Usuario{
