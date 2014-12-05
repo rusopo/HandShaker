@@ -439,6 +439,20 @@ public class HomeController {
 		return "mi_historial";
 	}
 	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/userAdmin", method = RequestMethod.POST)
+	public String userAdmin(HttpServletRequest request, Model model) {
+		
+		String[] selectedUsersIds = request.getParameterValues("selectedUser");	
+		System.err.println("Usuarios seleccionados: ");
+		for(int i = 0; i<selectedUsersIds.length; i++)
+		System.err.println(selectedUsersIds[i]);
+
+		//Me falta que realmente vuelva al administrador, y no aqui T.T
+		return "administrador";
+	}
 	
 	
 	/**

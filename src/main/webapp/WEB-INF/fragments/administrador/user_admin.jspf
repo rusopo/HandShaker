@@ -2,6 +2,7 @@
 
 
 <div id="panel-control-admin" class="col-md-12">
+						<form action="userAdmin"  name="form-userAdmin" role="form" method="post">	
 
 						<table id="tabla-administracion1" class="table">
 							 	<thead>
@@ -11,6 +12,7 @@
 							 			<th>nombre</th>
 							 			<th>habilidades</th>
 							 			<th>Intereses</th>
+							 			<th>Seleccionar</th>
 							 		</tr>
 							 	</thead>      
 				      		      
@@ -24,6 +26,7 @@
 											<td>${u.nombre}</td>
 											<td>mis habilidades</td>
 											<td>mis intereses</td>
+											<td class="vcenter"><input type="checkbox" name= "selectedUser" id="usuarios-check-id" value="${u.id}"/></td>
 										    </tr>			
 										</c:forEach>
 									</c:when>
@@ -32,7 +35,11 @@
 									</c:otherwise>
 								</c:choose> 
 				      		    </tbody>  
-				      		      
 	         	   </table>
-			
+							<div id="botones-registro" class="col-sm-12" align="center">
+			      			<button type="submit" class="btn btn-lg btn-success">Aceptar</button>
+			     		    <button type="reset" class="btn btn-lg btn-danger">Cancelar</button>
+			    			</div>
+						</form>
+							
          </div>	
