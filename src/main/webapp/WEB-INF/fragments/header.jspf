@@ -52,13 +52,7 @@
 		  });
 		  </script>
 		  
-		  <script type="text/javascript">
-		  
-			  $(document).ready(function() {
-				    $('#tabla-administracion').dataTable();
-				} );
-		  
-		  </script>
+		 
 		  
 		  <script type="text/javascript">
 		  

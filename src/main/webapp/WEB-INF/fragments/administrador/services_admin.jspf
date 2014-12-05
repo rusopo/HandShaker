@@ -1,55 +1,36 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 			
 			<div id="panel-control-admin" class="col-md-12">
-						<table id="tabla-administracion" class="table">
+			
+						<table id="tabla-administracion2" class="table">
 							 	<thead>
-							 	
-	
 							 		<tr>
-							 			
 							 			<th>id_servicio</th>
 							 			<th>nombre</th>
 							 			<th>categoria</th>
 							 			<th>descripcion</th>
-							 		
+							 			
 							 		</tr>
-							 		
-							 	</thead>
-							 	
-							 	<tbody>
-							 		<tr>
-							 			
-							 			<td>00011</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Hogar</td>
-							 			<td>Me gusta arreglar enchufes</td>
-							 		
-							 		</tr> 	
-							 		<tr>
-							 			
-							 			<td>00011</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Hogar</td>
-							 			<td>Me gusta arreglar enchufes</td>
-							 		
-							 		</tr> 	
-							 		<tr>
-							 			
-							 			<td>00011</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Hogar</td>
-							 			<td>Me gusta arreglar enchufes</td>
-							 		
-							 		</tr> 	
-							 		<tr>
-							 			
-							 			<td>00011</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Hogar</td>
-							 			<td>Me gusta arreglar enchufes</td>
-							 		
-							 		</tr> 	
-							 	</tbody>
-							 	
-							</table>
+							 	</thead>      
+				      		      
+				      		    <tbody>
+				      		    <c:choose>
+				      		       <c:when test="${not empty usuario}">
+										<c:forEach items="${lista_todos_servicios}" var="s">
+											<tr>
+											<td>${s.id_servicio}</td>	
+											<td>${s.nombre}</td>
+											<td>${s.categoria.nombreCategoria}</td>
+											<td>${s.descripcion}</td>
+										    </tr>			
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										No tiene servicios.
+									</c:otherwise>
+								</c:choose> 
+				      		    </tbody>  
+				      		      
+				         	   </table>
 			
          </div>	
