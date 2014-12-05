@@ -19,15 +19,15 @@
         <!--<link href='images/logo.ico' rel='shortcut icon' type='image/x-icon'>--> 
                
         <!-- Bootstrap core CSS -->
-	    <link href="${prefix}resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-	    <link href="${prefix}resources/css/mio.css" rel="stylesheet" type="text/css">
+	    <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+	    <link href="resources/css/mio.css" rel="stylesheet" type="text/css">
 	
 		
 		<!-- jQuery -->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
  
-	    <script type="text/javascript" src="${prefix}resources/js/validate.js"></script>
-	    <script type="text/javascript" src="${prefix}resources/js/sms_negociacion.js"></script>
+	    <script type="text/javascript" src="resources/js/validate.js"></script>
+	    <script type="text/javascript" src=resources/js/sms_negociacion.js"></script>
 	    
 	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -36,13 +36,13 @@
 	    
 	    <!-- JQuery-UI -->
 	    
-		  <link type="text/css" rel="stylesheet" href="${prefix}resources/jquery-ui/jquery-ui.css">
-		  <link type="text/css" rel="stylesheet" href="${prefix}resources/jquery-ui/jquery-ui.structure.css">
-		  <link type="text/css" rel="stylesheet" href="${prefix}resources/jquery-ui/jquery-ui.theme.css">
+		  <link type="text/css" rel="stylesheet" href="resources/jquery-ui/jquery-ui.css">
+		  <link type="text/css" rel="stylesheet" href="resources/jquery-ui/jquery-ui.structure.css">
+		  <link type="text/css" rel="stylesheet" href="resources/jquery-ui/jquery-ui.theme.css">
 		  <link type="text/css" rel="stylesheet" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
 		  		  
-		  <script type="text/javascript" src="${prefix}resources/jquery-ui/jquery-ui.min.js"></script>
-	      <script type="text/javascript" src="${prefix}resources/jquery-ui/jquery.validate.min.js"></script>
+		  <script type="text/javascript" src="resources/jquery-ui/jquery-ui.min.js"></script>
+	      <script type="text/javascript" src="resources/jquery-ui/jquery.validate.min.js"></script>
 	      <script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 	      
 		  
@@ -52,49 +52,6 @@
 		  });
 		  </script>
 		  
-		 
-		  
-		  <script type="text/javascript">
-		  
-		  $(document).ready(function(){
-			  
-		  	 $("#boton-buscar-index").click(function(){
-		  		 
-		  		var textoAbuscar =  $('#texto-abuscar').val();
-		  		var categoria = $('#lista_categorias').val();
-		  		
-			    $.ajax({			    	
-			    	type: "POST",
-			    	url: "busquedaIndex",
-			    	data:{ categoria: categoria,
-			    		textoBuscado: textoAbuscar},
-			    	success:function(data){
-			      		$("#resultados_busqueda").html(data);
-			      		
-			    	}
-			    });
-		  	});
-		  	 
-		  	$("#lista_categorias").change(function(){
-		  		 
-		  		var textoAbuscar =  $('#texto-abuscar').val();
-		  		var categoria = $('#lista_categorias').val();
-		  		
-			    $.ajax({			    	
-			    	type: "POST",
-			    	url: "busquedaIndex",
-			    	data:{ categoria: categoria,
-			    		textoBuscado: textoAbuscar},
-			    	success:function(data){
-			      		$("#resultados_busqueda").html(data);
-			      		
-			    	}
-			    });
-		  	});
-		  	
-		});
-		  
-		  </script>
 		  		  	         
     </head>
     
@@ -105,7 +62,7 @@
 		          <div id="logo" class="col-md-2">
 		          
 			          <div class="col-md-12">
-			          	<a href="index"><img id="imagen-logo" src="${prefix}resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
+			          	<a href="index"><img id="imagen-logo" src="resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
 			          </div>
 		          
 		          

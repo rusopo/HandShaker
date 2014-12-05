@@ -1,9 +1,11 @@
 package com.j2r2a.handshaker.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -19,25 +21,27 @@ import javax.persistence.OneToOne;
 })
 
 public class Servicio{
-	
-	
+		
 	private long id_servicio;	
 	private String nombre;
 
 	private Categoria categoria;
 	private String descripcion;
 	
-	private Usuario usuario;
+	private List<Usuario> usuarios1; //Para habilidades
+	private List<Usuario> usuarios2; //Para intereses
+	
+	private long contadorUsuarios;
 	
 	public Servicio(){}
 	
-	public static Servicio crearServicio(String nombre,Categoria categoria,String descripcion,Usuario usuario){
+	public static Servicio crearServicio(String nombre,Categoria categoria,String descripcion,long contadorUsuarios){
 		
 		Servicio serv= new Servicio();
 		serv.nombre=nombre;
 		serv.setCategoria(categoria);
 		serv.descripcion=descripcion;
-		serv.usuario=usuario;
+		serv.contadorUsuarios=contadorUsuarios;
 		
 		return serv;
 	}
@@ -56,9 +60,7 @@ public class Servicio{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-		
-
-	
+			
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -67,12 +69,23 @@ public class Servicio{
 	}
 	
 	
-	@ManyToOne(targetEntity=Usuario.class)
-	public Usuario getUsuario() {
-		return usuario;
+	@ManyToMany(targetEntity=Usuario.class, mappedBy="habilidades")
+	public List<Usuario> getUsuarios1() {
+		return usuarios1;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+
+	public void setUsuarios1(List<Usuario> usuarios) {
+		this.usuarios1 = usuarios;
+	}
+	
+	
+	@ManyToMany(targetEntity=Usuario.class, mappedBy="intereses")
+	public List<Usuario> getUsuarios2() {
+		return usuarios2;
+	}
+
+	public void setUsuarios2(List<Usuario> usuarios) {
+		this.usuarios2 = usuarios;
 	}
 	
 	
@@ -83,6 +96,14 @@ public class Servicio{
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public long getContadorUsuarios() {
+		return contadorUsuarios;
+	}
+
+	public void setContadorUsuarios(long contadorUsuarios) {
+		this.contadorUsuarios = contadorUsuarios;
 	}
 	
 	

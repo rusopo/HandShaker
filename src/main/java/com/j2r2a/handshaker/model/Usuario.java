@@ -3,7 +3,6 @@ package com.j2r2a.handshaker.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -12,9 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -174,8 +174,8 @@ public class Usuario{
 		this.valoracion = valoracion;
 	}
 
-	@OneToMany(targetEntity=Servicio.class) //Un usuario tiene n habilidades de tipo Servicio
-	@JoinColumn(name="id_usuario_habilidades") 
+	@ManyToMany(targetEntity=Servicio.class)//Un usuario tiene n habilidades de tipo Servicio
+	@JoinTable(name="habilidades_usuario",joinColumns = {@JoinColumn(name = "ID_usuario")}, inverseJoinColumns = {@JoinColumn(name = "ID_servicio")})
 	public List<Servicio> getHabilidades() {
 		return habilidades;
 	}
@@ -185,11 +185,12 @@ public class Usuario{
 		this.habilidades = habilidades;
 	}
 
-	@OneToMany(targetEntity=Servicio.class) //Un usuario tiene n intereses de tipo Servicio
-	@JoinColumn(name="id_usuario_intereses") 
+	@ManyToMany(targetEntity=Servicio.class) //Un usuario tiene n intereses de tipo Servicio
+	@JoinTable(name="intereses_usuario",joinColumns = {@JoinColumn(name = "ID_usuario")}, inverseJoinColumns = {@JoinColumn(name = "ID_servicio")}) 
 	public List<Servicio> getIntereses() {
 		return intereses;
 	}
+	
 	public void annadirInteres(Servicio s){
 		//Iterator it = this.intereses.iterator();
 		boolean esta=false;

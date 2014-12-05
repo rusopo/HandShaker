@@ -34,7 +34,7 @@
 								      <div class="panel-body">
 								      	<div class="checkbox">
 										    <label>
-										      <input type="checkbox"><a href="mi_perfil">${servicio.usuario.nombre}</a>
+										      <input type="checkbox"><a href="mi_perfil">Paco</a>
 										    </label>
 										    
 									  	</div>
@@ -53,7 +53,7 @@
 								
 								  <div class="col-md-6">
 								  																		  
-										<h4>${servicio.usuario.nombre}</h4>
+										<h4>Paco</h4>
 										<label>
 										      <input type="checkbox">Ofrecer Servicio
 										</label>
@@ -61,7 +61,7 @@
 										<p>Seleccione servicio a ofrecer:</p>
 										
 										<div class="form-group">
-										    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
+										    <label for="inputCategoria3" class="col-sm-2 control-label">CategorÃ­a</label>
 										    <div class="col-sm-10">
 										    	<c:choose>
 	      											<c:when test="${not empty u}">
@@ -76,7 +76,7 @@
 										    
 										       <select class="form-control">
 										       
-												  <option>Informática</option>
+												  <option>Informï¿½tica</option>
 												  <option>Cocina</option>
 												  <option>Limpieza</option>
 												  <option>Mudanzas</option>
@@ -87,11 +87,11 @@
 										
 										<div class="col-sm-12">
 											<select class="form-control">
-											  <option>Programación Java</option>
-											  <option>Programación C++</option>
-											  <option>Programación Android</option>
-											  <option>Programación C</option>
-											  <option>Programación Web</option>
+											  <option>Programacion Java</option>
+											  <option>Programacion C++</option>
+											  <option>Programacion Android</option>
+											  <option>Programacion C</option>
+											  <option>Programacion Web</option>
 											</select>
 										</div>
 									 
@@ -113,10 +113,10 @@
 										<p>Seleccione servicio a ofrecer:</p>
 										
 										<div class="form-group">
-										    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
+										    <label for="inputCategoria3" class="col-sm-2 control-label">Categorï¿½a</label>
 										    <div class="col-sm-10">
 										       <select class="form-control">
-												  <option>Informática</option>
+												  <option>Informï¿½tica</option>
 												  <option>Cocina</option>
 												  <option>Limpieza</option>
 												  <option>Mudanzas</option>
@@ -127,11 +127,11 @@
 										
 										<div class="col-sm-12">
 											<select class="form-control">
-											  <option>Programación Java</option>
-											  <option>Programación C++</option>
-											  <option>Programación Android</option>
-											  <option>Programación C</option>
-											  <option>Programación Web</option>
+											  <option>Programacion Java</option>
+											  <option>Programacion C++</option>
+											  <option>Programacion Android</option>
+											  <option>Programacion C</option>
+											  <option>Programacion Web</option>
 											</select>
 										</div>
 										
@@ -148,8 +148,8 @@
 				
 					<div id="botones-servicio" class="col-md-12" align="center">
 						
-						<button type="submit" class="btn btn-success">Realizar Petición</button>
-						<button type="reset" class="btn btn-danger">Cancelar Petición</button>
+						<button type="submit" class="btn btn-success">Realizar Peticion</button>
+						<button type="reset" class="btn btn-danger">Cancelar Peticion</button>
 						
 					</div>
 					

@@ -26,7 +26,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -190,9 +189,8 @@ public class HomeController {
 				
 				long id_serv =(long)(aux.charAt(i)-'0');				
 				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();				
-				s.setUsuario(user);
-				lista_habilidades.add(s);
-				
+				s.setContadorUsuarios(s.getContadorUsuarios()+1);
+				lista_habilidades.add(s);				
 				
 			}
 			
@@ -214,31 +212,20 @@ public class HomeController {
 	public String mi_perfilHome(Model model,HttpSession session) {
 				
 		Usuario u = (Usuario)session.getAttribute("usuario");
-		
-		
-		if(u!=null){
-			model.addAttribute("usuario", u);
-		}
-		
-		//BORRAR ESTE IF MAS ADELANTE XQ ES SOLO PARA DEPURAR
-		
-		if(u != null){
-			if(u.getAlias().equals("admin") || u.getAlias().equals("rusopo") || u.getAlias().equals("test1")){
-				u.setHabilidades(null);
-				//pruebas
-				u.setIntereses(null);
 				
-			}
-		}
-		
-		if(u != null){
-			List<Servicio> listaServiciosUsuario= u.getHabilidades();
-					
+		if(u!=null){
+			
+			model.addAttribute("usuario", u);
+			
+			List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ u.getId() +"").getResultList();
+			
 			if(listaServiciosUsuario!=null){
 				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
 			}
-			
-		}if(u != null){
+		}
+				
+		/*
+		if(u != null){
 			List<Servicio>listaInteresesUsuario = u.getIntereses();
 			
 			if(listaInteresesUsuario != null){
@@ -251,7 +238,7 @@ public class HomeController {
 			}
 			
 	
-		}
+		}*/
 					
 		model.addAttribute("listaActiva2","class='active'");
 		
@@ -484,9 +471,11 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/servicio/{id}", method = RequestMethod.GET)
-	public String servicioHome(@PathVariable("id") long id_servicio_pulsado,HttpServletRequest request, Model model, HttpSession session) {
-				
+	@RequestMapping(value = "/servicio", method = RequestMethod.GET)
+	public String servicioHome(HttpServletRequest request, Model model, HttpSession session) {
+		
+		long id_servicio_pulsado= Long.parseLong(request.getParameter("id_servicio"));
+		
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");
 
@@ -503,7 +492,6 @@ public class HomeController {
 		model.addAttribute("usuario",u);
 		model.addAttribute("servicio", s);
 		model.addAttribute("usuario_registrado", u);
-		model.addAttribute("prefix", "../");
 		
 		return "servicio";
 	}

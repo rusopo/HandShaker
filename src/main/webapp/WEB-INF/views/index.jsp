@@ -1,4 +1,46 @@
      <%@ include file="../fragments/header.jspf" %> 
+     
+      <script type="text/javascript">
+		  
+		  $(document).ready(function(){
+			  
+		  	 $("#boton-buscar-index").click(function(){
+		  		 
+		  		var textoAbuscar =  $('#texto-abuscar').val();
+		  		var categoria = $('#lista_categorias').val();
+		  		
+			    $.ajax({			    	
+			    	type: "POST",
+			    	url: "busquedaIndex",
+			    	data:{ categoria: categoria,
+			    		textoBuscado: textoAbuscar},
+			    	success:function(data){
+			      		$("#resultados_busqueda").html(data);
+			      		
+			    	}
+			    });
+		  	});
+		  	 
+		  	$("#lista_categorias").change(function(){
+		  		 
+		  		var textoAbuscar =  $('#texto-abuscar').val();
+		  		var categoria = $('#lista_categorias').val();
+		  		
+			    $.ajax({			    	
+			    	type: "POST",
+			    	url: "busquedaIndex",
+			    	data:{ categoria: categoria,
+			    		textoBuscado: textoAbuscar},
+			    	success:function(data){
+			      		$("#resultados_busqueda").html(data);
+			      		
+			    	}
+			    });
+		  	});
+		  	
+		});
+		  
+		  </script>
         		
 		<div id="cuerpo" class="container">
 					
