@@ -16,7 +16,11 @@ import javax.persistence.OneToOne;
 	
 	@NamedQuery(name="ListarTodo",query="SELECT DISTINCT s FROM Servicio s"),
     @NamedQuery(name="BusquedaPorCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE sCat.id_categoria= :CategoriaMetida"),
-	@NamedQuery(name="ExisteServicioPorNombre",query="SELECT s FROM Servicio s WHERE s.id_servicio = :IdServicioMetido")
+	@NamedQuery(name="ExisteServicioPorNombre",query="SELECT s FROM Servicio s WHERE s.id_servicio = :IdServicioMetido"),
+	@NamedQuery(name = "CuantosOfertan", 
+	query = "SELECT COUNT(u) FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),
+	@NamedQuery(name = "ListaUsuariosServicio", 
+	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido")
 	
 })
 

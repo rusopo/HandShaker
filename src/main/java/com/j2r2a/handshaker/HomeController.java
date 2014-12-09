@@ -14,6 +14,7 @@ import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -316,6 +317,8 @@ public class HomeController {
 		String formTextoBuscado=request.getParameter("textoBuscado");
 		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
 		
+		
+		
 		if(formCategoriaSeleccionada==1){
 			
 			List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
@@ -480,30 +483,10 @@ public class HomeController {
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
-		List<Usuario> usuariosServicio = new ArrayList<Usuario>();
-			
-		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuarios").getResultList();
-		
-		for(int i=0; i< listaUsuarios.size();i++){
-			
-			Usuario aux = listaUsuarios.get(i);
-			
-			List<Servicio> servicios = entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ aux.getId() +"").getResultList();
-			
-			boolean encontrado=false;
-			
-			for(int j=0; j < servicios.size() && !encontrado;j++){
+		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).getResultList();
 				
-				if(servicios.get(j).getId_servicio()==id_servicio_pulsado){
-					
-					encontrado=true;
-					usuariosServicio.add(aux);
-				}
-			}
-		}
-		
 		if(listaUsuarios!=null){
-			model.addAttribute("listaUsuariosServicio",usuariosServicio);
+			model.addAttribute("listaUsuariosServicio",listaUsuarios);
 		}
 					
 		model.addAttribute("usuario",u);
