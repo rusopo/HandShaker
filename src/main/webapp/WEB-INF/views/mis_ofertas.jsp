@@ -9,100 +9,50 @@
 				<h2 align="center">Mis Ofertas Recibidas</h2>
 
 				<ul id="lista-ofertas">
+				
+					<c:choose>
+								
+								<c:when test="${not empty usuario } ">
+									<c:forEach items="${listaOfertasRecibidasUsuario} " var ="o">
+										<li>
+												<div class="col-md-12">
+												
+														<div class="panel panel-primary">
+															  <div class="panel-heading">
+															    <h3 class="panel-title">#1 OFERTA DE ${o.usuario.nombre}</h3>
+															  </div>
+															  <div class="panel-body">
+															    	
+															     <div class="col-md-6">
+															     
+															     	<h4>Te Ofrece:</h4><p>${o.servicio_ofrecido.servicio_ofrecido.nombre}</p>
+															    	<h4>Por:</h4> <p> Montar mueble</p>
+															    	
+															     </div>
+															     <div class="col-md-6">
+															     	<div id="boton-ofertas">
+															     		<button  id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
+															     	</div>
+															     	<div>
+																		<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
+																	</div>
+															     </div>
+															    	
+															  </div>
+														 </div>
+														 		
+												</div>
+														
+										</li>
+						
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									No tienes Ofertas .
+								</c:otherwise>
+								</c:choose>
 					
-						<li>
-							<div class="col-md-12">
-							
-									<div class="panel panel-primary">
-										  <div class="panel-heading">
-										    <h3 class="panel-title">#1 OFERTA DE JUAN</h3>
-										  </div>
-										  <div class="panel-body">
-										    	
-										     <div class="col-md-6">
-										     
-										     	<h4>Te Ofrece:</h4><p>Fregar los platos</p>
-										    	<h4>Por:</h4> <p> Montar mueble</p>
-										    	
-										     </div>
-										     <div class="col-md-6">
-										     	<div id="boton-ofertas">
-										     		<button  id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
-										     	</div>
-										     	<div>
-													<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
-												</div>
-										     </div>
-										    	
-										  </div>
-									 </div>
-									 		
-							</div>
-														
-						</li>
-						
-						<li>
-							<div class="col-md-12">
-							
-									<div class="panel panel-primary">
-										  <div class="panel-heading">
-										    <h3 class="panel-title">#2 OFERTA DE ROBER</h3>
-										  </div>
-										  <div class="panel-body">
-										    	
-										     <div class="col-md-6">
-										     
-										     	<h4>Te Ofrece:</h4><p>Fregar los platos</p>
-										    	<h4>Por:</h4> <p> Montar mueble</p>
-										    	
-										     </div>
-										     <div class="col-md-6">
-										     	<div id="boton-ofertas">
-										     		<button  id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
-										     	</div>
-										     	<div>
-													<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
-												</div>
-										     </div>
-										    	
-										  </div>
-									 </div>
-									 		
-							</div>
-														
-						</li>
-						
-						<li>
-							<div class="col-md-12">
-							
-									<div class="panel panel-primary">
-										  <div class="panel-heading">
-										    <h3 class="panel-title">#3 OFERTA DE PACO</h3>
-										  </div>
-										  <div class="panel-body">
-										    	
-										     <div class="col-md-6">
-										     
-										     	<h4>Te Ofrece:</h4><p>Fregar los platos</p>
-										    	<h4>Por:</h4> <p> Montar mueble</p>
-										    	
-										     </div>
-										     <div class="col-md-6">
-										     	<div id="boton-ofertas">
-										     		<button  id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
-										     	</div>
-										     	<div>
-													<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
-												</div>
-										     </div>
-										    	
-										  </div>
-									 </div>
-									 		
-							</div>
-														
-						</li>
-						
+					
 						
 					</ul>
 					

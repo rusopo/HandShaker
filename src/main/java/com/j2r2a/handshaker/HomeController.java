@@ -35,7 +35,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
+import com.j2r2a.handshaker.model.Oferta_enviada;
+import com.j2r2a.handshaker.model.Oferta_recibida;
 import com.j2r2a.handshaker.model.Servicio;
+import com.j2r2a.handshaker.model.Servicio_ofrecido;
 import com.j2r2a.handshaker.model.Usuario;
 
 /**
@@ -422,6 +425,7 @@ public class HomeController {
 	@RequestMapping(value = "/mi_historial", method = RequestMethod.GET)
 	public String mi_historialHome(Model model) {
 		
+		
 				
 		
 		model.addAttribute("listaActiva3","class='active'");
@@ -450,9 +454,23 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/mis_ofertas", method = RequestMethod.GET)
-	public String mis_ofertasHome(Model model) {
+	public String mis_ofertasHome(Model model, HttpSession session) {
 		
-				
+		Usuario u = (Usuario)session.getAttribute("usuario");
+		
+		if(u!=null){
+			model.addAttribute("usuario", u);
+			
+			List<Oferta_enviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").getResultList();
+			//List<Oferta_recibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioRegistrado", u.getId()).getResultList();
+			if(listaOfertasEnviadasUsuario!=null){
+				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
+			}
+			//if(listaOfertasRecibidasUsuario!=null){
+			//	model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
+		//	}
+			
+		}			
 		
 		model.addAttribute("listaActiva4","class='active'");
 	

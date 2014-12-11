@@ -3,10 +3,18 @@ package com.j2r2a.handshaker.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 
 @Entity
+
+@NamedQueries({
+	
+  //  @NamedQuery(name="ListaOfertaRecibidaUsuario",query="select o from Oferta_recibida o where o.usuario.id = :UsuarioRegistrado"),
+    
+})
 public class Oferta_recibida{
 	
 	

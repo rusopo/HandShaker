@@ -7,11 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
 @Entity
+
+@NamedQueries({
+	
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT distinct o from Oferta_enviada o "),
+    
+})
 public class Oferta_enviada{
 	
 	private long id_oferta_enviada;		
