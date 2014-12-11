@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -434,20 +435,39 @@ public class HomeController {
 		return "mi_historial";
 	}
 	
+	
+	/**
+	 * Checks the anti-csrf token for a session against a value
+	 * @param session
+	 * @param token
+	 * @return the token
+	 */
+	static boolean isTokenValid(HttpSession session, String token) {
+	    Object t=session.getAttribute("csrf_token");
+	    return (t != null) && t.equals(token);
+	}
+	
+	
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/userAdmin", method = RequestMethod.POST)
-	public String userAdmin(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/delUser", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional // needed to allow DB change
+	public ResponseEntity<String> bookAuthors(@RequestParam("id") long id,
+			@RequestParam("csrf") String token, HttpSession session) {
 		
-		String[] selectedUsersIds = request.getParameterValues("selectedUser");	
-		System.err.println("Usuarios seleccionados: ");
-		for(int i = 0; i<selectedUsersIds.length; i++)
-		System.err.println(selectedUsersIds[i]);
-
-		//Me falta que realmente vuelva al administrador, y no aqui T.T
-		return "administrador";
-	}
+	    if (entityManager.createNamedQuery("delUser")
+				.setParameter("idParam", id).executeUpdate() == 1) {
+			return new ResponseEntity<String>("Ok: user " + id + " removed", 
+					HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Error: no such user", 
+					HttpStatus.BAD_REQUEST);
+		}
+	}			
+	
 	
 	
 	/**
@@ -462,13 +482,13 @@ public class HomeController {
 			model.addAttribute("usuario", u);
 			
 			List<Oferta_enviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").getResultList();
-			//List<Oferta_recibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioRegistrado", u.getId()).getResultList();
-			if(listaOfertasEnviadasUsuario!=null){
+			List<Oferta_recibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").getResultList();
+			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
 			}
-			//if(listaOfertasRecibidasUsuario!=null){
-			//	model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
-		//	}
+			if(listaOfertasRecibidasUsuario.size() !=0){
+				model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
+			}
 			
 		}			
 		

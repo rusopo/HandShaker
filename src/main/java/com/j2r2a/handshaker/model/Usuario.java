@@ -20,7 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 
 @NamedQueries({
-	
+	@NamedQuery(name="delUser", query="delete from Usuario u where u.id= :idParam"),
     @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido"),
     @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c"),
     @NamedQuery(name="ExisteUsuarioPorID",query="select u from Usuario u where u.id = :IDMetido")

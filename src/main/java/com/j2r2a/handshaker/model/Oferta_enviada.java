@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT distinct o from Oferta_enviada o "),
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT DISTINCT s FROM Oferta_enviada s"),
     
 })
 public class Oferta_enviada{

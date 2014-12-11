@@ -12,9 +12,10 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-  //  @NamedQuery(name="ListaOfertaRecibidaUsuario",query="select o from Oferta_recibida o where o.usuario.id = :UsuarioRegistrado"),
+    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT DISTINCT s FROM Oferta_recibida s"),
     
 })
+
 public class Oferta_recibida{
 	
 	
