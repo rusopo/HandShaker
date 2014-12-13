@@ -427,7 +427,8 @@ public class HomeController {
 	public String mi_historialHome(Model model) {
 		
 		
-				
+		System.out.println("hola");
+		
 		
 		model.addAttribute("listaActiva3","class='active'");
 
