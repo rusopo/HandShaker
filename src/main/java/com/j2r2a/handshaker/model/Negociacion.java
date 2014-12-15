@@ -13,19 +13,19 @@ import javax.persistence.OneToOne;
 @Entity
 public class Negociacion{
 	
-	private long id_negociacion;	
+	private long id;	
 	private Usuario usuario1;
 	private Usuario usuario2;
-	private List<Comentario> lista_comentarios;
+	private List<Comentario> listaComentarios;
 	private boolean aceptada;
 	
 	@Id
     @GeneratedValue
 	public long getId_negociacion() {
-		return id_negociacion;
+		return id;
 	}
-	public void setId_negociacion(long id_negociacion) {
-		this.id_negociacion = id_negociacion;
+	public void setId_negociacion(long id) {
+		this.id = id;
 	}
 		
 	@OneToOne(targetEntity=Usuario.class) //Una negociacion es de un usuario
@@ -45,12 +45,12 @@ public class Negociacion{
 	}
 	
 	@OneToMany(targetEntity=Comentario.class) //Una negociacion tiene n comentarios tipo Comentario
-	@JoinColumn(name="id_negociacion") 
+	@JoinColumn(name="idNegociacion") 
 	public List<Comentario> getLista_comentarios() {
-		return lista_comentarios;
+		return listaComentarios;
 	}
 	public void setLista_comentarios(List<Comentario> lista_comentarios) {
-		this.lista_comentarios = lista_comentarios;
+		this.listaComentarios = lista_comentarios;
 	}
 	
 	public boolean isAceptada() {

@@ -28,7 +28,7 @@ import javax.persistence.OneToOne;
 
 public class Servicio{
 		
-	private long id_servicio;	
+	private long id;	
 	private String nombre;
 
 	private Categoria categoria;
@@ -55,10 +55,10 @@ public class Servicio{
 	@Id
     @GeneratedValue
 	public long getId_servicio() {
-		return id_servicio;
+		return id;
 	}
-	public void setId_servicio(long id_servicio) {
-		this.id_servicio = id_servicio;
+	public void setId_servicio(long id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;

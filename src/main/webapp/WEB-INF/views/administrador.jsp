@@ -36,7 +36,7 @@
 					
 				         <div role="tabpanel" class="tab-pane active" id="panel-admin-usuarios">
 							
-							<%@ include file="../fragments/administrador/user_admin.jspf" %>
+							<%@ include file="../fragments/administrador/usuarioAdmin.jspf" %>
 					  		     			  		    
 				  	     </div>
 					  		     
@@ -44,12 +44,12 @@
 				  
 				  	     <div role="tabpanel" class="tab-pane" id="panel-admin-servicios">
 				  		       
-				  		      <%@ include file="../fragments/administrador/services_admin.jspf" %> 
+				  		      <%@ include file="../fragments/administrador/serviciosAdmin.jspf" %> 
 				  		  				  		        
 				  	     </div>
 				  	     
 				  	     <div role="tabpanel" class="tab-pane" id="panel-admin-negociaciones">
-				                <%@ include file="../fragments/administrador/negociaciones_admin.jspf" %>
+				                <%@ include file="../fragments/administrador/negociacionesAdmin.jspf" %>
 				  	     </div>
 				  
 				   </div>									

@@ -98,9 +98,9 @@
 								
 								<div class="col-md-7" align="center">
 									
-									<img id="foto-index" src="mi_perfil/usuario?id_usuario=${usuario.id}" height="100px" width="90px"/>
+									<img id="foto-index" src="mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}" height="100px" width="90px"/>
 							 	
-							 		<h4 style="color: #FFFFFF"><strong>${usuario.alias}</strong></h4>
+							 		<h4 style="color: #FFFFFF"><strong>${e:forHtmlContent(usuario.alias)}</strong></h4>
 							 		
 							 				
 								</div>
