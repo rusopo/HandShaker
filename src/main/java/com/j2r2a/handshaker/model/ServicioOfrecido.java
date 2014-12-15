@@ -7,20 +7,20 @@ import javax.persistence.OneToOne;
 
 
 @Entity
-public class Servicio_ofrecido{
+public class ServicioOfrecido{
 	
 	
-	private long id_servicio_ofrecido;	
+	private long id;	
 	private Usuario usuario;
-	private Servicio servicio_ofrecido;
+	private Servicio servicioOfrecido;
 	
 	@Id
     @GeneratedValue
 	public long getId_servicio_ofrecido() {
-		return id_servicio_ofrecido;
+		return id;
 	}
-	public void setId_servicio_ofrecido(long id_servicio_ofrecido) {
-		this.id_servicio_ofrecido = id_servicio_ofrecido;
+	public void setId_servicio_ofrecido(long id) {
+		this.id = id;
 	}
 	
 	@OneToOne(targetEntity=Usuario.class) //Un servicio ofrecido es para 1 usuario
@@ -33,10 +33,10 @@ public class Servicio_ofrecido{
 	
 	@OneToOne(targetEntity=Servicio.class) //Un servicio ofrecido corresponde a 1 servicio
 	public Servicio getServicio_ofrecido() {
-		return servicio_ofrecido;
+		return servicioOfrecido;
 	}
 	public void setServicio_ofrecido(Servicio servicio_ofrecido) {
-		this.servicio_ofrecido = servicio_ofrecido;
+		this.servicioOfrecido = servicio_ofrecido;
 	}
 
 

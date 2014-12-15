@@ -15,7 +15,6 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +27,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,10 +34,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
-import com.j2r2a.handshaker.model.Oferta_enviada;
-import com.j2r2a.handshaker.model.Oferta_recibida;
+import com.j2r2a.handshaker.model.OfertaEnviada;
+import com.j2r2a.handshaker.model.OfertaRecibida;
 import com.j2r2a.handshaker.model.Servicio;
-import com.j2r2a.handshaker.model.Servicio_ofrecido;
 import com.j2r2a.handshaker.model.Usuario;
 
 /**
@@ -87,9 +84,12 @@ public class HomeController {
 					
 					session.setAttribute("usuario", u);
 					
+					// sets the anti-csrf token
+					getTokenForSession(session);
+					
 					if(u.getAlias().equals("admin") && u.getContrasenia().equals("4e472a2779abd6d6571c76b0f845cb5d20e084e7")){ //Contrase�a:admin cifrada
 						
-						return "redirect: administrador";
+						return "redirect:" + "administrador";
 					}
 										
 				} else {
@@ -188,7 +188,6 @@ public class HomeController {
 			String habilidades_metidas=request.getParameter("servs");					
 			List<Servicio> lista_habilidades = new ArrayList<Servicio>();
 			
-			
 			String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < aux.length();i++){
@@ -208,7 +207,7 @@ public class HomeController {
 				
 		}
 							
-		return "redirect: /index";
+		return "redirect:" +"index";
 	}
 	
 	/**
@@ -319,22 +318,48 @@ public class HomeController {
 	public String busquedaIndexForm(HttpServletRequest request, Model model, HttpSession session) {
 		
 		String formTextoBuscado=request.getParameter("textoBuscado");
-		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
 		
+		String formCategoria= request.getParameter("categoria");
 		
+		long formCategoriaSeleccionada=1;
 		
-		if(formCategoriaSeleccionada==1){
+		if(formCategoria.equals("-- Selecciona --")){
 			
-			List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
-			model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			formCategoriaSeleccionada=1;
 		}
 		else{
 		
-			List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
-			model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
+			formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
 		
 		}
 		
+		if(!formTextoBuscado.equals("")){
+			
+			if(formCategoriaSeleccionada==1){
+				List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("BusquedaServicioPorSoloTexto").setParameter("textoMetido", "%" + formTextoBuscado + "%").getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			}
+			else{
+				List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("BusquedaServicioPorTextoYCategoria").setParameter("textoMetido", "%" + formTextoBuscado + "%").setParameter("categoriaMetida", formCategoriaSeleccionada).getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			}
+		}
+		
+		else{
+		
+			if(formCategoriaSeleccionada==1){
+				
+				List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			}
+			else{
+			
+				List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
+			
+			}
+			
+		}
 		return "resultadosBusqueda";
 	}
 	
@@ -427,7 +452,6 @@ public class HomeController {
 	public String mi_historialHome(Model model) {
 		
 		
-		System.out.println("hola");
 		
 		
 		model.addAttribute("listaActiva3","class='active'");
@@ -448,7 +472,16 @@ public class HomeController {
 	    return (t != null) && t.equals(token);
 	}
 	
-	
+	/**
+	 * Returns an anti-csrf token for a session, and stores it in the session
+	 * @param session
+	 * @return
+	 */
+	static String getTokenForSession (HttpSession session) {
+	    String token=UUID.randomUUID().toString();
+	    session.setAttribute("csrf_token", token);
+	    return token;
+	}
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -456,7 +489,7 @@ public class HomeController {
 	@RequestMapping(value = "/delUser", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional // needed to allow DB change
-	public ResponseEntity<String> bookAuthors(@RequestParam("id") long id,
+	public ResponseEntity<String> borrarUsuario(@RequestParam("id") long id,
 			@RequestParam("csrf") String token, HttpSession session) {
 		
 	    if (entityManager.createNamedQuery("delUser")
@@ -482,8 +515,8 @@ public class HomeController {
 		if(u!=null){
 			model.addAttribute("usuario", u);
 			
-			List<Oferta_enviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").getResultList();
-			List<Oferta_recibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").getResultList();
+			List<OfertaEnviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").getResultList();
+			List<OfertaRecibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").getResultList();
 			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
 			}

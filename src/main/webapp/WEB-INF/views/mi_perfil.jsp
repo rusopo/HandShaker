@@ -7,7 +7,7 @@
       <c:when test="${empty usuario}">
      
      	<div class="col-md-12">
-     		<h3><strong>Necesitas estar registrado para poder visitar tu perfil. Hazlo más arriba!</strong></h3>
+     		<h3><strong>Necesitas estar registrado para poder visitar tu perfil. Hazlo mï¿½s arriba!</strong></h3>
      	</div>
       </c:when>
 
@@ -26,7 +26,7 @@
 							
 							<h4><strong>Alias: </strong>${usuario.alias}</h4> 
 							<h4><strong>Nombre: </strong>${usuario.nombre}</h4>
-							<h4><strong>Correo electrónico:</strong></h4> <h4>${usuario.email}</h4>
+							<h4><strong>Correo electrï¿½nico:</strong></h4> <h4>${usuario.email}</h4>
 							<h4><strong>Edad: </strong> ${usuario.edad}</h4>
 												
 						</div>
@@ -35,7 +35,7 @@
 					
 					<div class="col-md-12">
 					
-						<h3 class="h3-perfil" align="center">Valoración</h3>
+						<h3 class="h3-perfil" align="center">ValoraciÃ³n</h3>
 						
 						<div class="progress">
 						  <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 70%;">
@@ -44,47 +44,7 @@
 						</div>
 					
 					</div>
-					<div class= "col-md-12">
-						
-						<form class="form-inline" role="form" method="POST" >
-								<div class ="form-group">
-									<div class="dropdown">
-  										<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-										    Servicio
-										    <span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-										
-										<c:choose>
-	      									<c:when test="${not empty listaInteresesUsuario}">
-												<c:forEach items="${listaInteresesUsuario}" var="s">
-													<li role="presentation"><a role="menuitem" tabindex="-1" href="#" > ${s.nombre} </a></li>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												No tiene servicios.
-											</c:otherwise>
-										</c:choose>
 									
-										</ul>	
-									</div>									
-								
-								
-								</div>
-								
-								<div class ="form-group">	
-								<input type="text" class="form-control" name="nuevo-interes"  placeholder="Escribe aquï¿½">
-									<!-- aqui ira el campo de texto el cual se incorporara un nuevo interes -->
-								
-								</div>
-								<div class ="form-group">
-									<button id="boton-nuevo-interes" class="btn btn-lg btn-primary" >nuevo</button>
-								</div>
-						</form>
-	
-					
-					</div>
-				
 				</div>	
 				
 				<div id="perfil-info-der" class="col-md-9">	
@@ -95,9 +55,52 @@
 					
 							<h3 align="center" class="h3-perfil">Mi Disponibilidad</h3>
 													
-							<div class="col-md-12" align="center">
+							<div align="center">
 							
-								<div id="datepicker"></div>
+								<!-- <div id="datepicker"></div> -->
+								
+								<table class="table table-bordered">
+								
+									<thead>
+							 		<tr>
+							 			<th></th>
+							 			<th>L</th>
+							 			<th>M</th>
+							 			<th>X</th>
+							 			<th>J</th>
+							 			<th>V</th>
+							 			<th>S</th>
+							 			<th>D</th>
+							 		</tr>
+							 	</thead>      
+				      		      
+				      		    <tbody>
+				      		    
+				      		    	<tr>
+				      		    		<td><strong>MaÃ±ana</strong></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="danger"></td>
+				      		    		<td class="danger"></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="danger"></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="danger"></td>				      		    						      		    	
+				      		    	</tr>
+				      		    	
+				      		    	<tr>
+				      		    		<td><strong>Tarde</strong></td>
+				      		    		<td class="danger"></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="danger"></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="active"></td>
+				      		    		<td class="danger"></td>				      		    						      		    	
+				      		    	</tr>
+				      		    					      								
+								</tbody>
+ 	
+								</table>
 								
 							</div>
 												
@@ -149,7 +152,7 @@
 					
 					<div id="perfil-info2" class="col-md-6">
 						
-						<h3 align="center" class="h3-perfil">Mi Ubicación</h3>
+						<h3 align="center" class="h3-perfil">Mi Ubicaciï¿½n</h3>
 						
 						<form name="latLongOcultas" id="latLongOcultas" action="">
 							<input type="hidden" id="latitud" name="latitud" value="${usuario.latitud}">

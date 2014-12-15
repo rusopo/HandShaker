@@ -10,33 +10,33 @@ import javax.persistence.OneToOne;
 public class Comentario{
 	
 
-	private long id_comentario;	
+	private long id;	
 	private Usuario usuario;
-	private String texto_comentario;
+	private String textoComentario;
 	private Negociacion negociacion;
 	
 	@Id
     @GeneratedValue
 	public long getId_comentario() {
-		return id_comentario;
+		return id;
 	}
-	public void setId_comentario(long id_comentario) {
-		this.id_comentario = id_comentario;
+	public void setId_comentario(long id) {
+		this.id = id;
 	}
 	
 	@OneToOne(targetEntity=Usuario.class) //Un comentario es de 1 usuario
 	public Usuario getId_usuario() {
 		return usuario;
 	}
-	public void setId_usuario(Usuario id_usuario) {
-		this.usuario = id_usuario;
+	public void setId_usuario(Usuario idUsuario) {
+		this.usuario = idUsuario;
 	}
 	
 	public String getTexto_comentario() {
-		return texto_comentario;
+		return textoComentario;
 	}
 	public void setTexto_comentario(String texto_comentario) {
-		this.texto_comentario = texto_comentario;
+		this.textoComentario = texto_comentario;
 	}
 	
 	@OneToOne(targetEntity=Negociacion.class) //Un comentario es de 1 negociacion

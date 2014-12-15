@@ -20,13 +20,15 @@ import javax.persistence.OneToOne;
 	@NamedQuery(name = "CuantosOfertan", 
 	query = "SELECT COUNT(u) FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),
 	@NamedQuery(name = "ListaUsuariosServicio", 
-	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido")
+	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),
+	@NamedQuery(name="BusquedaServicioPorTextoYCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE LOWER(s.nombre) LIKE :textoMetido AND sCat.id_categoria= :categoriaMetida"),
+	@NamedQuery(name="BusquedaServicioPorSoloTexto",query="SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE :textoMetido")
 	
 })
 
 public class Servicio{
 		
-	private long id_servicio;	
+	private long id;	
 	private String nombre;
 
 	private Categoria categoria;
@@ -53,10 +55,10 @@ public class Servicio{
 	@Id
     @GeneratedValue
 	public long getId_servicio() {
-		return id_servicio;
+		return id;
 	}
-	public void setId_servicio(long id_servicio) {
-		this.id_servicio = id_servicio;
+	public void setId_servicio(long id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;

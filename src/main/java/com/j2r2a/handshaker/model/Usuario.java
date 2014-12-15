@@ -29,7 +29,7 @@ import javax.persistence.NamedQuery;
 public class Usuario{
 	
 
-	private long id_usuario;
+	private long id;
 	private String alias;
 	private String nombre;
 	private long edad;
@@ -80,12 +80,12 @@ public class Usuario{
 	@Id
     @GeneratedValue
 	public long getId() {
-		return id_usuario;
+		return id;
 	}
 
 
 	public void setId(long id) {
-		this.id_usuario = id;
+		this.id = id;
 	}
 
 	@Column(unique=true)
@@ -176,7 +176,7 @@ public class Usuario{
 	}
 
 	@ManyToMany(targetEntity=Servicio.class)//Un usuario tiene n habilidades de tipo Servicio
-	@JoinTable(name="habilidades_usuario",joinColumns = {@JoinColumn(name = "ID_usuario")}, inverseJoinColumns = {@JoinColumn(name = "ID_servicio")})
+	@JoinTable(name="habilidadesUsuario",joinColumns = {@JoinColumn(name = "IDUsuario")}, inverseJoinColumns = {@JoinColumn(name = "IDServicio")})
 	public List<Servicio> getHabilidades() {
 		return habilidades;
 	}
@@ -187,7 +187,7 @@ public class Usuario{
 	}
 
 	@ManyToMany(targetEntity=Servicio.class) //Un usuario tiene n intereses de tipo Servicio
-	@JoinTable(name="intereses_usuario",joinColumns = {@JoinColumn(name = "ID_usuario")}, inverseJoinColumns = {@JoinColumn(name = "ID_servicio")}) 
+	@JoinTable(name="interesesUsuario",joinColumns = {@JoinColumn(name = "IDUsuario")}, inverseJoinColumns = {@JoinColumn(name = "IDServicio")}) 
 	public List<Servicio> getIntereses() {
 		return intereses;
 	}
@@ -212,21 +212,10 @@ public class Usuario{
 	public void setIntereses(List<Servicio> intereses) {
 		this.intereses = intereses;
 	}
-	
-	/*
-	public String getFoto() {
-		return foto;
-	}
-
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-*/
-	
+		
 	public void printUsuario(){
 		
-		System.out.println("id: " + this.id_usuario + " alias: " + this.alias + " nombre: " + this.nombre + " Email: " + this.email + " edad: " + this.edad 
+		System.out.println("id: " + this.id + " alias: " + this.alias + " nombre: " + this.nombre + " Email: " + this.email + " edad: " + this.edad 
 				+" contrasenia: " + this.contrasenia + " salt: " + this.salt + " Latitud: " + this.latitud + " Longitud: " + this.longitud);
 	}
 	

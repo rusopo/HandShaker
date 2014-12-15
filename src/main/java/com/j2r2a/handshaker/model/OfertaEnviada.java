@@ -17,26 +17,26 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT DISTINCT s FROM Oferta_enviada s"),
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT DISTINCT s FROM OfertaEnviada s"),
     
 })
-public class Oferta_enviada{
+public class OfertaEnviada{
 	
-	private long id_oferta_enviada;		
+	private long id;		
 	private Date fecha;
-	private Servicio servicio_recibido;
+	private Servicio servicioRecibido;
 	private Usuario usuario;
 	private Negociacion negociacion;
-	private List<Servicio_ofrecido> lista_servicios_ofrecidos;
+	private List<ServicioOfrecido> listaServiciosOfrecidos;
 	
 	
 	@Id
     @GeneratedValue
 	public long getId_oferta_enviada() {
-		return id_oferta_enviada;
+		return id;
 	}
-	public void setId_oferta_enviada(long id_oferta_enviada) {
-		this.id_oferta_enviada = id_oferta_enviada;
+	public void setId_oferta_enviada(long id) {
+		this.id = id;
 	}
 	public Date getFecha() {
 		return fecha;
@@ -47,10 +47,10 @@ public class Oferta_enviada{
 	
 	@OneToOne(targetEntity=Servicio.class) //Una oferta enviada tiene un servicio recibido
 	public Servicio getServicio_recibido() {
-		return servicio_recibido;
+		return servicioRecibido;
 	}
-	public void setServicio_recibido(Servicio servicio_recibido) {
-		this.servicio_recibido = servicio_recibido;
+	public void setServicio_recibido(Servicio servicioRecibido) {
+		this.servicioRecibido = servicioRecibido;
 	}
 	
 	@OneToOne(targetEntity=Usuario.class) //Una oferta enviada es de 1 usuario
@@ -69,14 +69,14 @@ public class Oferta_enviada{
 		this.negociacion = negociacion;
 	}
 	
-	@OneToMany(targetEntity=Servicio_ofrecido.class) //Una oferta enviada puede tener 0,1 o mas servicios ofrecidos
-	@JoinColumn(name="id_oferta_enviada")
-	public List<Servicio_ofrecido> getLista_servicios_ofrecidos() {
-		return lista_servicios_ofrecidos;
+	@OneToMany(targetEntity=ServicioOfrecido.class) //Una oferta enviada puede tener 0,1 o mas servicios ofrecidos
+	@JoinColumn(name="idOfertaEnviada")
+	public List<ServicioOfrecido> getLista_servicios_ofrecidos() {
+		return listaServiciosOfrecidos;
 	}
 	public void setLista_servicios_ofrecidos(
-			List<Servicio_ofrecido> lista_servicios_ofrecidos) {
-		this.lista_servicios_ofrecidos = lista_servicios_ofrecidos;
+			List<ServicioOfrecido> lista_servicios_ofrecidos) {
+		this.listaServiciosOfrecidos = lista_servicios_ofrecidos;
 	}
 			
 }

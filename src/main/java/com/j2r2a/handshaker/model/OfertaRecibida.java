@@ -12,41 +12,41 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT DISTINCT s FROM Oferta_recibida s"),
+    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT DISTINCT s FROM OfertaRecibida s"),
     
 })
 
-public class Oferta_recibida{
+public class OfertaRecibida{
 	
 	
-	private long id_oferta_recibida;	
-	private Servicio_ofrecido servicio_recibido;
+	private long id;	
+	private ServicioOfrecido servicioRecibido;
 	private Usuario usuario;
 	private Negociacion negociacion;
 	
 	@Id
     @GeneratedValue
 	public long getId_oferta_recibida() {
-		return id_oferta_recibida;
+		return id;
 	}
-	public void setId_oferta_recibida(long id_oferta_recibida) {
-		this.id_oferta_recibida = id_oferta_recibida;
+	public void setId_oferta_recibida(long id) {
+		this.id = id;
 	}
 	
-	@OneToOne(targetEntity=Servicio_ofrecido.class)  //Una oferta recibida corresponde a 1 servicio ofrecido
-	public Servicio_ofrecido getServicio_recibido() {
-		return servicio_recibido;
+	@OneToOne(targetEntity=ServicioOfrecido.class)  //Una oferta recibida corresponde a 1 servicio ofrecido
+	public ServicioOfrecido getServicio_recibido() {
+		return servicioRecibido;
 	}
-	public void setServicio_recibido(Servicio_ofrecido servicio_recibido) {
-		this.servicio_recibido = servicio_recibido;
+	public void setServicio_recibido(ServicioOfrecido servicioRecibido) {
+		this.servicioRecibido = servicioRecibido;
 	}
 	
 	@OneToOne(targetEntity=Usuario.class) //Un oferta recibida es para 1 usuario
 	public Usuario getUsuario_receptor() {
 		return usuario;
 	}
-	public void setUsuario_receptor(Usuario usuario_receptor) {
-		this.usuario = usuario_receptor;
+	public void setUsuario_receptor(Usuario usuarioReceptor) {
+		this.usuario = usuarioReceptor;
 	}
 	
 	@OneToOne(targetEntity=Negociacion.class) //Una oferta recibida tiene 1 negociacion

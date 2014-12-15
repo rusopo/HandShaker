@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
 @Entity
 public class Categoria{
 	
-	private long id_categoria;
+	private long id;
 	private String nombreCategoria;
 	
 	public Categoria (){}
@@ -31,10 +31,10 @@ public class Categoria{
 	@Id
 	@GeneratedValue
 	public long getId_categoria() {
-		return id_categoria;
+		return id;
 	}
-	public void setId_categoria(long id_categoria) {
-		this.id_categoria = id_categoria;
+	public void setId_categoria(long id) {
+		this.id = id;
 	}
 	
 	public String getNombreCategoria() {
