@@ -188,7 +188,6 @@ public class HomeController {
 			String habilidades_metidas=request.getParameter("servs");					
 			List<Servicio> lista_habilidades = new ArrayList<Servicio>();
 			
-			
 			String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < aux.length();i++){
@@ -319,22 +318,48 @@ public class HomeController {
 	public String busquedaIndexForm(HttpServletRequest request, Model model, HttpSession session) {
 		
 		String formTextoBuscado=request.getParameter("textoBuscado");
-		long formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
 		
+		String formCategoria= request.getParameter("categoria");
 		
+		long formCategoriaSeleccionada=1;
 		
-		if(formCategoriaSeleccionada==1){
+		if(formCategoria.equals("-- Selecciona --")){
 			
-			List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
-			model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			formCategoriaSeleccionada=1;
 		}
 		else{
 		
-			List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
-			model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
+			formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
 		
 		}
 		
+		if(!formTextoBuscado.equals("")){
+			
+			if(formCategoriaSeleccionada==1){
+				List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("BusquedaServicioPorSoloTexto").setParameter("textoMetido", "%" + formTextoBuscado + "%").getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			}
+			else{
+				List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("BusquedaServicioPorTextoYCategoria").setParameter("textoMetido", "%" + formTextoBuscado + "%").setParameter("categoriaMetida", formCategoriaSeleccionada).getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			}
+		}
+		
+		else{
+		
+			if(formCategoriaSeleccionada==1){
+				
+				List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
+			}
+			else{
+			
+				List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
+				model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
+			
+			}
+			
+		}
 		return "resultadosBusqueda";
 	}
 	
@@ -427,7 +452,6 @@ public class HomeController {
 	public String mi_historialHome(Model model) {
 		
 		
-		System.out.println("hola");
 		
 		
 		model.addAttribute("listaActiva3","class='active'");
