@@ -325,36 +325,7 @@ function obtenerServicios(serv) {
 									</div>									
 																	
 								</div>
-								
-															
-							  <!--<div class="col-md-12">	
-							  	<h5>Si realiza otro servicio de los predeterminados, añada su/s servicio/s:</h5>
-							  	
-							  	<div class="form-group">
-								    <label for="inputTitulo3" class="col-sm-2 control-label">Titulo</label>
-								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="inputTitulo3">
-								    </div>
-								</div>
-								
-								<div class="form-group">
-								    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
-								    <div class="col-sm-10">
-								       <select class="form-control">
-										  <option>Informática</option>
-										  <option>Cocina</option>
-										  <option>Limpieza</option>
-										  <option>Mudanzas</option>
-										  <option>Coches</option>
-										</select>
-								    </div>
-								</div>
-								
-								<label for="inputDescripcion3" class="col-sm-2 control-label">Descripción</label>
-								<textarea class="form-control" rows="6"></textarea>
-							  								  								  	
-							  </div>-->
-						
+																											
 						  </div>
 						  
 						  <div id="intereses-registro" class="col-md-12">
