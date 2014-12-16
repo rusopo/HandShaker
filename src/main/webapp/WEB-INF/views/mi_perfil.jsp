@@ -1,3 +1,5 @@
+<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
+
 <%@ include file="../fragments/headerMiPerfil.jspf" %> 
 
 <div id="cuerpo" class="container">
@@ -7,7 +9,7 @@
       <c:when test="${empty usuario}">
      
      	<div class="col-md-12">
-     		<h3><strong>Necesitas estar registrado para poder visitar tu perfil. Hazlo m�s arriba!</strong></h3>
+     		<h3><strong>Necesitas estar registrado para poder visitar tu perfil. Hazlo mas arriba!</strong></h3>
      	</div>
       </c:when>
 
@@ -19,15 +21,15 @@
 								
 						<div id="foto-perfil" class="col-md-12" align="center">
 						
-							<img src="mi_perfil/usuario?id_usuario=${usuario.id}" height="150px" width="130px"/>
+							<img src="mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}" height="150px" width="130px"/>
 						
 						</div>
 						<div id="datos-perfil" class="col-md-12">
 							
-							<h4><strong>Alias: </strong>${usuario.alias}</h4> 
-							<h4><strong>Nombre: </strong>${usuario.nombre}</h4>
-							<h4><strong>Correo electr�nico:</strong></h4> <h4>${usuario.email}</h4>
-							<h4><strong>Edad: </strong> ${usuario.edad}</h4>
+							<h4><strong>Alias: </strong>${e:forHtmlContent(usuario.alias)}</h4> 
+							<h4><strong>Nombre: </strong>${e:forHtmlContent(usuario.nombre)}</h4>
+							<h4><strong>Correo electronico:</strong></h4> <h4>${e:forHtmlContent(usuario.email)}</h4>
+							<h4><strong>Edad: </strong> ${e:forHtmlContent(usuario.edad)}</h4>
 												
 						</div>
 					
@@ -35,7 +37,7 @@
 					
 					<div class="col-md-12">
 					
-						<h3 class="h3-perfil" align="center">Valoración</h3>
+						<h3 class="h3-perfil" align="center">Valoracion</h3>
 						
 						<div class="progress">
 						  <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" style="width: 70%;">
@@ -152,11 +154,11 @@
 					
 					<div id="perfil-info2" class="col-md-6">
 						
-						<h3 align="center" class="h3-perfil">Mi Ubicaci�n</h3>
+						<h3 align="center" class="h3-perfil">Mi Ubicacion</h3>
 						
 						<form name="latLongOcultas" id="latLongOcultas" action="">
-							<input type="hidden" id="latitud" name="latitud" value="${usuario.latitud}">
-							<input type="hidden" id="longitud" name="longitud" value="${usuario.longitud}">
+							<input type="hidden" id="latitud" name="latitud" value="${e:forHtmlContent(usuario.latitud)}">
+							<input type="hidden" id="longitud" name="longitud" value="${e:forHtmlContent(usuario.longitud)}">
 						</form>
 					
 						<div id="perfil-mapa"></div>
