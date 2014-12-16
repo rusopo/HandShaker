@@ -200,6 +200,21 @@ public class HomeController {
 			}
 			
 			user.setHabilidades(lista_habilidades);
+			
+			String intereses_metidos=request.getParameter("intereses");
+			List<Servicio> lista_intereses = new ArrayList<Servicio>();
+			
+			String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
+			
+			for(int i=0; i < auxInteres.length();i++){
+				
+				long id_serv =(long)(auxInteres.charAt(i)-'0');				
+				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();
+				lista_intereses.add(s);				
+				
+			}
+			
+			user.setIntereses(lista_intereses);
 						
 			entityManager.persist(user);				
 			session.setAttribute("usuario", user);			
@@ -215,40 +230,36 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/mi_perfil", method = RequestMethod.GET)
 	public String mi_perfilHome(HttpServletRequest request,Model model,HttpSession session) {
-				
-		//Usuario u = (Usuario)session.getAttribute("usuario");
-		
+							
 		long idUsuarioPulsado= Long.parseLong(request.getParameter("usuario"));
 		
-		Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", idUsuarioPulsado).getSingleResult();
-					
-		if(u!=null){
+		if(idUsuarioPulsado==0){
 			
-			model.addAttribute("usuario", u);
-			
-			List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ idUsuarioPulsado +"").getResultList();
-			
-			if(listaServiciosUsuario!=null){
-				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
-			}
+			Usuario u = null;
 		}
+		
+		else{
+		
+			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", idUsuarioPulsado).getSingleResult();
+						
+			if(u!=null){
 				
-		/*
-		if(u != null){
-			List<Servicio>listaInteresesUsuario = u.getIntereses();
-			
-			if(listaInteresesUsuario != null){
+				model.addAttribute("usuario", u);
 				
-				//model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
-				Servicio s = new Servicio();
-				s.setNombre("prueba");
-				listaInteresesUsuario.add(s);
-				model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
+				List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ idUsuarioPulsado +"").getResultList();
+				
+				if(listaServiciosUsuario!=null){
+					model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
+				}
+				
+				List<Servicio> listaInteresesUsuario= entityManager.createQuery("SELECT DISTINCT u.intereses from Usuario u join u.intereses h where u.id = "+ idUsuarioPulsado +"").getResultList();
+				
+				if(listaInteresesUsuario!=null){
+					model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
+				}
 			}
-			
-	
-		}*/
-					
+		}	
+		
 		model.addAttribute("listaActiva2","class='active'");
 		
 		return "mi_perfil";

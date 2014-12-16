@@ -24,6 +24,7 @@ import javax.persistence.OneToOne;
 	@NamedQuery(name="BusquedaServicioPorTextoYCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE LOWER(s.nombre) LIKE :textoMetido AND sCat.id_categoria= :categoriaMetida"),
 	@NamedQuery(name="BusquedaServicioPorSoloTexto",query="SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE :textoMetido")
 	
+	
 })
 
 public class Servicio{

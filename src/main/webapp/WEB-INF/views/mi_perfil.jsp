@@ -135,18 +135,20 @@
 							
 							
 							<ol>
-								<c:choose>
-								
-								<c:when test="${not empty usuario } ">
-									<c:forEach items="${listaInteresesUsusario} " var ="i">
-										<li>${i.nombre}</li>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									No tiene Intereses soso.
-								</c:otherwise>
-								</c:choose>
-							</ol>
+									<c:choose>
+		
+	      							<c:when test="${not empty usuario}">
+										<c:forEach items="${listaInteresesUsuario}" var="s">
+											<li>${s.nombre}</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										No tiene intereses.
+									
+									</c:otherwise>
+									</c:choose>
+									
+								</ol>
 							
 						</div>
 					
