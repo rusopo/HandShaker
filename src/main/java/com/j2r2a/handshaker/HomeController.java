@@ -214,15 +214,19 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/mi_perfil", method = RequestMethod.GET)
-	public String mi_perfilHome(Model model,HttpSession session) {
+	public String mi_perfilHome(HttpServletRequest request,Model model,HttpSession session) {
 				
-		Usuario u = (Usuario)session.getAttribute("usuario");
-				
+		//Usuario u = (Usuario)session.getAttribute("usuario");
+		
+		long idUsuarioPulsado= Long.parseLong(request.getParameter("usuario"));
+		
+		Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", idUsuarioPulsado).getSingleResult();
+					
 		if(u!=null){
 			
 			model.addAttribute("usuario", u);
 			
-			List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ u.getId() +"").getResultList();
+			List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ idUsuarioPulsado +"").getResultList();
 			
 			if(listaServiciosUsuario!=null){
 				model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
@@ -555,7 +559,7 @@ public class HomeController {
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
-		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).getResultList();
+		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).setParameter("idUsuarioMetido", u.getId()).getResultList();
 				
 		if(listaUsuarios!=null){
 			model.addAttribute("listaUsuariosServicio",listaUsuarios);
