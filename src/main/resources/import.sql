@@ -45,6 +45,7 @@ INSERT INTO Servicio VALUES(2,2,'Conocimiento de montaje y desmontaje de ordenad
 INSERT INTO Servicio VALUES(3,2,'Capacidad de limpiar por completo una casa','Limpiador/a de hogar',3);
 INSERT INTO Servicio VALUES(4,1,'Limpiador de cristales con experiencia','Limpiacristales',3);
 INSERT INTO Servicio VALUES(5,2,'Experto de mudanzas de todo tipo','Ayudante de mudanzas',4);
+INSERT INTO Servicio VALUES(6,1,'Montaje y desmontaje de muebles','Des/Montamuebles',5);
 
 --HABILIDADES_USUARIO
 --ID_usuario bigint not null,
@@ -56,7 +57,7 @@ INSERT INTO habilidadesUsuario VALUES(2,1);
 INSERT INTO habilidadesUsuario VALUES(2,4);
 INSERT INTO habilidadesUsuario VALUES(2,5);
 INSERT INTO habilidadesUsuario VALUES(3,1);
-INSERT INTO habilidadesUsuario VALUES(3,2);
+INSERT INTO habilidadesUsuario VALUES(3,6);
 INSERT INTO habilidadesUsuario VALUES(4,1);
 INSERT INTO habilidadesUsuario VALUES(4,3);
 INSERT INTO habilidadesUsuario VALUES(4,5);
@@ -70,9 +71,11 @@ INSERT INTO interesesUsuario VALUES(1,1);
 INSERT INTO interesesUsuario VALUES(1,5);
 INSERT INTO interesesUsuario VALUES(2,2);
 INSERT INTO interesesUsuario VALUES(2,3);
+INSERT INTO interesesUsuario VALUES(2,6);
 INSERT INTO interesesUsuario VALUES(3,3);
 INSERT INTO interesesUsuario VALUES(4,2);
 INSERT INTO interesesUsuario VALUES(4,4);
+INSERT INTO interesesUsuario VALUES(4,6);
 
 
 ----NEGOCIACION
