@@ -1,6 +1,6 @@
 <%@ include file="../fragments/header.jspf" %>
 
-<div id="dialogo" class="ventana">
+<div id="cuerpo" class="container">
 		
 	<div id="cuerpo-negociacion" class="col-md-12">
 			

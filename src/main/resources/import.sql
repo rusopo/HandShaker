@@ -71,6 +71,8 @@ INSERT INTO interesesUsuario VALUES(1,5);
 INSERT INTO interesesUsuario VALUES(2,2);
 INSERT INTO interesesUsuario VALUES(2,3);
 INSERT INTO interesesUsuario VALUES(3,3);
+INSERT INTO interesesUsuario VALUES(4,2);
+INSERT INTO interesesUsuario VALUES(4,4);
 
 
 ----NEGOCIACION

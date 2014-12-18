@@ -244,7 +244,7 @@ public class HomeController {
 						
 			if(u!=null){
 				
-				model.addAttribute("usuario", u);
+				model.addAttribute("usuarioPerfil", u);
 				
 				List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ idUsuarioPulsado +"").getResultList();
 				
@@ -273,9 +273,11 @@ public class HomeController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/mi_perfil/usuario", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-	 public byte[] userPhoto(HttpSession session) throws IOException {
+	 public byte[] userPhoto(HttpServletRequest request,HttpSession session) throws IOException {
 			
-			Usuario u = (Usuario)session.getAttribute("usuario");
+			long iDusuario=Long.parseLong(request.getParameter("id_usuario"));
+		
+			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", iDusuario).getSingleResult();
 			
 		    File f = ContextInitializer.getFile("usuario", String.valueOf(u.getId()).toString());
 		    InputStream in = null;
