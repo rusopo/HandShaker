@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM OfertaEnviada"),
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM OfertaEnviada s"),
     
 })
 public class OfertaEnviada{
