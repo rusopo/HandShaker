@@ -11,24 +11,26 @@
 				<ul id="lista-ofertas">
 				
 				<c:choose>
-				<c:when test="${empty usuario}">
+					<c:when test="${empty usuario}">
 						No tienes Ofertas .
-				</c:when>
-				<c:otherwise>
+					</c:when>
+					<c:otherwise>
 						<c:forEach items="${listaOfertasRecibidasUsuario}" var ="o">
 								<li>
 										<div class="col-md-12">
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
-													    <h3 class="panel-title">#1 OFERTA DE o.usuario.nombre</h3>
-													  </div>
+													    <h3 class="panel-title"> #1 OFERTA DE ${o.usuario_receptor.nombre}</h3>
+													    </div>
 													  <div class="panel-body">
 													    	
 													     <div class="col-md-6">
 													     
-													     	<h4>Te Ofrece:</h4><p>o.servicio_ofrecido.servicio_ofrecido.nombre</p>
+													     	<h4>Te Ofrece:</h4><p>${o.servicio_recibido.servicio_ofrecido.nombre}</p>
+															
 													    	<h4>Por:</h4> <p> Montar mueble</p>
+													    	
 													    	
 													     </div>
 													     <div class="col-md-6">
@@ -77,7 +79,8 @@
 													    	
 													     <div class="col-md-6">
 													     
-													     	<h4>Ofrezco:</h4><p>${o.negociacion.aceptada}e</p>
+													     	<h4>Ofrezco:</h4><p>${o.servicio_recibido.nombre}</p>
+											     	
 													    	<h4>Por:</h4> <p> Montar mueble</p>
 													    	
 													     </div>
