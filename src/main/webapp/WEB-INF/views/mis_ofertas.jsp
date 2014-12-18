@@ -86,7 +86,7 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<button  id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
+													     		<button id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>

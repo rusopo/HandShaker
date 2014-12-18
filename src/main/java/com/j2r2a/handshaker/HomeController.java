@@ -530,7 +530,7 @@ public class HomeController {
 		if(u!=null){
 			model.addAttribute("usuario", u);
 			
-			List<OfertaEnviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").getResultList();
+			List<OfertaEnviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
 			List<OfertaRecibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").getResultList();
 			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
