@@ -40,8 +40,8 @@ INSERT INTO Categoria VALUES(5,'Otros');
 --categoria_id_categoria bigint,
 
 
-INSERT INTO Servicio VALUES(1,3,'Experto en lenguaje de programación Java','Programación JAVA',2);
-INSERT INTO Servicio VALUES(2,2,'Conocimiento de montaje y desmontaje de ordenadores','Técnico informático',2);
+INSERT INTO Servicio VALUES(1,3,'Experto en lenguaje de programacion Java','Programacion JAVA',2);
+INSERT INTO Servicio VALUES(2,2,'Conocimiento de montaje y desmontaje de ordenadores','Tecnico informatico',2);
 INSERT INTO Servicio VALUES(3,2,'Capacidad de limpiar por completo una casa','Limpiador/a de hogar',3);
 INSERT INTO Servicio VALUES(4,1,'Limpiador de cristales con experiencia','Limpiacristales',3);
 INSERT INTO Servicio VALUES(5,2,'Experto de mudanzas de todo tipo','Ayudante de mudanzas',4);

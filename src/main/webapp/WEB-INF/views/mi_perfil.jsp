@@ -109,7 +109,64 @@
 						</div>
 						
 						<div id="info-habilidades" class="col-md-12">
+						
 							<h3 align="center" class="h3-perfil">Mis Habilidades</h3>
+							
+						    <h5>Si realiza otro servicio de los predeterminados, añada su/s servicio/s:</h5>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuevoServicio">
+							  Añadir nuevo servicio
+							</button>
+							
+							<!-- Modal -->
+							<div class="modal fade" id="nuevoServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							  
+							  <form action="">
+							  
+								    <div class="modal-content">
+								    							    
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								        <h4 class="modal-title" id="myModalLabel">Añadir nuevo servicio</h4>
+								      </div>
+								      
+								      <div class="modal-body">
+								  	
+									  	<div class="form-group">
+										    <label for="inputTitulo3" class="col-sm-2 control-label">Titulo</label>
+										    <div class="col-sm-10">
+										      <input type="text" class="form-control" id="inputTitulo3">
+										    </div>
+										</div>
+										
+										<div class="form-group">
+										    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
+										    <div class="col-sm-10">
+										       <select class="form-control">
+												  <option>Informática</option>
+												  <option>Cocina</option>
+												  <option>Limpieza</option>
+												  <option>Mudanzas</option>
+												  <option>Coches</option>
+												</select>
+										    </div>
+										</div>
+										
+										<label for="inputDescripcion3" class="col-sm-2 control-label">Descripción</label>
+										<textarea class="form-control" rows="6"></textarea>
+								  								  								  	
+								  	  </div>
+								       
+								      
+								      <div class="modal-footer">						
+								        <button type="button" class="btn btn-primary">Añadir</button>
+								      </div>
+							      </div>
+						      </form>
+						    </div>					
+						</div>
+							
 								<ol>
 									<c:choose>
 		
@@ -135,18 +192,20 @@
 							
 							
 							<ol>
-								<c:choose>
-								
-								<c:when test="${not empty usuario } ">
-									<c:forEach items="${listaInteresesUsusario} " var ="i">
-										<li>${i.nombre}</li>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									No tiene Intereses soso.
-								</c:otherwise>
-								</c:choose>
-							</ol>
+									<c:choose>
+		
+	      							<c:when test="${not empty usuario}">
+										<c:forEach items="${listaInteresesUsuario}" var="s">
+											<li>${s.nombre}</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										No tiene intereses.
+									
+									</c:otherwise>
+									</c:choose>
+									
+								</ol>
 							
 						</div>
 					

@@ -12,15 +12,19 @@ $(document).ready(function(){
 				type: "POST",
 				success: function(data) {
 					obtenerServicios(data);
+					obtenerServiciosIntereses(data);
 				}
 			});		
 			
 	});
-
+		
 });
 
 var losServicios = {};
 var serviciosSeleccionados = {};
+
+var losServicios2 = {};
+var serviciosSeleccionados2 = {};
 
 function obtenerServicios(serv) {
           	
@@ -124,7 +128,111 @@ function obtenerServicios(serv) {
 	 	 	 	 
  }
  
+ 
+ function obtenerServiciosIntereses(serv) {
+   	
+     console.log(serv);
+     
+	 var cats = $("#catselInteres");
+	 
+	 $("#catselInteres").empty();
+	 $("#catselInteres").append("<option value='0'>--Selecciona--</option>");
+	 
+	 $.each(serv, function(i,o) {
+		 var v = $("<option value='" + o.id + "'>" + o.nombre + "</option>");
+		 cats.append(v);
+		 losServicios2[o.id] = o;
+		 o.servicios = {};
+		 $.each(o.valores, function (i, o2){
+		 	o.servicios[o2.id] = o2;
+		 });
+	 });
+	 	 	 	 
+	 cats.change(function() {
+		 actualiza2($(this),serv);		 
+	 });
+	 
+	 var list = $("<ol id='listaInteresesRegistro' name='listaInteresesRegistro'>");
+	 
+	 var servs = $("#serselInteres");
+	  
+	 servs.change(function() {
+		 var cat = losServicios2[$("#catselInteres").val()];
+		 var ser = cat.servicios[$("#serselInteres").val()];
+		 serviciosSeleccionados2[ser.id] = 'true';
+		 $('#intereses').val(JSON.stringify(serviciosSeleccionados2));
+		 
+		 var li = $("<li id='" + ser.id + "'>");
+		 
+		 var posicion=document.getElementById("serselInteres").options.selectedIndex; //posicion
+		 
+		 li.append("<strong>Seleccionado: </strong>" + 
+				 document.getElementById("serselInteres").options[posicion].text)
+				 
+		 var laEquis2 = $("<span>X</span>");
+		 li.append(laEquis2);
+		 laEquis2.click(function() {
+			 li.remove();
+			 delete(serviciosSeleccionados2[ser.id]);
+			 $('#intereses').val(JSON.stringify(serviciosSeleccionados2));
+		 });
+		 
+		 list.append(li);
+		 console.log(this);		 	 
+		 		 	 
+	 });
+		 
+	 var servsSelec = $("#interes-selec");	 
+	 
+	 servsSelec.append(list);
+	 	 
+ }
+            
+ function actualiza2(que,serv) {
+	 
+	 var bueno;
+	 var buscado = que.val();
+	 var servs;
+	 
+	 $.each(que.children(), function (i, o){
+		 
+		var selec = parseInt($(o).val());
+		
+		selec = selec + 1;
+		
+		if (selec == buscado){
+			
+			bueno = i;
+			
+			servs = document.getElementById("serselInteres");
+			
+			if ( servs.hasChildNodes() ){
+				while ( servs.childNodes.length >= 1 )
+				{
+					servs.removeChild( servs.firstChild );
+				}
+			}
+			
+			servs = $("#serselInteres");
+			
+			$("#serselInteres").empty();
+			$("#serselInteres").append("<option value='0'>--Selecciona--</option>");
+			
+			console.log(serv[bueno].valores);
+								
+			$.each(serv[bueno].valores, function(a,u) {
+			 	var s = $("<option value='" + u.id + "'>" + u.nombre + "</option>");
+			 	servs.append(s);
+			 });
+			 
+		} 
+		
+	 });
+	 	 	 	 
+ }
+ 
 </script>
+
 
 
 <div id="cuerpo" class="container">
@@ -177,9 +285,7 @@ function obtenerServicios(serv) {
 						      <input type="password" class="form-control" id="Contrasenia2Registro" name="Contrasenia2Registro">
 						    </div>
 						  </div>
-						  
-												  
-						  
+						  																		  
 					      <div id="servicios-registro" class="col-md-12">
 						 		
 						 		<h4><strong>Mis Servicios</strong></h4>
@@ -212,45 +318,56 @@ function obtenerServicios(serv) {
 											</div>
 											
 											<div id="servicios-selec" class="col-md-12">
-												<!--  <h5 id="serv-selec"><strong></strong></h5>-->
+												
 											</div>
 											
 											<input type='hidden' name='servs' id='servs'/>									
 									</div>									
 																	
 								</div>
-								
-								
-							
-							  <div class="col-md-12">	
-							  	<h5>Si realiza otro servicio de los predeterminados, añada su/s servicio/s:</h5>
-							  	
-							  	<div class="form-group">
-								    <label for="inputTitulo3" class="col-sm-2 control-label">Titulo</label>
-								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="inputTitulo3">
-								    </div>
-								</div>
-								
-								<div class="form-group">
-								    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
-								    <div class="col-sm-10">
-								       <select class="form-control">
-										  <option>Informática</option>
-										  <option>Cocina</option>
-										  <option>Limpieza</option>
-										  <option>Mudanzas</option>
-										  <option>Coches</option>
-										</select>
-								    </div>
-								</div>
-								
-								<label for="inputDescripcion3" class="col-sm-2 control-label">Descripción</label>
-								<textarea class="form-control" rows="6"></textarea>
-							  								  								  	
-							  </div>
+																											
+						  </div>
+						  
+						  <div id="intereses-registro" class="col-md-12">
+						 		
+						 		<h4><strong>Mis Intereses</strong></h4>
 						
-						  </div>  
+								<p style="margin-bottom: -5px;">Seleccione sus intereses:</p>
+								
+								<div>
+																
+									<div id="anadir-interes" class="col-md-12">
+									
+											<div class="col-md-5">
+											
+												<div align="center" style="margin-bottom: 1%"><strong>Categorias</strong></div>
+											
+												 <select id="catselInteres" name="categoria" class="form-control">
+												 												  
+												</select>
+												
+											</div>
+											
+											<div class="col-md-7">
+											
+												<div align="center" style="margin-bottom: 1%"><strong>Servicios</strong></div>
+											
+												<select id="serselInteres" name="servicio" class="form-control">
+																							  
+												</select>
+												
+											</div>
+											
+											<div id="interes-selec" class="col-md-12">
+												
+											</div>
+											
+											<input type='hidden' name='intereses' id='intereses'/>									
+									</div>									
+																	
+								</div>
+																											  						
+						  </div>   
 						  										
 					</div>
 					

@@ -168,7 +168,7 @@
 							</c:when>
 							<c:otherwise>
 							
-								<li ${listaActiva2}><a href="mi_perfil">Mi Perfil</a></li>
+								<li ${listaActiva2}><a href="mi_perfil?usuario=0">Mi Perfil</a></li>
 							</c:otherwise>
 							</c:choose>					        
 					        <li ${listaActiva3}><a href="mi_historial">Mi Historial</a></li>

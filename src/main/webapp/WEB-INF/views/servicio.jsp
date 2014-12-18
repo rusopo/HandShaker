@@ -32,17 +32,32 @@
 								      </h4>
 								    </div>
 								      <div class="panel-body">
-								      	<div class="checkbox">
+								      
+								      <c:choose>
+										<c:when test="${empty listaUsuariosServicio}">
+										
+											<h4>Solo tu realizas este servicio.</h4>
+										</c:when>
+										
+										<c:otherwise>
+											<div class="checkbox">								      
+									      	 <c:forEach items="${listaUsuariosServicio}" var="u">
+									      	 									      												    
+												    <label>													  
+													  											     
+												      <input type="checkbox"><a href="mi_perfil?usuario=${u.id}">${u.alias}</a>
+												      												      
+												    </label>
+											     											     
+											  </c:forEach> 
+											  
+										  	</div>
+										
+										</c:otherwise>
+										
+										</c:choose>
+								      
 								      	
-								      	 <c:forEach items="${listaUsuariosServicio}" var="u">
-								      		
-										    <label>
-											   
-										      <input type="checkbox"><a href="mi_perfil?usuario=${u.id}">${u.alias}</a>
-										    </label>
-										    
-										  </c:forEach> 
-									  	</div>
 								      </div>
 								   
 								  </div>						  					
