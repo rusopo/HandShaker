@@ -21,15 +21,15 @@
 								
 						<div id="foto-perfil" class="col-md-12" align="center">
 						
-							<img src="mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}" height="150px" width="130px"/>
+							<img src="mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuarioPerfil.id)}" height="150px" width="130px"/>
 						
 						</div>
 						<div id="datos-perfil" class="col-md-12">
 							
-							<h4><strong>Alias: </strong>${e:forHtmlContent(usuario.alias)}</h4> 
-							<h4><strong>Nombre: </strong>${e:forHtmlContent(usuario.nombre)}</h4>
-							<h4><strong>Correo electronico:</strong></h4> <h4>${e:forHtmlContent(usuario.email)}</h4>
-							<h4><strong>Edad: </strong> ${e:forHtmlContent(usuario.edad)}</h4>
+							<h4><strong>Alias: </strong>${e:forHtmlContent(usuarioPerfil.alias)}</h4> 
+							<h4><strong>Nombre: </strong>${e:forHtmlContent(usuarioPerfil.nombre)}</h4>
+							<h4><strong>Correo electronico:</strong></h4> <h4>${e:forHtmlContent(usuarioPerfil.email)}</h4>
+							<h4><strong>Edad: </strong> ${e:forHtmlContent(usuarioPerfil.edad)}</h4>
 												
 						</div>
 					
@@ -216,8 +216,8 @@
 						<h3 align="center" class="h3-perfil">Mi Ubicacion</h3>
 						
 						<form name="latLongOcultas" id="latLongOcultas" action="">
-							<input type="hidden" id="latitud" name="latitud" value="${e:forHtmlContent(usuario.latitud)}">
-							<input type="hidden" id="longitud" name="longitud" value="${e:forHtmlContent(usuario.longitud)}">
+							<input type="hidden" id="latitud" name="latitud" value="${e:forHtmlContent(usuarioPerfil.latitud)}">
+							<input type="hidden" id="longitud" name="longitud" value="${e:forHtmlContent(usuarioPerfil.longitud)}">
 						</form>
 					
 						<div id="perfil-mapa"></div>

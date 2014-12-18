@@ -13,26 +13,25 @@
 	<div>
 
 		<h3><a href="../index"><strong> Vista Index: </strong></a></h3> <p>  Se muestra una barra de buscador en el que podremos escribir el servicio 
-		que necesitamos. También se podran buscar servicios por categorías.
+		que necesitamos encontrar dependiendo de los servicios que existen en la base de datos. También se podran buscar servicios por categorías.
 		Solo se mostraran los servicios que hay disponibles y los usuarios que son capaces de desempeñarlos, sin poder acceder al perfil de esos usuarios.
-		Para poder acceder a esos perfiles habra que registrarse en nuestra página </p>
+		Para poder acceder a esos perfiles habra que registrarse en nuestra página y pinchar en el nombre del servicio</p>
 		<h3><a href="../registro"><strong> Vista Registro: </strong></a></h3> <p>En la ventana de registro tendremos que rellenar los campos solicitados. Se dan unos servicios
-		predeterminados y la posibilidad de añadir otros servicios que no esten dados de alta en nuestro sistema. Se usara la API de google maps para mostrar nuestra localización</p>
-		<h3><a href="../administrador"><strong>  Vista Administrador:</strong></a></h3> <p>En la ventana del administrador podremos controlar distintos factores
-		Elimiar usuario, modificar usuario, añadir servicio, eliminar servicio, eliminar negociación, etc.</p>
+		predeterminados para añadir las habilidades y los intereses de un usuario. Se usara la API de google maps para mostrar nuestra localización</p>
+		<h3><a href="../administrador"><strong>  Vista Administrador:</strong></a></h3> <p><strong>(IMPORTANTE: REGISTRARSE como administrador admin -> admin) </strong>En la ventana del administrador podremos controlar distintos factores
+		Elimiar usuario, modificar usuario, añadir servicio, eliminar servicio, eliminar negociación, etc. según una tabla para de Usuarios,Servicios y Negociaciones</p>
 		<h3><a href="../mi_historial"><strong> Vista Mi Historial:</strong></a></h3> <p> Se ira rellenando automáticamente a medida que el usuario vaya desempeñando servicios.
 		Se muestra una tabla con los trabajos realizados y ofrecidos, la fecha en la que se ha realizado ese trabajo y la valoración de cada uno de ellos. </p>
-		<h3><a href="../mi_perfil"><strong>Vista Mi Perfil:</strong></a></h3> <p> Se mostrarán los datos del usuario, tanto los intereses como las actividades que es capaz de desempeñar.
-		También aparecerá un calendario con la disponibilidad de horarios, el cual tendra que rellenar el usuario acorde sus necesidades. 
+		<h3><a href="../mi_perfil?usuario=0"><strong>Vista Mi Perfil:</strong></a></h3> <p><strong>(NECESITAS ESTAR REGISTRADO) </strong>Se mostrarán los datos del usuario, tanto los intereses como las actividades que es capaz de desempeñar.
+		También aparecerá una tabla con la disponibilidad de horarios. Se le da al usuario la capacidad de poder añadir un nuevo usuario a la base de datos, y posteriormente añadir eses nuevo servicio como habilidad o interes
 		También aparecerá la valoración general del usuario. Se usará la API de google maps para mostrar la localización del usuario.
 		 </p>
 		<h3><a href="../mis_ofertas"><strong> Vista Mis Ofertas:</strong></a></h3> <p>Ventana que muestra los servicios que han sido ofrecidos y enviados a ese usuario. 
 		Se podrá aceptar o rechazar las ofertas ofrecidas y tambien se podrá negociar o cancelar las enviadas. </p>
 		<h3><a href= "../negociacion"><strong> Vista Negociación:</strong></a></h3> <p> Ventana que muestra la conversación privada con un usuario preciso con el fin de llegar a un acuerdo de servicios. 
 		Sera capaz de cancelar esa negociación si el usuario no esta conforme, tambien se podra aceptar esa oferta si se ha llegado a un acuerdo. </p>
-		<h3><a href= "../servicio"><strong>  Vista Servicio:</strong></a> </h3> <p> Ventana que aparece cuando seleccionas un servicio. 
-		Se muestran los usuarios que realizan ese servicio, para poder acceder a esta ventana tienes que estar registrado en nuestro sistema. 
-		A cada usuario le puedes ofrecer un trabajo distinto o bien dejar la negociación para después. 
+		<h3><a href= "../servicio?id_servicio=1"><strong>  Vista Servicio:</strong></a> </h3> <p> <strong>(NECESITAS ESTAR RESGISTRADO Y LOGUEADO) </strong>Ventana que aparece cuando seleccionas un servicio. 
+		Se muestran los usuarios que realizan ese servicio, pudiendole dar la opcion de intercambiar un servicio con él o no, y esto para mas de un usuario.A cada usuario le puedes ofrecer un trabajo distinto o bien dejar la negociación para después. 
 		  </p>
 	  
 	</div>
@@ -43,6 +42,25 @@
 		
 		<h3>ESQUEMA  <a href="images/EsquemaBBDD_HandShaker.jpg">Pulse aquí</a></h3>
 		<h3>TABLAS  <a href="images/TablasBBDD_HandShaker.jpg">Pulse aquí</a></h3>
+	
+	</div>
+	
+	<div>
+	
+		<h2 style="font-weight: bold;text-decoration: underline;">Contraseñas BBDD</h2>
+		
+		<h3>1.admin -> admin (Para ser administrador)</h3>
+		<h3>2.rusopo -> 12345</h3>
+		<h3>3.test1 -> admin</h3>
+		<h3>4.manuel -> freire</h3>
+	
+	</div>
+	
+	<div>
+	
+		<h2 style="font-weight: bold;text-decoration: underline;">Fichero de datos</h2>
+		
+		<p>Incluido fichero de datos para poder visualizar las fotos de perfil. Carpeta: <strong>tmp/handshaker</strong></p>
 	
 	</div>
 	
