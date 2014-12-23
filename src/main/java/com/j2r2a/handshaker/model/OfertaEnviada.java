@@ -16,14 +16,13 @@ import javax.persistence.OneToOne;
 @Entity
 
 @NamedQueries({
-	
-    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT DISTINCT s FROM OfertaEnviada s"),
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM OfertaEnviada s WHERE s.usuario = :UsuarioMetido" ),
     
 })
 public class OfertaEnviada{
 	
 	private long id;		
-	private Date fecha;
+	//private Date fecha;
 	private Servicio servicioRecibido;
 	private Usuario usuario;
 	private Negociacion negociacion;
@@ -38,12 +37,13 @@ public class OfertaEnviada{
 	public void setId_oferta_enviada(long id) {
 		this.id = id;
 	}
+	/*
 	public Date getFecha() {
 		return fecha;
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
+	}*/
 	
 	@OneToOne(targetEntity=Servicio.class) //Una oferta enviada tiene un servicio recibido
 	public Servicio getServicio_recibido() {

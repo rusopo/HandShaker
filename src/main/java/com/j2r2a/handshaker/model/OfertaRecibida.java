@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	
-    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT DISTINCT s FROM OfertaRecibida s"),
+    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM OfertaRecibida s"),
     
 })
 
