@@ -527,6 +527,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/mis_ofertas", method = RequestMethod.GET)
+	@Transactional
 	public String mis_ofertasHome(Model model, HttpSession session,HttpServletRequest request) {
 		
 		Usuario u = (Usuario)session.getAttribute("usuario");
@@ -545,10 +546,10 @@ public class HomeController {
 			model.addAttribute("lista_ofertas_enviadas_usuarios", listaOfertasEnviadasUsuario);
 			model.addAttribute("lista_ofertas_recibidas_usuarios", listaOfertasRecibidasUsuario);
 			
-			}			
+			}	
 		
-		String dado = request.getParameter("negociacion");
-		System.out.print(dado.toString());
+		
+		
 		
 		model.addAttribute("listaActiva4","class='active'");
 	
@@ -558,14 +559,18 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/negociacion", method = RequestMethod.GET)
-	public String negociacionHome(Model model, HttpSession session) {
+	@RequestMapping(value = "/negociacion", method = RequestMethod.POST)
+	@Transactional
+	public String negociacionHome(Model model, HttpSession session,HttpServletRequest request) {
 		
 	
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
 		
-		Negociacion negociacion = (Negociacion)session.getAttribute("negociacion");
+	//	Negociacion negociacion = (Negociacion)session.getAttribute("boton-negociacion");
+		String formNegociacion = request.getParameter("boton-negociacionRM");
+		Negociacion negociacion = (Negociacion) request.getAttribute(formNegociacion);
+		
 		if(u!=null){
 			//Usuario u2 = (Usuario)session.getAttribute("")
 			List<Negociacion> n = entityManager.createNamedQuery("DameListaNegociacion").getResultList();

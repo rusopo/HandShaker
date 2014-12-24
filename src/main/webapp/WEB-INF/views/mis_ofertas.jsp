@@ -37,8 +37,8 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<input type="hidden" name="botPress">
-													     		<a href="negociacion" id= "boton-negociacion" class="btn btn-success btn-lg" name ="negociar" type ="neg">Negociar Oferta</a>
+													     		
+													     		<a href="negociacion" id= "boton-negociacion" class="btn btn-success btn-lg" name ="boton-negociacion" type ="negociar">Negociar Oferta</a>
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
@@ -71,6 +71,7 @@
 					<c:otherwise>
 						<c:forEach items="${listaOfertasEnviadasUsuario}" var ="o">
 								<li>
+								
 										<div class="col-md-12">
 										
 												<div class="panel panel-primary">
@@ -89,9 +90,12 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<input type="hidden" name="botPress">
-													     		<a href="negociacion" id= "boton-negociacion" class="btn btn-success btn-lg" name ="negociar" type ="neg">Negociar Oferta</a>
+													     	<form action="negociacion" method="POST">
 													     		
+													     		<input type= "submit"
+													     		 <a href="negociacion" id= "boton-negociacion" class="btn btn-success btn-lg" name ="boton-negociacionRM" value ="1" >Negociar Oferta</a>
+													     		/>
+													     	</form>	
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
@@ -100,7 +104,8 @@
 													    	
 													  </div>
 												 </div>									 		
-										</div>		
+										</div>	
+										
 								</li>
 							</c:forEach>
 						</c:otherwise>
