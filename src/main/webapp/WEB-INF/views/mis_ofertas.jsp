@@ -21,7 +21,7 @@
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
-													    <h3 class="panel-title"> #1 OFERTA DE ${o.usuario_receptor.nombre}</h3>
+													    <h3 class="panel-title"> #1 OFERTA DE ${o.negociacion.usuario2.nombre}</h3>
 													    </div>
 													  <div class="panel-body">
 													    	
@@ -29,7 +29,7 @@
 													     
 													     	<h4>Te Ofrece:</h4><p>${o.servicio_recibido.servicio_ofrecido.nombre}</p>
 															
-													    	<h4>Por:</h4> <p> Montar mueble</p>
+													    	<h4>Por:</h4> <p> ${o.servicio_recibido.servicio_ofrecido.nombre}</p>
 													    	
 													    	
 													     </div>
