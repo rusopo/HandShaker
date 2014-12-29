@@ -15,6 +15,7 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
 import com.j2r2a.handshaker.model.OfertaEnviada;
-import com.j2r2a.handshaker.model.OfertaRecibida;
+//import com.j2r2a.handshaker.model.OfertaRecibida;
 import com.j2r2a.handshaker.model.Servicio;
 import com.j2r2a.handshaker.model.Usuario;
 
@@ -516,7 +517,8 @@ public class HomeController {
 			model.addAttribute("usuario", u);
 			
 			List<OfertaEnviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
-			List<OfertaRecibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
+			List<OfertaEnviada> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
+			
 			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
 			}

@@ -1,5 +1,6 @@
 package com.j2r2a.handshaker.model;
 
+
 import java.util.List;
 
 import javax.persistence.Entity;

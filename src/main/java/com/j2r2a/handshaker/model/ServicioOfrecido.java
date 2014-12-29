@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-
+/*
 @Entity
 public class ServicioOfrecido{
 	
@@ -13,6 +13,7 @@ public class ServicioOfrecido{
 	private long id;	
 	private Usuario usuario;
 	private Servicio servicioOfrecido;
+	//private OfertaEnviada ofertaEnviada;
 	
 	@Id
     @GeneratedValue
@@ -22,6 +23,7 @@ public class ServicioOfrecido{
 	public void setId_servicio_ofrecido(long id) {
 		this.id = id;
 	}
+
 	
 	@OneToOne(targetEntity=Usuario.class) //Un servicio ofrecido es para 1 usuario
 	public Usuario getUsuario() {
@@ -31,6 +33,16 @@ public class ServicioOfrecido{
 		this.usuario = usuario;
 	}
 	
+	
+	@OneToOne(targetEntity=OfertaEnviada.class) //Un servicio ofrecido corresponde a 1 oferta enviada
+	public OfertaEnviada getOferta_enviada() {
+		return ofertaEnviada;
+	}
+	public void setOferta_enviada(OfertaEnviada oferta_enviada) {
+		this.ofertaEnviada = oferta_enviada;
+	}
+	
+	
 	@OneToOne(targetEntity=Servicio.class) //Un servicio ofrecido corresponde a 1 servicio
 	public Servicio getServicio_ofrecido() {
 		return servicioOfrecido;
@@ -39,5 +51,4 @@ public class ServicioOfrecido{
 		this.servicioOfrecido = servicio_ofrecido;
 	}
 
-
-}
+}*/
