@@ -35,9 +35,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
+
 import com.j2r2a.handshaker.model.Negociacion;
 import com.j2r2a.handshaker.model.OfertaEnviada;
-import com.j2r2a.handshaker.model.OfertaRecibida;
+//import com.j2r2a.handshaker.model.OfertaRecibida;
 import com.j2r2a.handshaker.model.Servicio;
 import com.j2r2a.handshaker.model.Usuario;
 
@@ -536,20 +537,16 @@ public class HomeController {
 			model.addAttribute("usuario", u);
 			
 			List<OfertaEnviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
-			List<OfertaRecibida> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").getResultList();
+			List<OfertaEnviada> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
+			
 			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
 			}
 			if(listaOfertasRecibidasUsuario.size() !=0){
 				model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
 			}
-			model.addAttribute("lista_ofertas_enviadas_usuarios", listaOfertasEnviadasUsuario);
-			model.addAttribute("lista_ofertas_recibidas_usuarios", listaOfertasRecibidasUsuario);
 			
-			}	
-		
-		
-		
+		}			
 		
 		model.addAttribute("listaActiva4","class='active'");
 	
@@ -559,30 +556,34 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/negociacion", method = RequestMethod.POST)
-	@Transactional
+	@RequestMapping(value = "/negociacion", method = RequestMethod.GET)
 	public String negociacionHome(Model model, HttpSession session,HttpServletRequest request) {
 		
 	
+		System.out.print("aaa");
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
 		
-	//	Negociacion negociacion = (Negociacion)session.getAttribute("boton-negociacion");
-		String formNegociacion = request.getParameter("boton-negociacionRM");
-		Negociacion negociacion = (Negociacion) request.getAttribute(formNegociacion);
+		long id_negociacion_pulsada= Long.parseLong(request.getParameter("id_negociacionNombre"));
+		//Negociacion id_negociacion_pulsada= (Negociacion)request.getSession().getAttribute("id_negociacion");//Long.parseLong(request.getParameter("id_negociacion"));
 		
-		if(u!=null){
-			//Usuario u2 = (Usuario)session.getAttribute("")
-			List<Negociacion> n = entityManager.createNamedQuery("DameListaNegociacion").getResultList();
-		for(int i =0; i < n.size(); i++){
-				if( session.getId().equals(n.get(i).getId_negociacion())){
-					
-					
-				}
-				//System.out.print(n.get(i).getUsuario1().getNombre() + "  "  + n.get(i).getUsuario2().getNombre() );
+		Negociacion negociacion= (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getSingleResult();
+		
+		
+		if(negociacion != null){
+			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
+		
+			List<String> listaComentarios = negociacion.getLista_comentarios();
+			model.addAttribute("listaDeComentarios", listaComentarios);
+			String texto = request.getParameter("textoAEnviar");
+			
+			if(texto!=null){
+			listaComentarios.add(texto);
+			negociacion.setLista_comentarios(listaComentarios);
+			model.addAttribute("listaDeComentarios", negociacion.getLista_comentarios());
 			}
 		}
-		
+	
 		
 		model.addAttribute("listaActiva6","class ='active'");
 		return "negociacion";
