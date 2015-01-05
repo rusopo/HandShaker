@@ -21,16 +21,14 @@
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
-													    <h3 class="panel-title"> #1 OFERTA DE ${o.usuario_receptor.nombre}</h3>
+													    <h3 class="panel-title"> #1 OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}</h3>
 													    </div>
 													  <div class="panel-body">
 													    	
 													     <div class="col-md-6">
 													     
-													     	<h4>Te Ofrece:</h4><p>${o.servicio_recibido.servicio_ofrecido.nombre}</p>
-															
-													    	<h4>Por:</h4> <p> Montar mueble</p>
-													    	
+													     	<h4>Te Ofrece:</h4><p>${o.servicio_solicitado.nombre}</p>
+													    	<h4>Por:</h4> <p> ${o.servicio_ofrecido.nombre}</p>
 													    	
 													     </div>
 													     <div class="col-md-6">
@@ -72,16 +70,16 @@
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
-													    <h3 class="panel-title">#1 OFERTA DE ${o.usuario.nombre}</h3>
+													    <h3 class="panel-title">#1 OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre} </h3>
 													    
 													  </div>
 													  <div class="panel-body">
 													    	
 													     <div class="col-md-6">
 													     
-													     	<h4>Ofrezco:</h4><p>${o.servicio_recibido.nombre}</p>
+													     	<h4>Ofrezco:</h4><p>${o.servicio_solicitado.nombre}</p>
 											     	
-													    	<h4>Por:</h4> <p> Montar mueble</p>
+													    	<h4>Por:</h4> <p> ${o.servicio_ofrecido.nombre}</p>
 													    	
 													     </div>
 													     <div class="col-md-6">

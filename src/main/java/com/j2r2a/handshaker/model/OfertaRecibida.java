@@ -7,12 +7,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-
+/*
 @Entity
 
 @NamedQueries({
 	
-    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM OfertaRecibida s"),
+    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM OfertaRecibida s WHERE s.usuario_receptor = :UsuarioMetido"),
     
 })
 
@@ -21,7 +21,7 @@ public class OfertaRecibida{
 	
 	private long id;	
 	private ServicioOfrecido servicioRecibido;
-	private Usuario usuario;
+	private Usuario usuarioReceptor;
 	private Negociacion negociacion;
 	
 	@Id
@@ -43,10 +43,10 @@ public class OfertaRecibida{
 	
 	@OneToOne(targetEntity=Usuario.class) //Un oferta recibida es para 1 usuario
 	public Usuario getUsuario_receptor() {
-		return usuario;
+		return usuarioReceptor;
 	}
 	public void setUsuario_receptor(Usuario usuarioReceptor) {
-		this.usuario = usuarioReceptor;
+		this.usuarioReceptor = usuarioReceptor;
 	}
 	
 	@OneToOne(targetEntity=Negociacion.class) //Una oferta recibida tiene 1 negociacion
@@ -58,4 +58,4 @@ public class OfertaRecibida{
 	}
 	
 
-}
+}*/
