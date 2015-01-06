@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 
 @NamedQueries({
 	@NamedQuery(name="delUser", query="delete from Usuario u where u.id= :idParam"),
+	//@NamedQuery(name="ActualizarUsuario", query="UPDATE Usuario SET alias= :aliasParam, nombre= :nombreParam"),
     @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido"),
     @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c"),
     @NamedQuery(name="ExisteUsuarioPorID",query="SELECT u FROM Usuario u WHERE u.id = :IDMetido")
@@ -77,13 +78,15 @@ public class Usuario{
 		return generateHashedAndSalted(pass, this.salt).equals(this.contrasenia);		
 	}
 	
+	
+	
 	@Id
     @GeneratedValue
 	public long getId() {
 		return id;
 	}
 
-
+	
 	public void setId(long id) {
 		this.id = id;
 	}

@@ -5,8 +5,12 @@
 $(function() {
 	$(".x").click(function(){
 		var id=$(this).attr("id").substring("del_".length);
-		console.log("deleting", id);
-		delUser(id);
+	
+		if (confirm("Estas seguro de que quieres eliminar al usuario "+id + "?"	) == true) 
+		{	
+			console.log("deleting", id);
+    		delUser(id);
+	    }		
 	});
 })
 
@@ -15,6 +19,28 @@ function delUser(id) {
 	$.post("delUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
 			function(data) {
 				$("#del_"+id).parent().parent().remove();
+			});
+}
+</script>
+
+<script type="text/javascript">
+$(function() {
+	$(".edit").click(function(){
+		var id=$(this).attr("id").substring("edit_".length);
+	
+		if (confirm("Estas seguro de que quieres editar al usuario "+id + "?"	) == true) 
+		{	
+			console.log("editing", id);
+    		editUser(id);
+	    }		
+	});
+})
+
+function editUser(id) {
+		
+	$.post("editUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
+			function(data) {
+				$("#edit_"+id).parent().parent().remove();
 			});
 }
 </script>
@@ -29,7 +55,7 @@ function delUser(id) {
 							 			<th>nombre</th>
 							 			<th>habilidades</th>
 							 			<th>Intereses</th>
-							 			<th>Seleccionar</th>
+							 			<th>Administrar</th>
 							 		</tr>
 							 	</thead>      
 				      		      
@@ -43,7 +69,9 @@ function delUser(id) {
 											<td>${u.nombre}</td>
 											<td>mis habilidades</td>
 											<td>mis intereses</td>
-											<td><button class="x" id="del_${u.id}">X</button></tr>			
+											<td><button class="x" id="del_${u.id}">X</button>
+												<button class="edit" id="edit_${u.id}">Editar</button></td>
+											</tr>	
 										</c:forEach>
 									</c:when>
 									<c:otherwise>

@@ -519,6 +519,71 @@ public class HomeController {
 		}
 	}			
 	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/delService", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional // needed to allow DB change
+	public ResponseEntity<String> borrarServicio(@RequestParam("id") long id,
+			@RequestParam("csrf") String token, HttpSession session) {
+		
+		System.err.println(id);
+	    if (entityManager.createNamedQuery("BorrarServicio")
+				.setParameter("idService", id).executeUpdate() == 1) {
+			return new ResponseEntity<String>("Ok: service " + id + " removed", 
+					HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Error: no such service", 
+					HttpStatus.BAD_REQUEST);
+		}
+	}	
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/delNeg", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional // needed to allow DB change
+	public ResponseEntity<String> borrarNegociacion(@RequestParam("id") long id,
+			@RequestParam("csrf") String token, HttpSession session) {
+		
+	    if (entityManager.createNamedQuery("BorrarNegociacion")
+				.setParameter("idNeg", id).executeUpdate() == 1) {
+			return new ResponseEntity<String>("Ok: user " + id + " removed", 
+					HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Error: no such user", 
+					HttpStatus.BAD_REQUEST);
+		}
+	}		
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional // needed to allow DB change
+	public ResponseEntity<String> actualizarUsuario(@RequestParam("id") long id,
+			/*@RequestParam("alias") String alias,
+			@RequestParam("nombre") String nombre,*/
+			@RequestParam("csrf") String token, HttpSession session) {
+		
+		//Traigo al usuario con el id a actualizar, si lo encuentra, lo modifico
+		Usuario user = entityManager.find(Usuario.class, id);
+	    if (user!=null)
+		{
+	    	user.setAlias("HOLA");
+	    	user.setNombre("APELLIDO");
+			return new ResponseEntity<String>("Ok: user " + id + " updated", 
+					HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Error: no such user", 
+					HttpStatus.BAD_REQUEST);
+		}
+		
+		
+	}		
 	
 	
 	/**

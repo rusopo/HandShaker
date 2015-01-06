@@ -1,6 +1,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
 			
-			<div id="panel-control-admin" class="col-md-12">
+<script type="text/javascript">
+	$(function() {
+		$(".xX").click(function(){
+			var id=$(this).attr("id").substring("del_".length);
+			if (confirm("Estas seguro de que quieres eliminar el servicio "+ id + "?"	) == true) 
+			{	
+				console.log("deleting", id);
+	    		delService(id);
+		    }		
+		});
+	})
+	
+	function delService(id) {
+		$.post("delNeg", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
+				function(data) {
+					$("#del_"+id).parent().parent().remove();
+				});
+	}
+</script>
+
+
+		<div id="panel-control-admin" class="col-md-12">
 			
 						<table id="tabla-administracion2" class="table">
 							 	<thead>
@@ -9,7 +31,7 @@
 							 			<th>nombre</th>
 							 			<th>categoria</th>
 							 			<th>descripcion</th>
-							 			
+							 			<th>Eliminar</th>
 							 		</tr>
 							 	</thead>      
 				      		      
@@ -22,6 +44,7 @@
 											<td>${s.nombre}</td>
 											<td>${s.categoria.nombreCategoria}</td>
 											<td>${s.descripcion}</td>
+											<td><button class="xX" id="del_${s.id_servicio}">X</button>
 										    </tr>			
 										</c:forEach>
 									</c:when>
