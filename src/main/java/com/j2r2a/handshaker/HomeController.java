@@ -189,6 +189,83 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@RequestMapping(value = "/anadirNuevoServicio", method = RequestMethod.POST)
+	@Transactional
+	
+	public String anadirNuevoServicioForm(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam("tituloServicio") String formTituloServicio,@RequestParam("categoriaServicio") long formCategoriaServicio,
+			@RequestParam("descripcionServicio") String formDescripcionServicio) {
+		
+		Usuario usuario = (Usuario)session.getAttribute("usuario");
+		
+		long id = usuario.getId();
+		
+		Categoria categoria = (Categoria)entityManager.createNamedQuery("ExisteCategoriaPorID").setParameter("IDCategoriaMetida", formCategoriaServicio).getSingleResult();
+		
+		Servicio servicio = Servicio.crearServicio(formTituloServicio, categoria, formDescripcionServicio,0);
+		entityManager.persist(servicio);
+			
+		return "redirect:"+ "mi_perfil?usuario="+id;
+	
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/anadirNuevaHabilidad", method = RequestMethod.POST)
+	@Transactional
+	
+	public String anadirNuevaHabilidadForm(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam("servs") String habilidades_metidas) {
+		
+		Usuario usuario = (Usuario)session.getAttribute("usuario");	
+		long id = usuario.getId();
+		
+		List<Servicio> lista_habilidades = new ArrayList<Servicio>();		
+		String aux = habilidades_metidas.replaceAll("[^0-9]+","");
+			
+			for(int i=0; i < aux.length();i++){			
+				long id_serv =(long)(aux.charAt(i)-'0');				
+				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();				
+				s.setContadorUsuarios(s.getContadorUsuarios()+1);
+				lista_habilidades.add(s);
+				//entityManager.createQuery("INSERT into habilidadesUsuario("+id +','+s.getId_servicio()+')');
+			}			
+		usuario.setHabilidades(lista_habilidades);
+					
+		return "redirect:"+ "mi_perfil?usuario="+id;
+	
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/anadirNuevoInteres", method = RequestMethod.POST)
+	@Transactional
+	
+	public String anadirNuevoInteresForm(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam("intereses") String intereses_metidos) {
+		
+		Usuario usuario = (Usuario)session.getAttribute("usuario");	
+		long id = usuario.getId();
+		
+		List<Servicio> lista_intereses = new ArrayList<Servicio>();		
+		String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
+			
+			for(int i=0; i < auxInteres.length();i++){				
+				long id_serv =(long)(auxInteres.charAt(i)-'0');				
+				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();
+				lista_intereses.add(s);								
+			}			
+		usuario.setIntereses(lista_intereses);
+					
+		return "redirect:"+ "mi_perfil?usuario="+id;
+	
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
 	@RequestMapping(value = "/mi_perfil", method = RequestMethod.GET)
 	public String mi_perfilHome(HttpServletRequest request,Model model,HttpSession session) {
 							
@@ -213,7 +290,10 @@ public class HomeController {
 						model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
 					}
 			}
-		}	
+		}
+		
+		List<Categoria> listaTodasCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
+		model.addAttribute("listaCategorias", listaTodasCategorias);
 		
 		model.addAttribute("elemNavbarActive2","class='active'");
 		

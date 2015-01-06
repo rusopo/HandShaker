@@ -273,14 +273,14 @@ function obtenerServicios(serv) {
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="ContraseniaRegistro" class="col-sm-2 control-label">Contraseña</label>
+						    <label for="ContraseniaRegistro" class="col-sm-2 control-label">Contrase&ntilde;a</label>
 						    <div class="col-sm-10">
 						      <input type="password" class="form-control" id="ContraseniaRegistro" name="ContraseniaRegistro">
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
-						    <label for="Contrasenia2Registro" class="col-sm-2 control-label">Verificar Contraseña</label>
+						    <label for="Contrasenia2Registro" class="col-sm-2 control-label">Verificar Contrase&ntilde;a</label>
 						    <div class="col-sm-10">
 						      <input type="password" class="form-control" id="Contrasenia2Registro" name="Contrasenia2Registro">
 						    </div>
@@ -384,14 +384,14 @@ function obtenerServicios(serv) {
 					
 					  <div align="center">
 					  
-						<h3><strong>Mi Localización</strong></h3>
+						<h3><strong>Mi Localizaci&oacute;n</strong></h3>
 							
 							<div class="form-group">
 								<label for="direccion" class="col-sm-2 control-label">Direcci&oacute;n</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="direccion" name="direccion" value=""/> 
 								</div>
-								<button class="btn btn-primary" id="boton-pasar-direccion-mapa">Insertar Dirección en Mapa</button>
+								<button class="btn btn-primary" id="boton-pasar-direccion-mapa">Insertar Direcci&oacute;n en Mapa</button>
 							</div>	 
 								<!-- div donde se dibuja el mapa-->
 								<div id="mapa-registro" class="col-md-12"></div>
