@@ -32,11 +32,11 @@ public class Usuario{
 	private long id;
 	private String alias;
 	private String nombre;
+	private String rol;
 	private long edad;
 	private String email;
 	private String contrasenia;
 	private String salt;
-	//private String foto;
 	private double latitud;
 	private double longitud;
 	private ArrayList<Integer> valoracion;
@@ -45,11 +45,12 @@ public class Usuario{
 	
 	public Usuario(){}
 	
-	public static Usuario crearUsuario(String alias, String nombre,long edad,String email,String contrasenia,double latitud,double longitud) {
+	public static Usuario crearUsuario(String alias, String nombre,String rol,long edad,String email,String contrasenia,double latitud,double longitud) {
 		
 		Usuario u = new Usuario();
 		u.alias = alias;
 		u.nombre=nombre;
+		u.rol=rol;
 		u.edad=edad;
 		u.email=email;
 	
@@ -106,6 +107,14 @@ public class Usuario{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 
