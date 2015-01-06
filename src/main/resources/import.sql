@@ -7,6 +7,7 @@
 --latitud double not null,
 --longitud double not null,
 --nombre varchar(255),
+--rol varchar(255),
 --salt varchar(255),
 --valoracion varbinary(255),
 
@@ -16,10 +17,10 @@
 --3.test1 -> admin
 --4.manuel -> freire
 
-INSERT into Usuario values(1,'admin','4e472a2779abd6d6571c76b0f845cb5d20e084e7', 34, 'admin@gmail.com',44.2, 44.3, 'Administrador','8d6ebca8c2f3bca1336d778fffcfc941', NULL);
-INSERT into Usuario values(2,'rusopo','d16b254da3bab8814357b2566ba2bc988c266b21', 23, 'ruben@gmail.com',40.4312585, -3.7102769000000535, 'Ruben','008c483eb1bcc2d4c54babc9bc04cfd2', NULL);
-INSERT into Usuario values(3,'test1','935b09d31e97ce2cd6222084b30a01cdff91c6bc', 33, 'test@gmail.com',40.4312585, -3.7102769000000535, 'Test','5795fce1d232e7ceaf777deeb8171600', NULL);
-INSERT into Usuario values(4,'manuel','a29e7a225f6e9d55b1b009f296d4143c18d13018',32,'manuelfreire@gmail.com',40.452807689244956,-3.733441060852101,'Manuel Freire','b175386dabcdb205311112cda6bac27d',NULL);
+INSERT into Usuario values(1,'admin','4e472a2779abd6d6571c76b0f845cb5d20e084e7', 34, 'admin@gmail.com',44.2, 44.3, 'Administrador','administrador','8d6ebca8c2f3bca1336d778fffcfc941', NULL);
+INSERT into Usuario values(2,'rusopo','d16b254da3bab8814357b2566ba2bc988c266b21', 23, 'ruben@gmail.com',40.4312585, -3.7102769000000535, 'Ruben','usuario','008c483eb1bcc2d4c54babc9bc04cfd2', NULL);
+INSERT into Usuario values(3,'test1','935b09d31e97ce2cd6222084b30a01cdff91c6bc', 33, 'test@gmail.com',40.4312585, -3.7102769000000535, 'Test','usuario','5795fce1d232e7ceaf777deeb8171600', NULL);
+INSERT into Usuario values(4,'manuel','a29e7a225f6e9d55b1b009f296d4143c18d13018',32,'manuelfreire@gmail.com',40.452807689244956,-3.733441060852101,'Manuel Freire','usuario','b175386dabcdb205311112cda6bac27d',NULL);
 
 
 --CATEGORIA

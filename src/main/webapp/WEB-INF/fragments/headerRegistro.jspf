@@ -163,21 +163,21 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <ul class="nav navbar-nav">
 					      
-					        <li ${listaActiva1}><a href="index">Inicio</a></li>
+					        <li ${elemNavbarActive1}><a href="index">Inicio</a></li>
 					        <c:choose>
 							<c:when test="${not empty usuario}">
 							
-								<li ${listaActiva2}><a href="mi_perfil?usuario=${usuario.id}">Mi Perfil</a></li>
+								<li ${elemNavbarActive2}><a href="mi_perfil?usuario=${usuario.id}">Mi Perfil</a></li>
 							</c:when>
 							<c:otherwise>
 							
-								<li ${listaActiva2}><a href="mi_perfil?usuario=0">Mi Perfil</a></li>
+								<li ${elemNavbarActive2}><a href="mi_perfil?usuario=0">Mi Perfil</a></li>
 							</c:otherwise>
 							</c:choose>					        
-					        <li ${listaActiva3}><a href="mi_historial">Mi Historial</a></li>
-					        <li ${listaActiva4}><a href="mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
+					        <li ${elemNavbarActive3}><a href="mi_historial">Mi Historial</a></li>
+					        <li ${elemNavbarActive4}><a href="mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
 					  		<c:if test="${usuario.alias eq 'admin'}">
-							   <li ${listaActiva5}><a href="administrador">Panel Administración</a></li>
+							   <li ${elemNavbarActive5}><a href="administrador">Panel Administración</a></li>
 							</c:if>
 					        
 					      </ul>

@@ -62,15 +62,11 @@ public class HomeController {
 		String formPass = request.getParameter("pass");
 		String formSource = request.getParameter("source");
 		logger.info("Login attempt from '{}' while visiting '{}'", formName, formSource);
-		
-		
-		// validate request
-		
-		if (formName == null || formName.length() < 5 || formPass == null || formPass.length() < 5) {
-			
+				
+		// validate request		
+		if (formName == null || formName.length() < 5 || formPass == null || formPass.length() < 5) {			
 			model.addAttribute("loginError", "Usuario y/o contraseña: 5 caracteres minimo");
-		} 
-		
+		} 		
 		else {
 			
 			Usuario u = null;
@@ -79,37 +75,24 @@ public class HomeController {
 				
 				u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioLogin").setParameter("UsuarioMetido", formName).getSingleResult();
 				
-				if (u.isPassValid(formPass)) {
-					
-					logger.info("pass was valid");	
-					
-					session.setAttribute("usuario", u);
-					
+				if (u.isPassValid(formPass)) {					
+					logger.info("pass was valid");						
+					session.setAttribute("usuario", u);					
 					// sets the anti-csrf token
-					getTokenForSession(session);
-					
-					if(u.getAlias().equals("admin") && u.getContrasenia().equals("4e472a2779abd6d6571c76b0f845cb5d20e084e7")){ //Contrase�a:admin cifrada
-						
-						return "redirect:" + "administrador";
-					}
-										
-				} else {
-					
+					getTokenForSession(session);					
+						if(u.getRol().equalsIgnoreCase("administrador")){ //Contrase�a:admin cifrada
+							return "redirect:" + "administrador";
+						}										
+				} else {					
 					logger.info("pass was NOT valid");
-					model.addAttribute("loginError", "Error en usuario o contraseña");
-				
-				}
-				
+					model.addAttribute("loginError", "Error en usuario o contraseña");				
+				}				
 			}
-			catch (NoResultException nre) {
-				
-				logger.info("no such login: {}", formName);
-				
-				model.addAttribute("loginError", "No existe el usuario introducido");
-				
+			catch (NoResultException nre) {				
+				logger.info("no such login: {}", formName);				
+				model.addAttribute("loginError", "No existe el usuario introducido");				
 			}
-		}
-		
+		}	
 		return "redirect:" + formSource;		
 	}
 	
@@ -140,86 +123,63 @@ public class HomeController {
 	@Transactional
 	
 	public String nuevoRegistroForm(HttpServletRequest request, Model model, HttpSession session,
-			@RequestParam("fotoRegistro") MultipartFile formFotoRegistro) {
-		
-				
-		String formAliasRegistro = request.getParameter("AliasRegistro");
-		String formNombreRegistro = request.getParameter("NombreRegistro");
-		long formEdadRegistro = Long.parseLong(request.getParameter("EdadRegistro"));
-		String formEmailRegistro = request.getParameter("EmailRegistro");
-		String formContrasenia1Registro = request.getParameter("ContraseniaRegistro");
-		String formContrasenia2Registro = request.getParameter("Contrasenia2Registro");
-		double formLatitudRegistro = Double.parseDouble(request.getParameter("lat"));
-		double formLongitudRegistro =  Double.parseDouble(request.getParameter("lng"));
-				
+			@RequestParam("fotoRegistro") MultipartFile formFotoRegistro,@RequestParam("AliasRegistro") String formAliasRegistro,
+			@RequestParam("NombreRegistro") String formNombreRegistro,@RequestParam("EdadRegistro") Long formEdadRegistro,
+			@RequestParam("EmailRegistro") String formEmailRegistro,@RequestParam("ContraseniaRegistro") String formContrasenia1Registro,
+			@RequestParam("Contrasenia2Registro") String formContrasenia2Registro,@RequestParam("lat") double formLatitudRegistro,
+			@RequestParam("lng") double formLongitudRegistro) {
+					
 		List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
 		int contadorUsuarios = lista_usuarios.size();
 		String id_usuario = String.valueOf(contadorUsuarios+1).toString();
 		
-		if(formContrasenia1Registro.equals(formContrasenia2Registro)){
-			
-							
+		if(formContrasenia1Registro.equals(formContrasenia2Registro)){					
 			if (!formFotoRegistro.isEmpty()) {
 					
-				try{
-					          
+				try{					          
 	                byte[] bytes = formFotoRegistro.getBytes();
 	                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(ContextInitializer.getFile("usuario", id_usuario)));
 	                stream.write(bytes);
-	                stream.close();
-	                
+	                stream.close();	                
 	                logger.info( "You successfully uploaded " + id_usuario + 
-	               		" into " + ContextInitializer.getFile("usuario", id_usuario).getAbsolutePath() + "!");
-														
+	               		" into " + ContextInitializer.getFile("usuario", id_usuario).getAbsolutePath() + "!");														
 				}
 				catch (Exception e) {
 					// TODO: handle exception
 					logger.info("You failed to upload " + id_usuario + " => " + e.getMessage());
-				}
-				
+				}				
 			}	
-			else{
-								
-				logger.info( "El usuario con id " + id_usuario + "no ha elegido ninguna foto");
-				
+			else{								
+				logger.info( "El usuario con id " + id_usuario + "no ha elegido ninguna foto");				
 			}
+						
+		Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,"usuario",formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);			
+		String habilidades_metidas=request.getParameter("servs");					
+		List<Servicio> lista_habilidades = new ArrayList<Servicio>();		
+		String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
-			
-			Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);			
-			String habilidades_metidas=request.getParameter("servs");					
-			List<Servicio> lista_habilidades = new ArrayList<Servicio>();
-			
-			String aux = habilidades_metidas.replaceAll("[^0-9]+","");
-			
-			for(int i=0; i < aux.length();i++){
-				
+			for(int i=0; i < aux.length();i++){			
 				long id_serv =(long)(aux.charAt(i)-'0');				
 				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();				
 				s.setContadorUsuarios(s.getContadorUsuarios()+1);
-				lista_habilidades.add(s);				
-				
-			}
+				lista_habilidades.add(s);								
+			}			
+		user.setHabilidades(lista_habilidades);
 			
-			user.setHabilidades(lista_habilidades);
+		String intereses_metidos=request.getParameter("intereses");
+		List<Servicio> lista_intereses = new ArrayList<Servicio>();		
+		String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
 			
-			String intereses_metidos=request.getParameter("intereses");
-			List<Servicio> lista_intereses = new ArrayList<Servicio>();
-			
-			String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
-			
-			for(int i=0; i < auxInteres.length();i++){
-				
+			for(int i=0; i < auxInteres.length();i++){				
 				long id_serv =(long)(auxInteres.charAt(i)-'0');				
 				Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_serv).getSingleResult();
-				lista_intereses.add(s);				
-				
-			}
-			
-			user.setIntereses(lista_intereses);
+				lista_intereses.add(s);								
+			}			
+		user.setIntereses(lista_intereses);
 						
-			entityManager.persist(user);				
-			session.setAttribute("usuario", user);			
-			user.printUsuario();
+		entityManager.persist(user);				
+		session.setAttribute("usuario", user);			
+		user.printUsuario();
 				
 		}
 							
@@ -234,34 +194,28 @@ public class HomeController {
 							
 		long idUsuarioPulsado= Long.parseLong(request.getParameter("usuario"));
 		
-		if(idUsuarioPulsado==0){
-			
+		if(idUsuarioPulsado==0){			
 			Usuario u = null;
-		}
-		
+		}		
 		else{
 		
 			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", idUsuarioPulsado).getSingleResult();
 						
-			if(u!=null){
-				
-				model.addAttribute("usuarioPerfil", u);
-				
+			if(u!=null){			
+				model.addAttribute("usuarioPerfil", u);				
 				List<Servicio> listaServiciosUsuario= entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ idUsuarioPulsado +"").getResultList();
 				
-				if(listaServiciosUsuario!=null){
-					model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
-				}
-				
-				List<Servicio> listaInteresesUsuario= entityManager.createQuery("SELECT DISTINCT u.intereses from Usuario u join u.intereses h where u.id = "+ idUsuarioPulsado +"").getResultList();
-				
-				if(listaInteresesUsuario!=null){
-					model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
-				}
+					if(listaServiciosUsuario!=null){
+						model.addAttribute("listaServiciosUsuario",listaServiciosUsuario);
+					}			
+				List<Servicio> listaInteresesUsuario= entityManager.createQuery("SELECT DISTINCT u.intereses from Usuario u join u.intereses h where u.id = "+ idUsuarioPulsado +"").getResultList();				
+					if(listaInteresesUsuario!=null){
+						model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
+					}
 			}
 		}	
 		
-		model.addAttribute("listaActiva2","class='active'");
+		model.addAttribute("elemNavbarActive2","class='active'");
 		
 		return "mi_perfil";
 	}
@@ -274,12 +228,9 @@ public class HomeController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/mi_perfil/usuario", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-	 public byte[] userPhoto(HttpServletRequest request,HttpSession session) throws IOException {
-			
-			long iDusuario=Long.parseLong(request.getParameter("id_usuario"));
-		
-			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", iDusuario).getSingleResult();
-			
+	 public byte[] userPhoto(HttpServletRequest request,HttpSession session,@RequestParam("id_usuario") long iDusuario) throws IOException {
+					
+			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", iDusuario).getSingleResult();			
 		    File f = ContextInitializer.getFile("usuario", String.valueOf(u.getId()).toString());
 		    InputStream in = null;
 		    if (f.exists()) {
@@ -304,7 +255,7 @@ public class HomeController {
 		List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("ListarTodo").getResultList();
 		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 		
-		model.addAttribute("listaActiva1","class='active'");
+		model.addAttribute("elemNavbarActive1","class='active'");
 
 		return "index";
 	}
@@ -314,15 +265,14 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexHome(Model model) {
-		
-		
+			
 		List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
 		model.addAttribute("listaCategorias", listaCategorias);
 		
 		List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
 		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 		
-		model.addAttribute("listaActiva1","class='active'");
+		model.addAttribute("elemNavbarActive1","class='active'");
 
 		return "index";
 	}
@@ -333,26 +283,18 @@ public class HomeController {
 	@RequestMapping(value = "/busquedaIndex", method = RequestMethod.POST)
 	@Transactional
 	
-	public String busquedaIndexForm(HttpServletRequest request, Model model, HttpSession session) {
-		
-		String formTextoBuscado=request.getParameter("textoBuscado");
-		
-		String formCategoria= request.getParameter("categoria");
-		
-		long formCategoriaSeleccionada=1;
-		
-		if(formCategoria.equals("-- Selecciona --")){
+	public String busquedaIndexForm(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam("textoBuscado") String formTextoBuscado,@RequestParam("categoria") String formCategoria) {
 			
+		long formCategoriaSeleccionada=1;		
+		if(formCategoria.equals("-- Selecciona --")){			
 			formCategoriaSeleccionada=1;
 		}
-		else{
-		
-			formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));
-		
+		else{		
+			formCategoriaSeleccionada= Long.parseLong(request.getParameter("categoria"));		
 		}
 		
-		if(!formTextoBuscado.equals("")){
-			
+		if(!formTextoBuscado.equals("")){			
 			if(formCategoriaSeleccionada==1){
 				List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("BusquedaServicioPorSoloTexto").setParameter("textoMetido", "%" + formTextoBuscado + "%").getResultList();
 				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
@@ -361,20 +303,15 @@ public class HomeController {
 				List<Servicio> lista_servicios_todas = entityManager.createNamedQuery("BusquedaServicioPorTextoYCategoria").setParameter("textoMetido", "%" + formTextoBuscado + "%").setParameter("categoriaMetida", formCategoriaSeleccionada).getResultList();
 				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 			}
-		}
-		
-		else{
-		
-			if(formCategoriaSeleccionada==1){
-				
+		}		
+		else{	
+			if(formCategoriaSeleccionada==1){				
 				List<Servicio> lista_servicios_todas = entityManager.createQuery("select s from Servicio s").getResultList();
 				model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 			}
-			else{
-			
+			else{			
 				List<Servicio> lista_servicios_buscadas = entityManager.createNamedQuery("BusquedaPorCategoria").setParameter("CategoriaMetida",formCategoriaSeleccionada).getResultList();
-				model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);
-			
+				model.addAttribute("ListarPorCategoria", lista_servicios_buscadas);			
 			}
 			
 		}
@@ -385,37 +322,31 @@ public class HomeController {
 	@Transactional // needed to allow lazy init to work
 	
 	public ResponseEntity<String> dameServicios(HttpServletRequest request) {
-		try {
-			
-			List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();
-			
+		
+		try {			
+			List<Categoria> listaCategorias = entityManager.createNamedQuery("ListaCategorias").getResultList();			
 			StringBuilder sb = new StringBuilder("[");
 			
 			for(int i=0; i < listaCategorias.size();i++){
 				
-				if (sb.length()>1) sb.append(",");
-				
+				if (sb.length()>1) sb.append(",");				
 				sb.append("{ "
 						+ "\"id\": \"" + listaCategorias.get(i).getId_categoria() + "\", "
 						+ "\"nombre\": \"" + listaCategorias.get(i).getNombreCategoria() + "\", "
 						+ "\"valores\":");
 								
-				List<Servicio> listaServicios = entityManager.createQuery("select s from Servicio s").getResultList();
-					
+				List<Servicio> listaServicios = entityManager.createQuery("select s from Servicio s").getResultList();					
 				StringBuilder sb2 = new StringBuilder("[");
 				
-				for(int j=0;j < listaServicios.size();j++){
-					
+				for(int j=0;j < listaServicios.size();j++){					
 					if(listaCategorias.get(i).getId_categoria()==1){
 						
 						if (sb2.length()>1) sb2.append(",");
 						sb2.append("{ "
 								+ "\"id\": \"" + listaServicios.get(j).getId_servicio() + "\", "
 								+ "\"nombre\": \"" + listaServicios.get(j).getNombre() + "\"}");
-					}
-					
-					else{
-					
+					}					
+					else{					
 						if(listaServicios.get(j).getCategoria().getId_categoria() == listaCategorias.get(i).getId_categoria()){
 						
 							if (sb2.length()>1) sb2.append(",");
@@ -428,15 +359,14 @@ public class HomeController {
 				sb2.append("]");				
 				sb.append(sb2);				
 				sb.append("}");
-			}
-			
-			logger.info(sb + "]");
-			
+			}			
+			logger.info(sb + "]");			
 			return new ResponseEntity<String>(sb + "]", HttpStatus.OK);
 			
 		} catch (NoResultException nre) {
 			logger.error("No existen servicios o categorias", nre);
 		}
+		
 		return new ResponseEntity<String>("Error: No existen categorias o servicios de alguna categoria", HttpStatus.BAD_REQUEST);		
 	}			
 	
@@ -447,19 +377,16 @@ public class HomeController {
 	public String administradorHome(Model model, HttpSession session) {
 		
         Usuario u = (Usuario)session.getAttribute("usuario");
-		
-		
-		if(u!=null){
-			model.addAttribute("usuario", u);
-		}
-		
-		List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
-		List<Usuario> lista_servicios = entityManager.createNamedQuery("ListarTodo").getResultList();
-		
-		model.addAttribute("lista_todos_usuarios", lista_usuarios);
-		model.addAttribute("lista_todos_servicios", lista_servicios);
-		model.addAttribute("listaActiva5","class='active'");
-		
+        
+		if(u!=null && u.getRol().equalsIgnoreCase("administrador")){			
+			model.addAttribute("usuario", u);	
+			List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
+			List<Usuario> lista_servicios = entityManager.createNamedQuery("ListarTodo").getResultList();
+			
+			model.addAttribute("lista_todos_usuarios", lista_usuarios);
+			model.addAttribute("lista_todos_servicios", lista_servicios);
+			model.addAttribute("elemNavbarActive5","class='active'");		
+		}		
 		return "administrador";
 	}
 	
@@ -469,10 +396,8 @@ public class HomeController {
 	@RequestMapping(value = "/mi_historial", method = RequestMethod.GET)
 	public String mi_historialHome(Model model) {
 		
-		
-		
-		
-		model.addAttribute("listaActiva3","class='active'");
+			
+		model.addAttribute("elemNavbarActive3","class='active'");
 
 		
 		return "mi_historial";
@@ -520,8 +445,7 @@ public class HomeController {
 		}
 	}			
 	
-	
-	
+		
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -545,7 +469,7 @@ public class HomeController {
 			
 		}			
 		
-		model.addAttribute("listaActiva4","class='active'");
+		model.addAttribute("elemNavbarActive4","class='active'");
 	
 		return "mis_ofertas";
 	}
@@ -567,15 +491,13 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/servicio", method = RequestMethod.GET)
-	public String servicioHome(HttpServletRequest request, Model model, HttpSession session) {
-		
-		long id_servicio_pulsado= Long.parseLong(request.getParameter("id_servicio"));
-		
+	public String servicioHome(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam("id_servicio") long id_servicio_pulsado) {
+				
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
-		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).setParameter("idUsuarioMetido", u.getId()).getResultList();
-				
+		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).setParameter("idUsuarioMetido", u.getId()).getResultList();				
 		if(listaUsuarios!=null){
 			model.addAttribute("listaUsuariosServicio",listaUsuarios);
 		}
