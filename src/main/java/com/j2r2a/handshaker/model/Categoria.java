@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 	
     @NamedQuery(name="ExisteCategoria",query="SELECT c FROM Categoria c where c.nombreCategoria = :CategoriaMetida"),
+    @NamedQuery(name="ExisteCategoriaPorID",query="SELECT c FROM Categoria c where c.id_categoria = :IDCategoriaMetida"),
     @NamedQuery(name="ListaCategorias",query="SELECT DISTINCT c FROM Categoria c")
 })
 
