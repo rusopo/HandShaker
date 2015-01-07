@@ -570,7 +570,7 @@ public class HomeController {
 		
 		Negociacion negociacion= (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getSingleResult();
 		
-		
+		    
 		if(negociacion != null){
 			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
 		
