@@ -12,7 +12,7 @@
          
      </footer>
                 
-	    <script src="resources/bootstrap/js/bootstrap.js"></script>
+	    <script src="${prefix}resources/bootstrap/js/bootstrap.js"></script>
 	    
 	    	    
     </body>

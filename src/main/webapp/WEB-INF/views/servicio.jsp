@@ -73,7 +73,7 @@ function crearCajaOfrecerServicio(t){
 											<div class="checkbox">								      
 									      	 <c:forEach items="${listaUsuariosServicio}" var="u">								      	 									      												    
 												    <label>													  												  											     
-												      <input class="checkUsuario" type="checkbox" value="${u.id}"><a href="mi_perfil?usuario=${u.id}">${u.alias}</a>												      												      
+												      <input class="checkUsuario" type="checkbox" value="${u.id}"><a href="${prefix}mi_perfil/Usuario/${u.id}">${u.alias}</a>												      												      
 												    </label>											     											     
 											  </c:forEach> 										  
 										  	</div>

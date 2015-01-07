@@ -10,7 +10,7 @@ $(document).ready(function(){
 		
 			$.ajax({
 				dataType: "json",
-				url: "dameServicios",
+				url: "${prefix}dameServicios",
 				type: "POST",
 				success: function(data) {
 					obtenerServicios(data);
@@ -253,7 +253,7 @@ function obtenerServicios(serv) {
 								
 						<div id="foto-perfil" class="col-md-12" align="center">
 						
-							<img src="mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuarioPerfil.id)}" height="150px" width="130px"/>
+							<img src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuarioPerfil.id)}" height="150px" width="130px"/>
 						
 						</div>
 						<div id="datos-perfil" class="col-md-12">
@@ -292,7 +292,7 @@ function obtenerServicios(serv) {
 								<div class="modal fade" id="nuevoServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								  <div class="modal-dialog">
 								  
-								  <form name="formAnadirServicio" action="anadirNuevoServicio" method="post">
+								  <form name="formAnadirServicio" action="${prefix}anadirNuevoServicio" method="post">
 								  
 									    <div class="modal-content">
 									    							    
@@ -441,7 +441,7 @@ function obtenerServicios(serv) {
 										<div class="modal fade" id="nuevaHabilidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										  <div class="modal-dialog">
 										  
-										  <form name="formAnadirHabilidad" action="anadirNuevaHabilidad" method="post">
+										  <form name="formAnadirHabilidad" action="${prefix}anadirNuevaHabilidad" method="post">
 										  
 											    <div class="modal-content" align="left">
 											    							    
@@ -532,7 +532,7 @@ function obtenerServicios(serv) {
 										<div class="modal fade" id="nuevoInteres" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										  <div class="modal-dialog">
 										  
-										  <form name="formNuevoInteres" action="anadirNuevoInteres" method="post">
+										  <form name="formNuevoInteres" action="${prefix}anadirNuevoInteres" method="post">
 										  
 											    <div class="modal-content" align="left">
 											    							    
@@ -599,7 +599,7 @@ function obtenerServicios(serv) {
 						
 						<div align="center">
 							
-							<a href="mi_historial" class="btn btn-primary btn-lg">Historial</a>
+							<a href="${prefix}mi_historial" class="btn btn-primary btn-lg">Historial</a>
 						
 						</div>
 					

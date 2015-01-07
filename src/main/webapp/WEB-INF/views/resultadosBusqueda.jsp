@@ -26,7 +26,7 @@
 											    		<form action="servicio" method="get">
 											    			<input type="hidden" name="id_servicio" value="${s.id_servicio}">
 											    		</form>								    	
-											    		<a href="servicio?id_servicio=${s.id_servicio}">${s.nombre}</a>								    	
+											    		<a href="${prefix}servicio/${s.id_servicio}">${s.nombre}</a>								    	
 											    	</c:when>
 											    	<c:otherwise>
 											    		${s.nombre}
@@ -44,7 +44,7 @@
 											  		
 											  		<div class="col-md-2" align="center">
 											  			<div class="icono-usuarios">
-									          				<img src="resources/images/usuario.jpg" height="60px" width="90px" />						          				 	
+									          				<img src="${prefix}resources/images/usuario.jpg" height="60px" width="90px" />						          				 	
 									          			</div>
 									          			<div>
 									          				<h5><strong>${s.contadorUsuarios} Usuario/s</strong></h5>
