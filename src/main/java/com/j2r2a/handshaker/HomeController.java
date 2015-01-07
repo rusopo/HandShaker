@@ -56,11 +56,10 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@Transactional
-	public String login(HttpServletRequest request, Model model, HttpSession session) {
+	public String login(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam("name") String formName,@RequestParam("pass") String formPass,
+			@RequestParam("source") String formSource) {
 		
-		String formName = request.getParameter("name");
-		String formPass = request.getParameter("pass");
-		String formSource = request.getParameter("source");
 		logger.info("Login attempt from '{}' while visiting '{}'", formName, formSource);
 				
 		// validate request		
@@ -80,7 +79,7 @@ public class HomeController {
 					session.setAttribute("usuario", u);					
 					// sets the anti-csrf token
 					getTokenForSession(session);					
-						if(u.getRol().equalsIgnoreCase("administrador")){ //Contrase�a:admin cifrada
+						if(u.getRol().equalsIgnoreCase("administrador")){ 
 							return "redirect:" + "administrador";
 						}										
 				} else {					
@@ -127,7 +126,8 @@ public class HomeController {
 			@RequestParam("NombreRegistro") String formNombreRegistro,@RequestParam("EdadRegistro") Long formEdadRegistro,
 			@RequestParam("EmailRegistro") String formEmailRegistro,@RequestParam("ContraseniaRegistro") String formContrasenia1Registro,
 			@RequestParam("Contrasenia2Registro") String formContrasenia2Registro,@RequestParam("lat") double formLatitudRegistro,
-			@RequestParam("lng") double formLongitudRegistro) {
+			@RequestParam("lng") double formLongitudRegistro,@RequestParam("servs") String habilidades_metidas,
+			@RequestParam("intereses") String intereses_metidos) {
 					
 		List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
 		int contadorUsuarios = lista_usuarios.size();
@@ -153,8 +153,7 @@ public class HomeController {
 				logger.info( "El usuario con id " + id_usuario + "no ha elegido ninguna foto");				
 			}
 						
-		Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,"usuario",formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);			
-		String habilidades_metidas=request.getParameter("servs");					
+		Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,"usuario",formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);								
 		List<Servicio> lista_habilidades = new ArrayList<Servicio>();		
 		String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
@@ -166,7 +165,6 @@ public class HomeController {
 			}			
 		user.setHabilidades(lista_habilidades);
 			
-		String intereses_metidos=request.getParameter("intereses");
 		List<Servicio> lista_intereses = new ArrayList<Servicio>();		
 		String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
 			
@@ -267,10 +265,9 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/mi_perfil", method = RequestMethod.GET)
-	public String mi_perfilHome(HttpServletRequest request,Model model,HttpSession session) {
-							
-		long idUsuarioPulsado= Long.parseLong(request.getParameter("usuario"));
-		
+	public String mi_perfilHome(HttpServletRequest request,Model model,HttpSession session,
+			@RequestParam("usuario") long idUsuarioPulsado) {
+								
 		if(idUsuarioPulsado==0){			
 			Usuario u = null;
 		}		

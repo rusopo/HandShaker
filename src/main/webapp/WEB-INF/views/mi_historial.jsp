@@ -7,7 +7,7 @@
       <c:when test="${empty usuario}">
      
      	<div class="col-md-12">
-     		<h3><strong>Necesitas estar registrado para poder visitar tu historial. Hazlo más arriba!</strong></h3>
+     		<h3><strong>Necesitas estar registrado para poder visitar tu historial. Hazlo m&aacute;s arriba!</strong></h3>
      	</div>
       </c:when>
 
@@ -23,7 +23,7 @@
 							 			<th>Usuario</th>
 							 			<th>Recibe</th>
 							 			<th>Fecha</th>
-							 			<th>Valoración</th>
+							 			<th>Valoraciï¿½n</th>
 							 		</tr>
 							 		
 							 	</thead>

@@ -47,19 +47,19 @@
 				<div id="barra-buscador" class="col-md-12">	
 				
 					
-					  <div class="col-md-5">
-					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aqui">
+					  <div class="col-md-5" id="textoBuscado">
+					    	<input type="text" class="form-control" name="texto-abuscar" id="texto-abuscar" placeholder="Escribe aqu&iacute;">
 						
 					  </div>
 					  
 					  <div class="col-md-7">
 					  
 						  <div class="col-md-3" align="right">
-							    <h4><label for="inputCategoria3" class="col-sm-2 control-label"><strong>Categoria</strong></label></h4>
+							    <h4><label for="inputCategoria3" class="col-sm-2 control-label"><strong>Categor&iacute;a</strong></label></h4>
 			 
 						 </div>
 						 
-						 <div class="col-md-4" align="left">
+						 <div class="col-md-4" align="left" id="categoriaSeleccionadaIndex">
 						 
 							 <select name="lista_categorias" id="lista_categorias" class="form-control">
 							 	
@@ -73,7 +73,7 @@
 						</div>
 						 
 						   <div class="col-md-5" align="left">
-						  	<button id="boton-buscar-index" class="btn btn-lg btn-primary">Buscar</button>
+						  	<button id="boton-buscar-index" class="btn btn-lg btn-primary"><strong><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</strong></button>
 						  </div>
 						  
 					  </div>

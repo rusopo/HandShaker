@@ -241,7 +241,7 @@ function obtenerServicios(serv) {
       <c:when test="${empty usuario}">
      
      	<div class="col-md-12">
-     		<h3><strong>Necesitas estar registrado para poder visitar tu perfil. Hazlo mas arriba!</strong></h3>
+     		<h3><strong>Necesitas estar registrado para poder visitar tu perfil. Hazlo m&aacute;s arriba!</strong></h3>
      	</div>
       </c:when>
 
@@ -279,66 +279,70 @@ function obtenerServicios(serv) {
 					
 					</div>
 					
-					<div class="col-md-12" style="margin-top: 5%;" align="center">
-									
-						<!-- Button trigger modal -->
-							<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#nuevoServicio">
-							  <strong>A&ntilde;adir nuevo servicio</strong>
-							</button>
+					<c:if test="${usuario.id eq usuarioPerfil.id}">
+					
+						<div class="col-md-12" style="margin-top: 5%;" align="center">
+										
+							<!-- Button trigger modal -->
+								<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#nuevoServicio">
+								  <strong>A&ntilde;adir nuevo servicio</strong>
+								</button>
+								
+								<!-- Modal -->
+								<div class="modal fade" id="nuevoServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								  
+								  <form name="formAnadirServicio" action="anadirNuevoServicio" method="post">
+								  
+									    <div class="modal-content">
+									    							    
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+									        <h4 class="modal-title" id="myModalLabel"><strong>A&ntilde;adir nuevo servicio</strong></h4>
+									      </div>
+									      
+									      <div class="modal-body">
+									      
+									      	<h5 align="left">Por favor introduzca los datos de manera que todos los usuarios lo puedan entender</h5>
+									  		
+									  		<br>
+									  		
+										  	<div class="form-group">
+											    <label for="inputTitulo3" class="col-sm-2 control-label">T&iacute;tulo</label>
+											    <div class="col-sm-10">
+											      <input type="text" class="form-control" id="inputTitulo3" name="tituloServicio">
+											    </div>
+											</div>
+											
+											<div class="form-group">
+											    <label for="inputCategoria3" class="col-sm-2 control-label">Categor&iacute;a</label>
+											    <div class="col-sm-10">
+											       <select name="categoriaServicio" id="listaCategorias" class="form-control">
+											       
+											       	<option>-- Selecciona --</option>
+													 <c:forEach items="${listaCategorias}" var="c">
+														  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
+													  </c:forEach>
+													  
+													</select>
+											    </div>
+											</div>
+											
+											<label for="inputDescripcion3" class="col-sm-2 control-label">Descripci&oacute;n</label>
+											<textarea name="descripcionServicio" class="form-control" rows="6"></textarea>
+									  								  								  	
+									  	  </div>								    								      
+									      <div class="modal-footer">						
+									        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
+									      </div>
+								      </div>
+							      </form>
+							    </div>					
+							</div>
 							
-							<!-- Modal -->
-							<div class="modal fade" id="nuevoServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-							  
-							  <form name="formAnadirServicio" action="anadirNuevoServicio" method="post">
-							  
-								    <div class="modal-content">
-								    							    
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-								        <h4 class="modal-title" id="myModalLabel"><strong>A&ntilde;adir nuevo servicio</strong></h4>
-								      </div>
-								      
-								      <div class="modal-body">
-								      
-								      	<h5 align="left">Por favor introduzca los datos de manera que todos los usuarios lo puedan entender</h5>
-								  		
-								  		<br>
-								  		
-									  	<div class="form-group">
-										    <label for="inputTitulo3" class="col-sm-2 control-label">T&iacute;tulo</label>
-										    <div class="col-sm-10">
-										      <input type="text" class="form-control" id="inputTitulo3" name="tituloServicio">
-										    </div>
-										</div>
-										
-										<div class="form-group">
-										    <label for="inputCategoria3" class="col-sm-2 control-label">Categor&iacute;a</label>
-										    <div class="col-sm-10">
-										       <select name="categoriaServicio" id="listaCategorias" class="form-control">
-										       
-										       	<option>-- Selecciona --</option>
-												 <c:forEach items="${listaCategorias}" var="c">
-													  <option value="${c.id_categoria}">${c.nombreCategoria}</option>								 
-												  </c:forEach>
-												  
-												</select>
-										    </div>
-										</div>
-										
-										<label for="inputDescripcion3" class="col-sm-2 control-label">Descripci&oacute;n</label>
-										<textarea name="descripcionServicio" class="form-control" rows="6"></textarea>
-								  								  								  	
-								  	  </div>								    								      
-								      <div class="modal-footer">						
-								        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
-								      </div>
-							      </div>
-						      </form>
-						    </div>					
 						</div>
 						
-					</div>
+					</c:if>
 									
 				</div>	
 				
@@ -424,67 +428,71 @@ function obtenerServicios(serv) {
 								</ol>
 							</div>	
 							
-							<div class="col-md-12" style="margin-top: 1%;" align="center">
-									
-								<!-- Button trigger modal -->
-									<button type="button" class="btn btn-link" data-toggle="modal" data-target="#nuevaHabilidad">
-									  <strong>A&ntilde;adir nueva habilidad</strong>
-									</button>
-									
-									<!-- Modal -->
-									<div class="modal fade" id="nuevaHabilidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									  <div class="modal-dialog">
-									  
-									  <form name="formAnadirHabilidad" action="anadirNuevaHabilidad" method="post">
-									  
-										    <div class="modal-content" align="left">
-										    							    
-										      <div class="modal-header">
-										        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-										        <h4 align="center" class="modal-title" id="myModalLabel"><strong>A&ntilde;adir habilidad</strong></h4>
+							<c:if test="${usuario.id eq usuarioPerfil.id}">
+							
+								<div class="col-md-12" style="margin-top: 1%;" align="center">
+										
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-link" data-toggle="modal" data-target="#nuevaHabilidad">
+										  <strong>A&ntilde;adir nueva habilidad</strong>
+										</button>
+										
+										<!-- Modal -->
+										<div class="modal fade" id="nuevaHabilidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										  
+										  <form name="formAnadirHabilidad" action="anadirNuevaHabilidad" method="post">
+										  
+											    <div class="modal-content" align="left">
+											    							    
+											      <div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											        <h4 align="center" class="modal-title" id="myModalLabel"><strong>A&ntilde;adir habilidad</strong></h4>
+											      </div>
+											      
+											      
+											     										     									  		
+												  	<div id="anadir-servicio" class="col-md-12">
+												
+														<div class="col-md-5">
+														
+															<div align="center" style="margin-bottom: 1%"><strong>Categorias</strong></div>
+														
+															 <select id="catsel" name="categoria" class="form-control">
+															 												  
+															</select>
+															
+														</div>
+														
+														<div class="col-md-7">
+														
+															<div align="center" style="margin-bottom: 1%"><strong>Servicios</strong></div>
+														
+															<select id="sersel" name="servicio" class="form-control">
+																										  
+															</select>
+															
+														</div>
+														
+														<div id="servicios-selec" class="col-md-12">
+															
+														</div>
+														
+														<input type='hidden' name='servs' id='servs'/>									
+													</div>
+											  								  								  	
+											  	  								    								      
+											      <div class="modal-footer">						
+											        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
+											      </div>
 										      </div>
-										      
-										      
-										     										     									  		
-											  	<div id="anadir-servicio" class="col-md-12">
-											
-													<div class="col-md-5">
-													
-														<div align="center" style="margin-bottom: 1%"><strong>Categorias</strong></div>
-													
-														 <select id="catsel" name="categoria" class="form-control">
-														 												  
-														</select>
-														
-													</div>
-													
-													<div class="col-md-7">
-													
-														<div align="center" style="margin-bottom: 1%"><strong>Servicios</strong></div>
-													
-														<select id="sersel" name="servicio" class="form-control">
-																									  
-														</select>
-														
-													</div>
-													
-													<div id="servicios-selec" class="col-md-12">
-														
-													</div>
-													
-													<input type='hidden' name='servs' id='servs'/>									
-												</div>
-										  								  								  	
-										  	  								    								      
-										      <div class="modal-footer">						
-										        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
-										      </div>
-									      </div>
-								      </form>
-								    </div>					
-								</div>
+									      </form>
+									    </div>					
+									</div>
+							
+							</div>
 						
-						</div>
+						</c:if>
 							
 					</div>
 						
@@ -511,67 +519,70 @@ function obtenerServicios(serv) {
 							
 						</div>
 						
-						<div class="col-md-12" style="margin-top: 1%;" align="center">
-									
-								<!-- Button trigger modal -->
-									<button type="button" class="btn btn-link" data-toggle="modal" data-target="#nuevoInteres">
-									  <strong>A&ntilde;adir nuevo interes</strong>
-									</button>
-									
-									<!-- Modal -->
-									<div class="modal fade" id="nuevoInteres" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									  <div class="modal-dialog">
-									  
-									  <form name="formNuevoInteres" action="anadirNuevoInteres" method="post">
-									  
-										    <div class="modal-content" align="left">
-										    							    
-										      <div class="modal-header">
-										        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-										        <h4 align="center" class="modal-title" id="myModalLabel"><strong>A&ntilde;adir Interes</strong></h4>
-										      </div>
-										      
-										      
-										     										     									  		
-											  	<div id="anadir-interes" class="col-md-12">
-									
-													<div class="col-md-5">
-													
-														<div align="center" style="margin-bottom: 1%"><strong>Categorias</strong></div>
-													
-														 <select id="catselInteres" name="categoria" class="form-control">
-														 												  
-														</select>
-														
-													</div>
-													
-													<div class="col-md-7">
-													
-														<div align="center" style="margin-bottom: 1%"><strong>Servicios</strong></div>
-													
-														<select id="serselInteres" name="servicio" class="form-control">
-																									  
-														</select>
-														
-													</div>
-													
-													<div id="interes-selec" class="col-md-12">
-														
-													</div>
-													
-													<input type='hidden' name='intereses' id='intereses'/>									
-												</div>
-										  								  								  	
-										  	  								    								      
-										      <div class="modal-footer">						
-										        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
-										      </div>
-									      </div>
-								      </form>
-								    </div>					
-								</div>
+						<c:if test="${usuario.id eq usuarioPerfil.id}">
 						
-						</div>
+							<div class="col-md-12" style="margin-top: 1%;" align="center">
+										
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-link" data-toggle="modal" data-target="#nuevoInteres">
+										  <strong>A&ntilde;adir nuevo interes</strong>
+										</button>
+										
+										<!-- Modal -->
+										<div class="modal fade" id="nuevoInteres" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										  
+										  <form name="formNuevoInteres" action="anadirNuevoInteres" method="post">
+										  
+											    <div class="modal-content" align="left">
+											    							    
+											      <div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											        <h4 align="center" class="modal-title" id="myModalLabel"><strong>A&ntilde;adir Interes</strong></h4>
+											      </div>
+											      
+											      
+											     										     									  		
+												  	<div id="anadir-interes" class="col-md-12">
+										
+														<div class="col-md-5">
+														
+															<div align="center" style="margin-bottom: 1%"><strong>Categorias</strong></div>
+														
+															 <select id="catselInteres" name="categoria" class="form-control">
+															 												  
+															</select>
+															
+														</div>
+														
+														<div class="col-md-7">
+														
+															<div align="center" style="margin-bottom: 1%"><strong>Servicios</strong></div>
+														
+															<select id="serselInteres" name="servicio" class="form-control">
+																										  
+															</select>
+															
+														</div>
+														
+														<div id="interes-selec" class="col-md-12">
+															
+														</div>
+														
+														<input type='hidden' name='intereses' id='intereses'/>									
+													</div>
+											  								  								  	
+											  	  								    								      
+											      <div class="modal-footer">						
+											        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
+											      </div>
+										      </div>
+									      </form>
+									    </div>					
+									</div>
+							
+							</div>
+						</c:if>
 					
 					</div>
 					

@@ -72,18 +72,18 @@
                   	              		
 		           		<h1 id="titulo" align = "right">HANDSHAKER</h1>
 		           		
-		           		<h4 id="subtitulo" align="right">Ponerse de acuerdo, Es Fácil !</h4>
+		           		<h4 id="subtitulo" align="right">Ponerse de acuerdo, Es F&aacute;cil !</h4>
      	                 	
                   	</div>
                   	
                   	<div class="col-md-7">
                   	
-	                  		<div id="form-login" align="right">
+	                  		<div id="form-login">
 			           	    
 			           	    <c:choose>
 							<c:when test="${not empty usuario}">
 							
-							 	<div class="col-md-5">
+							<div class="col-md-5">
 							
 							</div>
 							
@@ -103,33 +103,36 @@
 								</div>
 							
 							</div>
-
+							 						 
 							</c:when>
 							<c:otherwise>
-			           		<form action="login" id="formularioLogin" class="form-inline" role="form" method="POST">
-			           		
-			           	      <input type="hidden" id="source" name="source" 
-			             	   value="${requestScope['javax.servlet.forward.servlet_path']}"/>
-			
-							  <div class="form-group">
-							    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-							    <input type="text" class="form-control" id="name" name="name" placeholder="Alias o nombre de usuario">
-							  </div>
-							  <div class="form-group">
-							    <label class="sr-only" for="exampleInputPassword2">Password</label>
-							    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
-							  </div>
-			
-							  <button type="submit" name="submit" value="login" class="btn btn-success">Login</button>
-						   </form>
+							
+							<div align="right">
+				           		<form action="login" id="formularioLogin" class="form-inline" role="form" method="POST">
+				           		
+				           	      <input type="hidden" id="source" name="source" 
+				             	   value="${requestScope['javax.servlet.forward.servlet_path']}"/>
+				
+								  <div class="form-group">
+								    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+								    <input type="text" class="form-control" id="name" name="name" placeholder="Alias o nombre de usuario">
+								  </div>
+								  <div class="form-group">
+								    <label class="sr-only" for="exampleInputPassword2">Password</label>
+								    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
+								  </div>
+				
+								  <button type="submit" name="submit" value="login" class="btn btn-success"><strong>Login</strong></button>
+							   </form>
+						   </div>
 						</c:otherwise>
 	                   </c:choose>
 			           	
 			           	</div>
 			           	
-			           	<c:if test="${empty usuario}">
+			           	<c:if test="${empty usuario}">			           				           	
 				           	<div id="caja-registrate" align="right">
-				           		<h4>Si no estas registrado, <a href="registro" class="btn btn-danger"><span class="glyphicon glyphicon-flash"></span> Registrate!</a></h4>
+				           		<h4>Si no est&aacute;s registrado  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> <a href="registro" class="btn btn-danger"><span class="glyphicon glyphicon-flash"></span><strong> Registrate!</strong></a></h4>
 				           	
 				           	</div>
                   		</c:if>
@@ -164,16 +167,18 @@
 					      <ul class="nav navbar-nav">
 					      
 					        <li ${elemNavbarActive1}><a href="index">Inicio</a></li>
-					        <c:choose>
+					        
+					         <c:choose>
 							<c:when test="${not empty usuario}">
-							
+								
 								<li ${elemNavbarActive2}><a href="mi_perfil?usuario=${usuario.id}">Mi Perfil</a></li>
 							</c:when>
 							<c:otherwise>
 							
 								<li ${elemNavbarActive2}><a href="mi_perfil?usuario=0">Mi Perfil</a></li>
 							</c:otherwise>
-							</c:choose>					        
+							</c:choose>
+					        					        
 					        <li ${elemNavbarActive3}><a href="mi_historial">Mi Historial</a></li>
 					        <li ${elemNavbarActive4}><a href="mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
 					  		<c:if test="${usuario.alias eq 'admin'}">
