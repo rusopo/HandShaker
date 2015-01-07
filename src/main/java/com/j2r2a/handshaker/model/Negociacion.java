@@ -14,8 +14,8 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
-	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+//	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
+	//@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
 	
    
 })
@@ -26,7 +26,7 @@ public class Negociacion{
 	private long id;	
 	private Usuario usuario1;
 	private Usuario usuario2;
-	private List<String> listaComentarios;
+	private List<Comentario> listaComentarios;
 	private boolean aceptada;
 	
 
@@ -56,11 +56,12 @@ public class Negociacion{
 		this.usuario2 = usuario2;
 	}
 	
-	
-	public List<String> getLista_comentarios() {
+	@OneToMany(targetEntity=Comentario.class) //Una negociacion tiene n comentarios tipo Comentario
+	@JoinColumn(name="idNegociacion") 
+	public List<Comentario> getLista_comentarios() {
 		return listaComentarios;
 	}
-	public void setLista_comentarios(List<String> lista_comentarios) {
+	public void setLista_comentarios(List<Comentario> lista_comentarios) {
 		this.listaComentarios = lista_comentarios;
 	}
 	

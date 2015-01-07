@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
-
+import com.j2r2a.handshaker.model.Comentario;
 import com.j2r2a.handshaker.model.Negociacion;
 import com.j2r2a.handshaker.model.OfertaEnviada;
 //import com.j2r2a.handshaker.model.OfertaRecibida;
@@ -557,6 +557,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/negociacion", method = RequestMethod.GET)
+	@Transactional
 	public String negociacionHome(Model model, HttpSession session,HttpServletRequest request) {
 		
 	
@@ -573,14 +574,14 @@ public class HomeController {
 		if(negociacion != null){
 			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
 		
-			List<String> listaComentarios = negociacion.getLista_comentarios();
-			model.addAttribute("listaDeComentarios", listaComentarios);
+			//List<Comentario> listaComentarios = negociacion.getLista_comentarios();
+			//model.addAttribute("listaDeComentarios", listaComentarios);
 			String texto = request.getParameter("textoAEnviar");
 			
-			if(texto!=null){
-			listaComentarios.add(texto);
-			negociacion.setLista_comentarios(listaComentarios);
-			model.addAttribute("listaDeComentarios", negociacion.getLista_comentarios());
+			if(texto!=null){ // comprobar el id del comentario previamente.
+			//listaComentarios.add(texto);
+			//negociacion.setLista_comentarios(listaComentarios);
+			//model.addAttribute("listaDeComentarios", negociacion.getLista_comentarios());
 			}
 		}
 	

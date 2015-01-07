@@ -7,7 +7,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-/*
+
 @Entity
 @NamedQueries({
 	//@NamedQuery(name="DameListaComentarios", query="SELECT c FROM Comentario c, WHERE c.id_negociacion = : IdNegociacionMetido "),
@@ -55,4 +55,4 @@ public class Comentario{
 	}
 	
 			
-}*/
+}

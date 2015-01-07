@@ -34,13 +34,13 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<form action="negociacion" method="GET">
-													     		<input type= "hidden" value = "${o.negociacion.id_negociacion}" name ="id_negociacionNombre"  >  
+													     	 	<form action="negociacion.jsp" method="GET">
+													     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
 													    		</form>	
-														     		<!--  <a href="negociacion?id_negociacion= ${o.negociacion.id_negociacion }"  id= "boton-negociacion" class="btn btn-success btn-lg"  >Negociar Oferta</a>
-														     			-->
-														     		<a href="negociacion"  id= "boton-negociacion" class="btn btn-success btn-lg"  >Negociar Oferta</a>
-														     	
+														     		  <a href="negociacion?id_negociacion=1"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+														     		<!--	
+														     		 <a href="negociacion."  id= "boton-negociacion" class="btn btn-success btn-lg"  >Negociar Oferta</a>
+														     	-->
 													     		
 													     		
 													     <!--		<form action="servicio" method="get">
