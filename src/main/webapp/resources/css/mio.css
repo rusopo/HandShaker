@@ -102,7 +102,8 @@ body{
 	
 	#caja-registrate{
 		
-		margin-top: 14%;	
+		margin-top: 12%;
+		color: white;	
 	}
 	
 	#imagen-logo{
@@ -309,7 +310,7 @@ body{
 	}
 	
 	#boton-buscar-index{
-		margin-left: 40%;
+		margin-left: 15%;
 	}
 	
 	#footer{
@@ -391,6 +392,19 @@ body{
     #foto-index{
     
     	border-radius: 3px;
+    }
+    
+    #textoBuscado{
+    
+    	padding-left: 3%;
+    	margin-right: -4%;
+		margin-left: 4%;
+    }
+    
+    #categoriaSeleccionadaIndex{
+    
+    	margin-left: -5%;
+    	
     }
   
 }

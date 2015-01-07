@@ -1,6 +1,17 @@
 <%@ include file="../fragments/header.jspf" %> 
 
 <div id="cuerpo" class="container">
+
+<c:choose>
+	
+      <c:when test="${empty usuario}">
+     
+     	<div class="col-md-12">
+     		<h3><strong>Necesitas estar registrado para poder visitar tus ofertas. Hazlo m&aacute;s arriba!</strong></h3>
+     	</div>
+      </c:when>
+
+      <c:otherwise>
 							
 	<div id="cuerpo-ofertas" class="col-md-12">	
 				
@@ -102,7 +113,11 @@
 				  </div>
 				  
 				  
-				</div>								
+				</div>	
+				
+		</c:otherwise>
+	
+	</c:choose>							
 				
  </div>
 		 

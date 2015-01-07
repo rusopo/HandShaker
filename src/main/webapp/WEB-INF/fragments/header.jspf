@@ -74,7 +74,7 @@
                   	              		
 		           		<h1 id="titulo" align = "right">HANDSHAKER</h1>
 		           		
-		           		<h4 id="subtitulo" align="right">Ponerse de acuerdo, Es Fácil !</h4>
+		           		<h4 id="subtitulo" align="right">Ponerse de acuerdo, Es F&aacute;cil !</h4>
      	                 	
                   	</div>
                   	
@@ -124,7 +124,7 @@
 								    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
 								  </div>
 				
-								  <button type="submit" name="submit" value="login" class="btn btn-success">Login</button>
+								  <button type="submit" name="submit" value="login" class="btn btn-success"><strong>Login</strong></button>
 							   </form>
 						   </div>
 						</c:otherwise>
@@ -134,7 +134,7 @@
 			           	
 			           	<c:if test="${empty usuario}">			           				           	
 				           	<div id="caja-registrate" align="right">
-				           		<h4>Si no estas registrado, <a href="registro" class="btn btn-danger"><span class="glyphicon glyphicon-flash"></span> Registrate!</a></h4>
+				           		<h4>Si no est&aacute;s registrado  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> <a href="registro" class="btn btn-danger"><span class="glyphicon glyphicon-flash"></span><strong> Registrate!</strong></a></h4>
 				           	
 				           	</div>
                   		</c:if>
