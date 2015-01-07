@@ -15,7 +15,6 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -572,16 +571,22 @@ public class HomeController {
 			@RequestParam("id_servicio") long id_servicio_pulsado) {
 				
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
-		Usuario u = (Usuario)session.getAttribute("usuario");
+		Usuario u = (Usuario)session.getAttribute("usuario");		
+		model.addAttribute("usuario",u);
+		model.addAttribute("servicio", s);
 		
 		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).setParameter("idUsuarioMetido", u.getId()).getResultList();				
 		if(listaUsuarios!=null){
 			model.addAttribute("listaUsuariosServicio",listaUsuarios);
 		}
 					
-		model.addAttribute("usuario",u);
-		model.addAttribute("servicio", s);
-		model.addAttribute("usuario_registrado", u);
+		List<Servicio> listaServiciosDeUsuario = entityManager.createNamedQuery("ListaServiciosDeUsuario").setParameter("IdUsuarioMetido", u.getId()).getResultList();
+		if(listaServiciosDeUsuario != null){
+			
+			model.addAttribute("listaServiciosDeUsuario", listaServiciosDeUsuario);
+		}
+		
+		
 		
 		return "servicio";
 	}

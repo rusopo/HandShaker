@@ -119,7 +119,7 @@
 								  </div>
 								  <div class="form-group">
 								    <label class="sr-only" for="exampleInputPassword2">Password</label>
-								    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
+								    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contrase&ntilde;a">
 								  </div>
 				
 								  <button type="submit" name="submit" value="login" class="btn btn-success"><strong>Login</strong></button>
