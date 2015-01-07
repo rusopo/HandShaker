@@ -1,4 +1,34 @@
- <%@ include file="../fragments/header.jspf" %> 
+ <%@ include file="../fragments/header.jspf" %>
+ 
+<script>
+
+$(document).ready(function(){
+	
+	$("input[class=checkUsuario]").change(function(){crearCajaOfrecerServicio(this)});
+		
+});
+
+function crearCajaOfrecerServicio(t){
+	
+	console.log(t);
+	
+	var elem = $('.elementoListaOfrecerServicio');		
+	var x = $(t).parent().find('a').text();
+	$(elem).find("#nombre").text(x);
+	
+	console.log($(elem));
+	
+	if($("input[class=checkUsuario]").is(':checked')) {  
+		$('#lista-usuarios-servicio').append($(elem));
+    } else {  
+    	$(elem).remove();
+    }
+	
+	
+}
+
+
+</script>  
 
 <div id="cuerpo" class="container">
 					
@@ -21,7 +51,7 @@
 					
 						<div id="cuerpo-servicio" class="col-md-12">
 						
-							<div id="cuerpo-servicio-izq" class="col-md-12">
+							<div id="cuerpo-servicio-top" class="col-md-12">
 							
 							 	<h3 align="center"><strong>USUARIOS</strong></h3>
 							 	
@@ -41,85 +71,69 @@
 										
 										<c:otherwise>
 											<div class="checkbox">								      
-									      	 <c:forEach items="${listaUsuariosServicio}" var="u">
-									      	 									      												    
-												    <label>													  
-													  											     
-												      <input type="checkbox"><a href="mi_perfil?usuario=${u.id}">${u.alias}</a>
-												      												      
-												    </label>
-											     											     
-											  </c:forEach> 
-											  
+									      	 <c:forEach items="${listaUsuariosServicio}" var="u">								      	 									      												    
+												    <label>													  												  											     
+												      <input class="checkUsuario" type="checkbox" value="${u.id}"><a href="mi_perfil?usuario=${u.id}">${u.alias}</a>												      												      
+												    </label>											     											     
+											  </c:forEach> 										  
 										  	</div>
 										
 										</c:otherwise>
 										
-										</c:choose>
+									</c:choose>
 								      
 								      	
 								      </div>
 								   
-								  </div>						  					
+								  </div>	
+								  					  					
 							</div>
 							
-							<div id="cuerpo-servicio-der" class="col-md-12">
-							
-								<h4 align="center"><strong>Usuarios seleccionados:</strong></h4>
-								
+							<div id="cuerpo-servicio-bottom" class="col-md-12">
+															
 								<ol id="lista-usuarios-servicio">
 								
-								<li>
+								<!-- <li class="elementoListaOfrecerServicio">
 								
 								  <div class="col-md-6">
-								  																		  
-										<h4>Paco</h4>
-										<label>
-										      <input type="checkbox">Ofrecer Servicio
-										</label>
+								  									  																		  
+											<h4 id="nombre"></h4>
+											<div>
+											      <input class="checkOfrecerServicio" type="checkbox"> Ofrecer Servicio
+											</div>
+										
 										
 										<p>Seleccione servicio a ofrecer:</p>
 										
 										<div class="form-group">
-										    <label for="inputCategoria3" class="col-sm-2 control-label">Categoría</label>
+										    <label for="inputCategoria3" class="col-sm-2 control-label">Categor&iacute;a</label>
 										    <div class="col-sm-10">
-										    	<c:choose>
-	      											<c:when test="${not empty u}">
-														<c:forEach items="${listaServiciosUsuario}" var="s">
-															<option>${s.nombre}</option>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														No tiene servicios.
-													</c:otherwise>
-												</c:choose>
-										    
-										       <select class="form-control">
-										       
-												  <option>Inform�tica</option>
-												  <option>Cocina</option>
-												  <option>Limpieza</option>
-												  <option>Mudanzas</option>
-												  <option>Coches</option>
+      											<select name="categoriaServOfrecido" class="form-control">
+									       		  <c:forEach items="${listaServiciosDeUsuario}" var="s">
+													  <option>${s.categoria.nombreCategoria}</option>									
+												   </c:forEach>
 												</select>
+									       
 										    </div>
 										</div>
 										
-										<div class="col-sm-12">
-											<select class="form-control">
-											  <option>Programacion Java</option>
-											  <option>Programacion C++</option>
-											  <option>Programacion Android</option>
-											  <option>Programacion C</option>
-											  <option>Programacion Web</option>
-											</select>
+										<div class="form-group">
+										    <label for="inputCategoria3" class="col-sm-2 control-label">Servicio</label>
+										    <div class="col-sm-10">
+      											<select name="nombreServOfrecido" class="form-control">
+									       		  <c:forEach items="${listaServiciosDeUsuario}" var="s">
+													  <option>${s.nombre}</option>									
+												   </c:forEach>
+												</select>
+									       
+										    </div>
 										</div>
 									 
 								  </div> 
-							</li>
+							</li> -->
 								
 								
-							
+							<!--  
 							<li>
 								<div class="col-md-6">
 								
@@ -157,7 +171,7 @@
 										
 									  
 									  </div>
-									</li>
+									</li>-->
 								 
 								</ol>
 							
