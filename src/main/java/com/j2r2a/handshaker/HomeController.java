@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -202,7 +203,7 @@ public class HomeController {
 		Servicio servicio = Servicio.crearServicio(formTituloServicio, categoria, formDescripcionServicio,0);
 		entityManager.persist(servicio);
 			
-		return "redirect:"+ "mi_perfil?usuario="+id;
+		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
 	}
 	
@@ -230,7 +231,7 @@ public class HomeController {
 			}			
 		usuario.setHabilidades(lista_habilidades);
 					
-		return "redirect:"+ "mi_perfil?usuario="+id;
+		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
 	}
 	
@@ -256,16 +257,16 @@ public class HomeController {
 			}			
 		usuario.setIntereses(lista_intereses);
 					
-		return "redirect:"+ "mi_perfil?usuario="+id;
+		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
 	}
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/mi_perfil", method = RequestMethod.GET)
+	@RequestMapping(value = "/mi_perfil/Usuario/{id}", method = RequestMethod.GET)
 	public String mi_perfilHome(HttpServletRequest request,Model model,HttpSession session,
-			@RequestParam("usuario") long idUsuarioPulsado) {
+			@PathVariable("id") long idUsuarioPulsado) {
 								
 		if(idUsuarioPulsado==0){			
 			Usuario u = null;
@@ -292,6 +293,8 @@ public class HomeController {
 		model.addAttribute("listaCategorias", listaTodasCategorias);
 		
 		model.addAttribute("elemNavbarActive2","class='active'");
+		
+		model.addAttribute("prefix", "../../");
 		
 		return "mi_perfil";
 	}
@@ -332,7 +335,7 @@ public class HomeController {
 		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 		
 		model.addAttribute("elemNavbarActive1","class='active'");
-
+		
 		return "index";
 	}
 	
@@ -349,7 +352,7 @@ public class HomeController {
 		model.addAttribute("ListarPorCategoria", lista_servicios_todas);
 		
 		model.addAttribute("elemNavbarActive1","class='active'");
-
+		
 		return "index";
 	}
 	
@@ -566,9 +569,9 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/servicio", method = RequestMethod.GET)
+	@RequestMapping(value = "/servicio/{id}", method = RequestMethod.GET)
 	public String servicioHome(HttpServletRequest request, Model model, HttpSession session,
-			@RequestParam("id_servicio") long id_servicio_pulsado) {
+			@PathVariable("id") long id_servicio_pulsado) {
 				
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");		
@@ -586,7 +589,7 @@ public class HomeController {
 			model.addAttribute("listaServiciosDeUsuario", listaServiciosDeUsuario);
 		}
 		
-		
+		model.addAttribute("prefix", "../");
 		
 		return "servicio";
 	}

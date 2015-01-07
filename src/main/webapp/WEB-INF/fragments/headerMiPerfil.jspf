@@ -19,23 +19,23 @@
         <!--<link href='images/logo.ico' rel='shortcut icon' type='image/x-icon'>--> 
                
         <!-- Bootstrap core CSS -->
-	    <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-	    <link href="resources/css/mio.css" rel="stylesheet" type="text/css">
+	    <link href="${prefix}resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+	    <link href="${prefix}resources/css/mio.css" rel="stylesheet" type="text/css">
 	
 		
 		<!-- jQuery -->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
  
-	    <script type="text/javascript" src="resources/js/validate.js"></script>
+	    <script type="text/javascript" src="${prefix}resources/js/validate.js"></script>
 	    
 	    <!-- JQuery-UI -->
 	    
-		  <link type="text/css" rel="stylesheet" href="resources/jquery-ui/jquery-ui.css">
-		  <link type="text/css" rel="stylesheet" href="resources/jquery-ui/jquery-ui.structure.css">
-		  <link type="text/css" rel="stylesheet" href="resources/jquery-ui/jquery-ui.theme.css">
+		  <link type="text/css" rel="stylesheet" href="${prefix}resources/jquery-ui/jquery-ui.css">
+		  <link type="text/css" rel="stylesheet" href="${prefix}resources/jquery-ui/jquery-ui.structure.css">
+		  <link type="text/css" rel="stylesheet" href="${prefix}resources/jquery-ui/jquery-ui.theme.css">
 		  		  
-		  <script type="text/javascript" src="resources/jquery-ui/jquery-ui.min.js"></script>
-	      <script type="text/javascript" src="resources/jquery-ui/jquery.validate.min.js"></script>
+		  <script type="text/javascript" src="${prefix}resources/jquery-ui/jquery-ui.min.js"></script>
+	      <script type="text/javascript" src="${prefix}resources/jquery-ui/jquery.validate.min.js"></script>
 		  
 		  <script>
 		  $(function() {
@@ -47,7 +47,7 @@
 	    
 	    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&region=ES"></script>
 	    
-	    <script type="text/javascript" src="resources/js/google-maps-perfil.js"></script>
+	    <script type="text/javascript" src="${prefix}resources/js/google-maps-perfil.js"></script>
 	         
     </head>
     
@@ -58,7 +58,7 @@
 		          <div id="logo" class="col-md-2">
 		          
 			          <div class="col-md-12">
-			          	<a href="index"><img id="imagen-logo" src="resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
+			          	<a href="index"><img id="imagen-logo" src="${prefix}resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
 			          </div>
 		          
 		          
@@ -88,12 +88,12 @@
 							<div class="col-md-7">
 							
 								<div class="col-md-5" align="right">
-									<h4 align="right">( <a style="color:#FFFFFF" href="logout">Salir</a> ) </h4>
+									<h4 align="right">( <a style="color:#FFFFFF" href="${prefix}logout">Salir</a> ) </h4>
 								</div>
 								
 								<div class="col-md-7" align="center">
 									
-									<img id="foto-index" src="mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}" height="100px" width="90px"/>
+									<img id="foto-index" src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}" height="100px" width="90px"/>
 							 	
 							 		<h4 style="color: #FFFFFF"><strong>${e:forHtmlContent(usuario.alias)}</strong></h4>
 							 		
@@ -106,7 +106,7 @@
 							<c:otherwise>
 							
 							<div align="right">
-				           		<form action="login" id="formularioLogin" class="form-inline" role="form" method="POST">
+				           		<form action="${prefix}login" id="formularioLogin" class="form-inline" role="form" method="POST">
 				           		
 				           	      <input type="hidden" id="source" name="source" 
 				             	   value="${requestScope['javax.servlet.forward.servlet_path']}"/>
@@ -120,7 +120,7 @@
 								    <input type="password" class="form-control" id="pass" name="pass" placeholder="Contrase&ntilde;a">
 								  </div>
 				
-								  <button type="submit" name="submit" value="login" class="btn btn-success"><strong>Login</strong></button>
+								  <button type="submit" name="submit" value="${prefix}login" class="btn btn-success"><strong>Login</strong></button>
 							   </form>
 						   </div>
 						</c:otherwise>
@@ -164,23 +164,23 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <ul class="nav navbar-nav">
 					      
-					        <li ${elemNavbarActive1}><a href="index">Inicio</a></li>
+					        <li ${elemNavbarActive1}><a href="${prefix}index">Inicio</a></li>
 					        
 					         <c:choose>
 							<c:when test="${not empty usuario}">
 								
-								<li ${elemNavbarActive2}><a href="mi_perfil?usuario=${usuario.id}">Mi Perfil</a></li>
+								<li ${elemNavbarActive2}><a href="${prefix}mi_perfil/Usuario/${usuario.id}">Mi Perfil</a></li>
 							</c:when>
 							<c:otherwise>
 							
-								<li ${elemNavbarActive2}><a href="mi_perfil?usuario=0">Mi Perfil</a></li>
+								<li ${elemNavbarActive2}><a href="${prefix}mi_perfil/Usuario/0">Mi Perfil</a></li>
 							</c:otherwise>
 							</c:choose>
 					        					        
-					        <li ${elemNavbarActive3}><a href="mi_historial">Mi Historial</a></li>
-					        <li ${elemNavbarActive4}><a href="mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
+					        <li ${elemNavbarActive3}><a href="${prefix}mi_historial">Mi Historial</a></li>
+					        <li ${elemNavbarActive4}><a href="${prefix}mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
 					  		<c:if test="${usuario.alias eq 'admin'}">
-							   <li ${elemNavbarActive5}><a href="administrador">Panel Administración</a></li>
+							   <li ${elemNavbarActive5}><a href="${prefix}administrador">Panel Administración</a></li>
 							</c:if>
 					        
 					      </ul>

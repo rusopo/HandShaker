@@ -11,7 +11,7 @@
 		  		
 			    $.ajax({			    	
 			    	type: "POST",
-			    	url: "busquedaIndex",
+			    	url: "${prefix}busquedaIndex",
 			    	data:{ categoria: categoria,
 			    		textoBuscado: textoAbuscar},
 			    	success:function(data){
@@ -28,7 +28,7 @@
 		  		
 			    $.ajax({			    	
 			    	type: "POST",
-			    	url: "busquedaIndex",
+			    	url: "${prefix}busquedaIndex",
 			    	data:{ categoria: categoria,
 			    		textoBuscado: textoAbuscar},
 			    	success:function(data){

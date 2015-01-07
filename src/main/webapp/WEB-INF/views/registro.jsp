@@ -8,7 +8,7 @@ $(document).ready(function(){
 		
 			$.ajax({
 				dataType: "json",
-				url: "dameServicios",
+				url: "${prefix}dameServicios",
 				type: "POST",
 				success: function(data) {
 					obtenerServicios(data);
@@ -241,7 +241,7 @@ function obtenerServicios(serv) {
 					<h1><strong>REGISTRO</strong></h1>
 				</div>
 				
-			<form action="nuevoRegistro" id="form-registro" name="form-registro" enctype="multipart/form-data" class="form-horizontal" role="form" method="post">	
+			<form action="${prefix}nuevoRegistro" id="form-registro" name="form-registro" enctype="multipart/form-data" class="form-horizontal" role="form" method="post">	
 				
 				<div class="col-md-12">	
 				
