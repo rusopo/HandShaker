@@ -3,6 +3,17 @@
 
 <script type="text/javascript">
 $(function() {
+	$(".loadEdit").click(function()
+	{
+		var id=$(this).attr("id").substring("edit_".length);
+		 $("#editUserCP").data("idUsuario", id);
+		 $("#editUserCP").dialog().style.display = 'block';; //assign the ID for later use
+	});
+})
+</script>
+
+<script type="text/javascript">
+$(function() {
 	$(".x").click(function(){
 		var id=$(this).attr("id").substring("del_".length);
 	
@@ -40,10 +51,11 @@ function editUser(id) {
 		
 	$.post("editUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
 			function(data) {
-				$("#edit_"+id).parent().parent().remove();
+				$("#edit_"+id).parent().parent().update();
 			});
 }
 </script>
+
 
 <div id="panel-control-admin" class="col-md-12">
 						
@@ -70,7 +82,7 @@ function editUser(id) {
 											<td>mis habilidades</td>
 											<td>mis intereses</td>
 											<td><button class="x" id="del_${u.id}">X</button>
-												<button class="edit" id="edit_${u.id}">Editar</button></td>
+												<button class="loadEdit" id="edit_${u.id}">Editar</button></td>
 											</tr>	
 										</c:forEach>
 									</c:when>
@@ -82,3 +94,35 @@ function editUser(id) {
 	         	   </table>
 												
          </div>	
+         
+         <div id="editUserCP" title="Edit User CP" class="col-md-6" style="display:none">
+         <p align="center"><strong>Tus datos actuales:</strong></p>
+  			<table id="tabla-editar-usuario" class="table">
+			<thead>
+			<tr>
+			<th>id_usuario</th>
+			<th>alias</th>
+			<th>nombre</th>
+			</tr>
+			</thead>
+			
+			<tbody>      
+			<tr>
+			<td>3</td>
+			<td>aliia</td>	
+			<td>nombr</td>
+			</tr>
+			</tbody>
+			</table>
+		<p align="center"><strong>Nuevos datos:</strong></p>
+			<label>ID: </label> 
+  			<input type="text" class = "span3" placeholder = "3"/> 
+  			<br>
+  			<label>Alias: </label> 
+  			<input type="text" class = "span3" placeholder = "aliia"/> 
+  			<br>
+  			<label>Nombre: </label> 
+  			<input type="text" class = "span3" placeholder = "nombr"/> 
+  			
+  			<button class="edit" id="edit_3">Confirmar</button>
+         </div>

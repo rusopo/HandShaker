@@ -564,13 +564,15 @@ public class HomeController {
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional // needed to allow DB change
-	public ResponseEntity<String> actualizarUsuario(@RequestParam("id") long id,
+	public ResponseEntity<String> actualizarUsuario(HttpServletRequest request,@RequestParam("id") long id,
 			/*@RequestParam("alias") String alias,
 			@RequestParam("nombre") String nombre,*/
 			@RequestParam("csrf") String token, HttpSession session) {
 		
 		//Traigo al usuario con el id a actualizar, si lo encuentra, lo modifico
 		Usuario user = entityManager.find(Usuario.class, id);
+		request.setAttribute("oldUser",user);
+		
 	    if (user!=null)
 		{
 	    	user.setAlias("HOLA");
