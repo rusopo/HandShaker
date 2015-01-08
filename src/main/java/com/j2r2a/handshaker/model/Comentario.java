@@ -53,6 +53,7 @@ public class Comentario{
 	public void setNegociacion(Negociacion negociacion) {
 		this.negociacion = negociacion;
 	}
+
 	
 			
 }

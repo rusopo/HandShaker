@@ -14,9 +14,12 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-//	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
-	//@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
-	
+	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
+	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+	@NamedQuery(name="DameListaComentarios",
+	query= "SELECT c FROM Comentario c, Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+	/*@NamedQuery(name = "ListaUsuariosServicio", 
+	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),*/
    
 })
 

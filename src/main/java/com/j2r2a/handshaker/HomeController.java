@@ -562,36 +562,41 @@ public class HomeController {
 		
 	
 		System.out.print("aaa");
+		
 		Usuario u = (Usuario)session.getAttribute("usuario");
+		Negociacion negociacion ;
 		
 		
 		long id_negociacion_pulsada= Long.parseLong(request.getParameter("id_negociacionNombre"));
-		//Negociacion id_negociacion_pulsada= (Negociacion)request.getSession().getAttribute("id_negociacion");//Long.parseLong(request.getParameter("id_negociacion"));
 		
-		Negociacion negociacion= (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getSingleResult();
+		 
 		
+		negociacion= (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getSingleResult();
+		List <Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentarios").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getResultList();
 		    
 		if(negociacion != null){
-			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
-		
-			//List<Comentario> listaComentarios = negociacion.getLista_comentarios();
-			//model.addAttribute("listaDeComentarios", listaComentarios);
-			String texto = request.getParameter("textoAEnviar");
 			
-			if(texto!=null){ // comprobar el id del comentario previamente.
-			//listaComentarios.add(texto);
-			//negociacion.setLista_comentarios(listaComentarios);
-			//model.addAttribute("listaDeComentarios", negociacion.getLista_comentarios());
-			}
+			
+			model.addAttribute("ListaComentarios",listaComentarios);
+			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
+			model.addAttribute("usuario", u);
+		
 		}
 	
 		
 		model.addAttribute("listaActiva6","class ='active'");
 		return "negociacion";
 	}
+	/*
+	@ResponseBody
+	@RequestMapping(value="/negociacion/comentario", method = RequestMethod.GET)
+	 public String ComentariosGome(HttpServletRequest request,HttpSession session) {
 	
+		
+		return "/negociacion/comentario";
+	}
 	
-	
+	*/
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */

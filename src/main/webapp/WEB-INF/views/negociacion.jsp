@@ -19,37 +19,36 @@
                         <li class="left clearfix"><span class="chat-img pull-left">
                             <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
                         </span>
-                        <c:when test="${empty usuario}">
-						No tienes Comentarios .
-						</c:when>
-						<c:otherwise>
-						<c:forEach items="${NegociacionPorID}" var ="c">
+                        
+						<c:forEach items="${ListaComentarios}" var ="c">
                             <div class="chat-body clearfix">
                                 <div class="header" >
-                                    <strong class="primary-font"> ${c.usuario1.nombre }</strong> <small class="pull-right text-muted">
+                                    <strong class="primary-font"> ${c.Id_usuario.nombre }</strong> <small class="pull-right text-muted">
                                         <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
                                 </div>
                                 <p>
-                                    ${c.textoComentario} 
+                                    ${c.Texto_comentario} 
                                 </p>
                                <div class="header" >
-                                    <strong class="primary-font"> ${c.usuario2.nombre }</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                    <strong class="primary-font"> ${c.Id_usuario.nombre }</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>"${c.session.CreationTime}" </small>
                         
                                 </div>
                                  <p>
-                                    ${c.textoComentario} 
+                                    ${c.Texto_comentario} 
                                 </p>
                             </div>
                            </c:forEach>
-						</c:otherwise>
+						
 						 
                         </li>
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Pon tu mensaje aqui..." name = "textoAEnviar"/>
+                    <div class="input-group"> 
+                   
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Pon tu mensaje aqui..." name = "textoAEnviar" >
+                      
                         <span class="input-group-btn">
                             <button class="btn btn-warning btn-sm" id="btn-chat">
                                 ENVIAR</button>
