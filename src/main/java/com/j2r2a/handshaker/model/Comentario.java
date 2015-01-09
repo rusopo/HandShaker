@@ -10,8 +10,8 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-	//@NamedQuery(name="DameListaComentarios", query="SELECT c FROM Comentario c, WHERE c.id_negociacion = : IdNegociacionMetido "),
-	//SELECT s FROM Servicio s WHERE s.id_servicio = :IdServicioMetido
+	//@NamedQuery(name="InsertaComentarios", query="SELECT c FROM Comentario c, WHERE c.id_negociacion = : IdNegociacionMetido "),
+	
     
 })
 public class Comentario{
