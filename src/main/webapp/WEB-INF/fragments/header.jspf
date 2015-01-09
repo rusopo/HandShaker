@@ -52,6 +52,14 @@
 		  });
 		  </script>
 		  
+		 <script type="text/javascript">
+			$(document).ready(function() {
+			    setTimeout(function() {
+			        $(".error").fadeOut(1500);
+			    },3000);
+			});
+		  </script>
+		  
 		  		  	         
     </head>
     
@@ -108,7 +116,7 @@
 							 						 
 							</c:when>
 							<c:otherwise>
-							
+													
 							<div align="right">
 				           		<form action="${prefix}login" id="formularioLogin" class="form-inline" role="form" method="POST">
 				           		
@@ -127,6 +135,15 @@
 								  <button type="submit" name="submit" value="${prefix}login" class="btn btn-success"><strong>Login</strong></button>
 							   </form>
 						   </div>
+						   
+						   <c:if test="${not empty  loginError}">
+						   
+							   <div class="error" align="right">
+								  <strong><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ${loginError}</strong>
+							   </div>
+						   
+						   </c:if>
+						   		   
 						</c:otherwise>
 	                   </c:choose>
 			           	

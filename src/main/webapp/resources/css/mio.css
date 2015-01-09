@@ -74,6 +74,17 @@ body{
 	#form-login{
 	
 		padding-top: 4%;
+		margin-bottom: 12%;
+	}
+	
+	.error{
+	
+		position: relative;
+		float:right;
+		color: #333333;
+		font-weight: bolder;
+		font-size: 17px;
+		margin-top: 2%;
 	}
 	
 	#caja-titulo{
@@ -102,7 +113,8 @@ body{
 	
 	#caja-registrate{
 		
-		margin-top: 12%;
+		position:relative;
+		margin-top: 9%;
 		color: white;	
 	}
 	
