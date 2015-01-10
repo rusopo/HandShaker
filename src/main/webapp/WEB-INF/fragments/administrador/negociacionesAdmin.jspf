@@ -45,6 +45,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
+							 			<td>prueba</td>
 							 			<!-- <td><button class="xXx" id="del_${n.id}">X</button> -->
 							 		</tr>
 							 		<tr>
@@ -54,7 +55,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
 							 		</tr> 
 							 		<tr>
 							 		    
@@ -63,7 +64,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
 							 		</tr> 
 							 		<tr>
 							 			
@@ -72,7 +73,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
 							 		</tr>  	
 							 	</tbody>
 							 	
