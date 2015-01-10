@@ -18,8 +18,10 @@ function crearCajaOfrecerServicio(t){
 	
 	console.log($(elem));
 	
-	if($("input[class=checkUsuario]").is(':checked')) {  
-		$('#lista-usuarios-servicio').append($(elem));
+	if($("input[class=checkUsuario]").is(':checked')) {
+		$( "#lista-usuarios-servicio" ).add( ".elementoListaOfrecerServicio" );
+		//$('.elementoListaOfrecerServicio').preppendTo('#lista-usuarios-servicio');
+		//$('#lista-usuarios-servicio').addClass('elementoListaOfrecerServicio');
     } else {  
     	$(elem).remove();
     }
@@ -28,7 +30,7 @@ function crearCajaOfrecerServicio(t){
 }
 
 
-</script>  
+</script> 
 
 <div id="cuerpo" class="container">
 					
@@ -81,8 +83,7 @@ function crearCajaOfrecerServicio(t){
 										</c:otherwise>
 										
 									</c:choose>
-								      
-								      	
+								     							      	
 								      </div>
 								   
 								  </div>	
@@ -93,21 +94,24 @@ function crearCajaOfrecerServicio(t){
 															
 								<ol id="lista-usuarios-servicio">
 								
-								<!-- <li class="elementoListaOfrecerServicio">
+								 <li class="elementoListaOfrecerServicio">
 								
-								  <div class="col-md-6">
-								  									  																		  
-											<h4 id="nombre"></h4>
-											<div>
-											      <input class="checkOfrecerServicio" type="checkbox"> Ofrecer Servicio
+								  <div class="col-md-12">
+								  
+								  	<div class="col-md-3">
+								  								  																		  
+											<h4 id="nombre" class="col-sm-6">Ruben</h4>
+											<div class="col-sm-6">
+											      <input class="checkOfrecerServicio" type="checkbox"><strong> Ofrecer Servicio</strong>
 											</div>
 										
+									</div>
+									
+									<div class="col-md-6">	
 										
-										<p>Seleccione servicio a ofrecer:</p>
+										<div class="col-md-5">
 										
-										<div class="form-group">
-										    <label for="inputCategoria3" class="col-sm-2 control-label">Categor&iacute;a</label>
-										    <div class="col-sm-10">
+										    <div>
       											<select name="categoriaServOfrecido" class="form-control">
 									       		  <c:forEach items="${listaServiciosDeUsuario}" var="s">
 													  <option>${s.categoria.nombreCategoria}</option>									
@@ -117,9 +121,9 @@ function crearCajaOfrecerServicio(t){
 										    </div>
 										</div>
 										
-										<div class="form-group">
-										    <label for="inputCategoria3" class="col-sm-2 control-label">Servicio</label>
-										    <div class="col-sm-10">
+										<div class="col-md-7">										
+										    
+										    <div>
       											<select name="nombreServOfrecido" class="form-control">
 									       		  <c:forEach items="${listaServiciosDeUsuario}" var="s">
 													  <option>${s.nombre}</option>									
@@ -128,9 +132,15 @@ function crearCajaOfrecerServicio(t){
 									       
 										    </div>
 										</div>
+									</div>									
+									
+									<div class="col-md-3">
+									
+										<h5 id="ServicioAofrecer"><strong>Servicio ofrecido: X</strong></h5>
+									</div>
 									 
 								  </div> 
-							</li> -->
+							</li> 
 								
 								
 							<!--  

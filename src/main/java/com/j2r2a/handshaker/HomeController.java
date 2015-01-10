@@ -592,7 +592,7 @@ public class HomeController {
 			model.addAttribute("listaUsuariosServicio",listaUsuarios);
 		}
 					
-		List<Servicio> listaServiciosDeUsuario = entityManager.createNamedQuery("ListaServiciosDeUsuario").setParameter("IdUsuarioMetido", u.getId()).getResultList();
+		List<Servicio> listaServiciosDeUsuario = entityManager.createQuery("SELECT DISTINCT u.habilidades from Usuario u join u.habilidades h where u.id = "+ u.getId() +"").getResultList();
 		if(listaServiciosDeUsuario != null){
 			
 			model.addAttribute("listaServiciosDeUsuario", listaServiciosDeUsuario);
