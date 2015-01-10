@@ -38,15 +38,7 @@
 													     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
 													    		</form>	
 														     		  <a href="negociacion?id_negociacionNombre=${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
-														     		<!--	
-														     		 <a href="negociacion."  id= "boton-negociacion" class="btn btn-success btn-lg"  >Negociar Oferta</a>
-														     	-->
-													     		
-													     		
-													     <!--		<form action="servicio" method="get">
-									    			<input type="hidden" name="id_servicio" value="${s.id_servicio}">
-									    		</form>								    	
-									    		<a href="servicio?id_servicio=${s.id_servicio}">${s.nombre}</a>	-->
+														     		
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
@@ -97,7 +89,11 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<button id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</button>
+													     		<form action="negociacion.jsp" method="GET">
+													     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
+													    		</form>	
+														     		  <a href="negociacion?id_negociacionNombre=${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+														     		
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>

@@ -1,4 +1,6 @@
+<%@page import="com.j2r2a.handshaker.model.Negociacion"%>
 <%@ include file="../fragments/header.jspf" %>
+<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
 
 
 <div class="container" id = "cuerpo">
@@ -46,15 +48,18 @@
                                 ENVIAR</button>
                         </span>
                       	</form>
-                        
+                      	<form action = "mis_ofertas.jsp" method = "GET">
+			            <input type= "hidden" name ="OfertaAceptada" value = "${c.negociacion.id_negociacion}"> 
+			            </form>
+			            <a href="mis_ofertas?OfertaAceptada=${c.negociacion.id_negociacion}" class="btn btn-success btn-lg"  >ACEPTAR</a>
+			            <a href="mis_ofertas" class="btn btn-danger btn-lg"  >VER LISTA NEGOCIACIONES</a>
+			                        
                     </div>
+                   
                 </div>
             </div>
             </div>
-            <form action = "negociacion" method = "get">
-            <input type= "hidden" name ="OfertaAceptada" value = "aceptada"> 
-            </form>
-            <a href="mis_ofertas" class="btn btn-success btn-lg"  >ACEPTAR</a>
+            
         </div>
     </div>
 </div>

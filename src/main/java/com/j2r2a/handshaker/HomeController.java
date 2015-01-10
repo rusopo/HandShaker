@@ -546,8 +546,19 @@ public class HomeController {
 				model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
 			}
 			
-		}			
-	
+		}
+		
+		try{
+			long id_negociacion_pulsada= Long.parseLong(request.getParameter("OfertaAceptada"));
+			
+				
+			System.out.print("SE HA ACEPTADO LA NEGOCIACION");
+			
+		}catch(Exception e){
+			
+			
+		}
+		
 		model.addAttribute("listaActiva4","class='active'");
 	
 		return "mis_ofertas";
@@ -595,7 +606,7 @@ public class HomeController {
 	
 	
 		model.addAttribute("ListaComentarios",listaComentarios);
-		model.addAttribute("listaActiva6","class ='active'");
+		//model.addAttribute("listaActiva6","class ='active'");
 		return "negociacion";
 	}
 
