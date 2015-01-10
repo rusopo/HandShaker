@@ -24,8 +24,7 @@ import javax.persistence.OneToOne;
 	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido AND u.id <> :idUsuarioMetido"),
 	@NamedQuery(name="BusquedaServicioPorTextoYCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE LOWER(s.nombre) LIKE :textoMetido AND sCat.id_categoria= :categoriaMetida"),
 	@NamedQuery(name="BusquedaServicioPorSoloTexto",query="SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE :textoMetido"),
-	@NamedQuery(name = "ListaServiciosDeUsuario", 
-	query = "SELECT distinct s FROM Servicio s,Usuario u , IN(u.habilidades) AS h where u.id = :IdUsuarioMetido")
+	
 	
 	
 })

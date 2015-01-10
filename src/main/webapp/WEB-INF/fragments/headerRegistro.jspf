@@ -53,7 +53,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 			    setTimeout(function() {
-			        $(".error").fadeOut(1500);
+			        $(".errorIndex").fadeOut(1500);
 			    },3000);
 			});
 		</script>
@@ -68,7 +68,7 @@
 		          <div id="logo" class="col-md-2">
 		          
 			          <div class="col-md-12">
-			          	<a href="index"><img id="imagen-logo" src="${prefix}resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
+			          	<a href="${prefix}index"><img id="imagen-logo" src="${prefix}resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
 			          </div>
 		          
 		          
@@ -136,7 +136,7 @@
 						   
 						   <c:if test="${not empty  loginError}">
 						   
-							   <div class="error" align="right">
+							   <div class="errorIndex" align="right">
 								  <strong><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ${loginError}</strong>
 							   </div>
 						   

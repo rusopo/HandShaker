@@ -224,7 +224,7 @@ public class HomeController {
 		Usuario usuario = (Usuario)session.getAttribute("usuario");	
 		long id = usuario.getId();
 		
-		List<Servicio> lista_habilidades = new ArrayList<Servicio>();		
+		List<Servicio> lista_habilidades = entityManager.createQuery("SELECT DISTINCT u.habilidades FROM Usuario u WHERE u.id="+id+"").getResultList();
 		String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < aux.length();i++){			
@@ -235,6 +235,8 @@ public class HomeController {
 				//entityManager.createQuery("INSERT into habilidadesUsuario("+id +','+s.getId_servicio()+')');
 			}			
 		usuario.setHabilidades(lista_habilidades);
+		
+		entityManager.merge(usuario);
 					
 		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
@@ -252,7 +254,7 @@ public class HomeController {
 		Usuario usuario = (Usuario)session.getAttribute("usuario");	
 		long id = usuario.getId();
 		
-		List<Servicio> lista_intereses = new ArrayList<Servicio>();		
+		List<Servicio> lista_intereses = entityManager.createQuery("SELECT DISTINCT u.intereses FROM Usuario u WHERE u.id="+id+"").getResultList();		
 		String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < auxInteres.length();i++){				
@@ -261,6 +263,8 @@ public class HomeController {
 				lista_intereses.add(s);								
 			}			
 		usuario.setIntereses(lista_intereses);
+		
+		entityManager.merge(usuario);
 					
 		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
