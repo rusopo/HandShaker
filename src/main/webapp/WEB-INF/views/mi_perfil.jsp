@@ -292,7 +292,7 @@ function obtenerServicios(serv) {
 								<div class="modal fade" id="nuevoServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								  <div class="modal-dialog">
 								  
-								  <form name="formAnadirServicio" action="${prefix}anadirNuevoServicio" method="post">
+								  <form id="formAnadirServicio" name="formAnadirServicio" action="${prefix}anadirNuevoServicio" method="post">
 								  
 									    <div class="modal-content">
 									    							    
@@ -333,7 +333,7 @@ function obtenerServicios(serv) {
 									  								  								  	
 									  	  </div>								    								      
 									      <div class="modal-footer">						
-									        <button type="submit" class="btn btn-danger"><strong>A&ntilde;adir</strong></button>
+									        <button type="submit" class="btn btn-lg btn-danger"><strong>A&ntilde;adir</strong></button>
 									      </div>
 								      </div>
 							      </form>
@@ -453,6 +453,11 @@ function obtenerServicios(serv) {
 											      
 											     										     									  		
 												  	<div id="anadir-servicio" class="col-md-12">
+												  	
+												  		<div class="col-md-12">
+												  			<h5><strong>Seleccione las habilidades que desea a&ntilde;adir a su lista:</strong></h5>
+												  			<br>
+												  		</div>
 												
 														<div class="col-md-5">
 														
@@ -544,6 +549,11 @@ function obtenerServicios(serv) {
 											      
 											     										     									  		
 												  	<div id="anadir-interes" class="col-md-12">
+												  	
+												  		<div class="col-md-12">
+												  			<h5><strong>Seleccione los intereses que desea a&ntilde;adir a su lista:</strong></h5>
+												  			<br>
+												  		</div>
 										
 														<div class="col-md-5">
 														

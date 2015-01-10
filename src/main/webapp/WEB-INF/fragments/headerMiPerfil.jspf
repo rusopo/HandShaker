@@ -27,6 +27,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
  
 	    <script type="text/javascript" src="${prefix}resources/js/validate.js"></script>
+	    <script type="text/javascript" src="${prefix}resources/js/validarAnadirNuevoServicio.js"></script>
 	    
 	    <!-- JQuery-UI -->
 	    
@@ -48,6 +49,14 @@
 	    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&region=ES"></script>
 	    
 	    <script type="text/javascript" src="${prefix}resources/js/google-maps-perfil.js"></script>
+	    
+	    <script type="text/javascript">
+			$(document).ready(function() {
+			    setTimeout(function() {
+			        $(".errorIndex").fadeOut(1500);
+			    },3000);
+			});
+		</script>
 	         
     </head>
     
@@ -58,7 +67,7 @@
 		          <div id="logo" class="col-md-2">
 		          
 			          <div class="col-md-12">
-			          	<a href="index"><img id="imagen-logo" src="${prefix}resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
+			          	<a href="${prefix}index"><img id="imagen-logo" src="${prefix}resources/images/handshake.jpg" height="150px" width="150px" /> </a>	
 			          </div>
 		          
 		          
@@ -123,6 +132,15 @@
 								  <button type="submit" name="submit" value="${prefix}login" class="btn btn-success"><strong>Login</strong></button>
 							   </form>
 						   </div>
+						   
+						   <c:if test="${not empty  loginError}">
+						   
+							   <div class="errorIndex" align="right">
+								  <strong><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> ${loginError}</strong>
+							   </div>
+						   
+						   </c:if>
+						   
 						</c:otherwise>
 	                   </c:choose>
 			           	

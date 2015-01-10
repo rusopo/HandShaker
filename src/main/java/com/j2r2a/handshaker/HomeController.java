@@ -62,10 +62,11 @@ public class HomeController {
 		
 		logger.info("Login attempt from '{}' while visiting '{}'", formName, formSource);
 				
-		// validate request		
-		if (formName == null || formName.length() < 5 || formPass == null || formPass.length() < 5) {			
-			model.addAttribute("loginError", "Usuario y/o contraseña: 5 caracteres minimo");
-		} 		
+		// validate request	
+		
+		if (formName==null || formPass==null || formName.length() < 5 || formPass.length() < 5) {			
+			session.setAttribute("loginError", "Usuario y/o contraseña: 5 caracteres minimo");
+		}
 		else {
 			
 			Usuario u = null;
@@ -81,15 +82,19 @@ public class HomeController {
 					getTokenForSession(session);					
 						if(u.getRol().equalsIgnoreCase("administrador")){ 
 							return "redirect:" + "administrador";
-						}										
+						}	
+					if(formSource.equalsIgnoreCase("/mi_perfil/Usuario/0")){
+						
+						return "redirect:" + "mi_perfil/Usuario/"+u.getId();
+					}
 				} else {					
 					logger.info("pass was NOT valid");
-					model.addAttribute("loginError", "Error en usuario o contraseña");				
+					session.setAttribute("loginError", "Error en usuario o contraseña");				
 				}				
 			}
 			catch (NoResultException nre) {				
 				logger.info("no such login: {}", formName);				
-				model.addAttribute("loginError", "No existe el usuario introducido");				
+				session.setAttribute("loginError", "No existe el usuario introducido");				
 			}
 		}	
 		return "redirect:" + formSource;		
@@ -219,7 +224,7 @@ public class HomeController {
 		Usuario usuario = (Usuario)session.getAttribute("usuario");	
 		long id = usuario.getId();
 		
-		List<Servicio> lista_habilidades = new ArrayList<Servicio>();		
+		List<Servicio> lista_habilidades = entityManager.createQuery("SELECT DISTINCT u.habilidades FROM Usuario u WHERE u.id="+id+"").getResultList();
 		String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < aux.length();i++){			
@@ -230,6 +235,8 @@ public class HomeController {
 				//entityManager.createQuery("INSERT into habilidadesUsuario("+id +','+s.getId_servicio()+')');
 			}			
 		usuario.setHabilidades(lista_habilidades);
+		
+		entityManager.merge(usuario);
 					
 		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
@@ -247,7 +254,7 @@ public class HomeController {
 		Usuario usuario = (Usuario)session.getAttribute("usuario");	
 		long id = usuario.getId();
 		
-		List<Servicio> lista_intereses = new ArrayList<Servicio>();		
+		List<Servicio> lista_intereses = entityManager.createQuery("SELECT DISTINCT u.intereses FROM Usuario u WHERE u.id="+id+"").getResultList();		
 		String auxInteres = intereses_metidos.replaceAll("[^0-9]+","");
 			
 			for(int i=0; i < auxInteres.length();i++){				
@@ -256,6 +263,8 @@ public class HomeController {
 				lista_intereses.add(s);								
 			}			
 		usuario.setIntereses(lista_intereses);
+		
+		entityManager.merge(usuario);
 					
 		return "redirect:"+ "mi_perfil/Usuario/"+id;
 	
