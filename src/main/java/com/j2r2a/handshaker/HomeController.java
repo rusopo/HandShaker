@@ -557,18 +557,10 @@ public class HomeController {
 				model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
 			}
 			
+			
 		}			
 		
-		try{
-			long id_negociacion_pulsada= Long.parseLong(request.getParameter("OfertaAceptada"));
-			
-				
-			System.out.print("SE HA ACEPTADO LA NEGOCIACION");
-			
-		}catch(Exception e){
-			
-			
-		}
+		
 		
 		model.addAttribute("listaActiva4","class='active'");
 	
@@ -603,8 +595,10 @@ public class HomeController {
 			c.setTexto_comentario(texto);
 			listaComentarios.add(c);
 			negociacion.setLista_comentarios(listaComentarios);
+			
 			model.addAttribute("ListaComentarios",listaComentarios);
 			entityManager.merge(c);
+			entityManager.merge(negociacion);
 		}
 		
 		if(negociacion == null){
@@ -615,13 +609,28 @@ public class HomeController {
 		
 		}
 		
-	
+		
 	
 		model.addAttribute("ListaComentarios",listaComentarios);
 		//model.addAttribute("listaActiva6","class ='active'");
 		return "negociacion";
 	}
 	
+	//negociacionAceptada
+	
+	@RequestMapping(value = "/negociacionAceptada", method = RequestMethod.GET)
+	@Transactional
+	public String negociacionAceptadaHome(Model model, HttpSession session
+			 ){
+		
+		Negociacion negociacion = (Negociacion)session.getAttribute("negociacion");
+		negociacion.setAceptada(true);
+		session.setAttribute("negociacion", negociacion);
+		entityManager.merge(negociacion);
+		
+		
+		return "mis_ofertas";
+	}
 	
 	
 	/**

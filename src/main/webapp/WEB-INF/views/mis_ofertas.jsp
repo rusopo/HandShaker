@@ -28,37 +28,43 @@
 					<c:otherwise>
 						<c:forEach items="${listaOfertasRecibidasUsuario}" var ="o">
 								<li>
+								<c:if test="${o.negociacion.aceptada eq false }">
 										<div class="col-md-12">
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
+													  
 													    <h3 class="panel-title"> #1 OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}</h3>
 													    </div>
-													  <div class="panel-body">
-													    	
-													     <div class="col-md-6">
-													     
-													     	<h4>Te Ofrece:</h4><p>${o.servicio_solicitado.nombre}</p>
-													    	<h4>Por:</h4> <p> ${o.servicio_ofrecido.nombre}</p>
-													    	
-													     </div>
-													     <div class="col-md-6">
-													     	<div id="boton-ofertas">
-													     	 	<form action="negociacion.jsp" method="GET">
-													     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
-													    		</form>	
-														     		  <a href="negociacion?id_negociacionNombre=${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
-														     		
-													     	</div>
-													     	<div>
-																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
-															</div>
-													     </div>
-													    	
-													  </div>
+													  
+													  	
+														  <div class="panel-body">
+														    	
+														     <div class="col-md-6">
+														     
+														     	<h4>Te Ofrece:</h4><p>${o.servicio_solicitado.nombre}</p>
+														    	<h4>Por:</h4> <p> ${o.servicio_ofrecido.nombre}</p>
+														    	
+														     </div>
+														     <div class="col-md-6">
+														     	<div id="boton-ofertas">
+														     	 	<form action="negociacion.jsp" method="GET">
+														     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
+														    		</form>	
+															     		  <a href="negociacion?id_negociacionNombre=${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+															     		
+														     	</div>
+														     	<div>
+																	<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
+																</div>
+														     </div>
+														    	
+														  </div>
+														  
+													 
 												 </div>									 		
 										</div>
-												
+									</c:if>			
 								</li>
 							</c:forEach>
 						</c:otherwise>
