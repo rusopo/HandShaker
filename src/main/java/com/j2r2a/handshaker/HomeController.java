@@ -592,7 +592,7 @@ public class HomeController {
 			listaComentarios.add(c);
 			negociacion.setLista_comentarios(listaComentarios);
 			model.addAttribute("ListaComentarios",listaComentarios);
-			entityManager.persist(c);
+			entityManager.merge(c);
 		}
 		
 		if(negociacion == null){
