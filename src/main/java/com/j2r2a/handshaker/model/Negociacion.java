@@ -1,5 +1,6 @@
 package com.j2r2a.handshaker.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,8 +17,8 @@ import javax.persistence.OneToOne;
 @NamedQueries({
 	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
 	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
-	@NamedQuery(name="DameListaComentarios",
-	query= "SELECT c FROM Comentario c, Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+	/*@NamedQuery(name="DameListaComentarios",
+	query= "SELECT c FROM Comentario c JOIN c.negociacion cNeg WHERE cNeg.id_negociacion = :IdNegociacionMetido"),*/
 	/*@NamedQuery(name = "ListaUsuariosServicio", 
 	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),*/
    
@@ -32,7 +33,16 @@ public class Negociacion{
 	private List<Comentario> listaComentarios;
 	private boolean aceptada;
 	
-
+	public static Negociacion crearNegociacion(Usuario usuario1,Usuario usuario2,boolean aceptada){
+		
+		Negociacion negociacion= new Negociacion();
+		negociacion.usuario1=usuario1;
+		negociacion.usuario2=usuario2;
+		negociacion.listaComentarios=new ArrayList<Comentario>();
+		negociacion.aceptada=aceptada;
+		
+		return negociacion;
+	}
 	
 	@Id
     @GeneratedValue
@@ -60,7 +70,6 @@ public class Negociacion{
 	}
 	
 	@OneToMany(targetEntity=Comentario.class) //Una negociacion tiene n comentarios tipo Comentario
-	@JoinColumn(name="idNegociacion") 
 	public List<Comentario> getLista_comentarios() {
 		return listaComentarios;
 	}

@@ -570,50 +570,52 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/negociacion", method = RequestMethod.GET)
+	@RequestMapping(value = "/negociacion/{id}", method = RequestMethod.GET)
 	@Transactional
-	public String negociacionHome(Model model, HttpSession session,HttpServletRequest request) {
+	public String negociacionHome(Model model, HttpSession session,HttpServletRequest request,
+			@PathVariable("id") long IdNegociacionPulsada) {
 		
+		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", IdNegociacionPulsada).getSingleResult();
+		session.setAttribute("negociacion", negociacion);
 				
+		List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", IdNegociacionPulsada).getResultList();
+		
+		if(listaComentarios.size()==0){
+			model.addAttribute("NoHayComentarios","No hay comentarios en esta negociación. Escriba uno si lo desea");
+		}
+		else{
+			model.addAttribute("ListaComentarios",listaComentarios);
+		}
+		
+		model.addAttribute("prefix", "../");
+
+		return "negociacion";
+	}
+	
+	@RequestMapping(value = "/anadirComentarioNegociacion", method = RequestMethod.POST)
+	@Transactional
+	
+	public String anadirComentarioNegociacionHome(Model model, HttpSession session,
+			@RequestParam("idNegociacion") long idNegociacion,@RequestParam("textoComentario") String textoComentario){
 		
 		Usuario u = (Usuario)session.getAttribute("usuario");
-		Negociacion negociacion = (Negociacion)session.getAttribute("negociacion") ;
-		long id_negociacion_pulsada = 0;
-		List <Comentario> listaComentarios = null;
-		
+		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
+					
 		if(negociacion != null){
-			id_negociacion_pulsada = negociacion.getId_negociacion();
-			listaComentarios = entityManager.createNamedQuery("DameListaComentarios").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getResultList();
-			
-			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
-			model.addAttribute("usuario", u);
-			
-			String texto = request.getParameter("textoAEnviar");
-			Comentario c = new Comentario();
-			c.setId_usuario(u);
-			c.setNegociacion(negociacion);
-			c.setTexto_comentario(texto);
+
+			List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", idNegociacion).getResultList();
+			Comentario c = Comentario.crearComentario(u, textoComentario, negociacion);
 			listaComentarios.add(c);
+			entityManager.persist(c);
 			negociacion.setLista_comentarios(listaComentarios);
-			
-			model.addAttribute("ListaComentarios",listaComentarios);
-			entityManager.merge(c);
 			entityManager.merge(negociacion);
+			
+			model.addAttribute("ListaComentarios",listaComentarios);					
 		}
 		
-		if(negociacion == null){
-		id_negociacion_pulsada= Long.parseLong(request.getParameter("id_negociacionNombre"));
-		negociacion= (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getSingleResult();
-		listaComentarios= entityManager.createNamedQuery("DameListaComentarios").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getResultList();
-		session.setAttribute("negociacion", negociacion);
-		
-		}
-		
-		
-	
-		model.addAttribute("ListaComentarios",listaComentarios);
-		//model.addAttribute("listaActiva6","class ='active'");
-		return "negociacion";
+		model.addAttribute("prefix", "../");
+				
+		return "resultadosChatNegociacion";
 	}
 	
 	//negociacionAceptada
