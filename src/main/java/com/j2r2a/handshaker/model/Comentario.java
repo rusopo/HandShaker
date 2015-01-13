@@ -3,10 +3,17 @@ package com.j2r2a.handshaker.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 
 @Entity
+@NamedQueries({
+	//@NamedQuery(name="InsertaComentarios", query="SELECT c FROM Comentario c, WHERE c.id_negociacion = : IdNegociacionMetido "),
+	
+    
+})
 public class Comentario{
 	
 
