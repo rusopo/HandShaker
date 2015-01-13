@@ -68,7 +68,7 @@ public class Negociacion{
 		this.listaComentarios = lista_comentarios;
 	}
 	
-	public boolean isAceptada() {
+	public boolean getAceptada() {
 		return aceptada;
 	}
 	public void setAceptada(boolean aceptada) {

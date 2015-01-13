@@ -48,12 +48,13 @@
                                 ENVIAR</button>
                         </span>
                       	</form>
-                      	<form action = "mis_ofertas.jsp" method = "GET">
-			            <input type= "hidden" name ="OfertaAceptada" value = "${c.negociacion.id_negociacion}"> 
-			            </form>
-			            <a href="mis_ofertas?OfertaAceptada=${c.negociacion.id_negociacion}" class="btn btn-success btn-lg"  >ACEPTAR</a>
+                      	<form action = "negociacionAceptada" method = "GET">
+			            <input type= "hidden" name ="OfertaAceptada"> 
+			            
+			            <button type="submit" class="btn btn-success btn-lg"  >ACEPTAR</button>
+			            
 			            <a href="mis_ofertas" class="btn btn-danger btn-lg"  >VER LISTA NEGOCIACIONES</a>
-			                        
+			            </form>            
                     </div>
                    
                 </div>
