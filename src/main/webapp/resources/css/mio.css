@@ -418,7 +418,26 @@ body{
     	margin-left: -5%;
     	
     }
-  
+    
+    #divPrincipalNegociacion{
+    
+    	margin-top: 3%;
+    
+    }
+  	
+  	.listaChat{
+  		list-style-type: none;
+  	
+  	}
+  	
+  	#btn-chat{
+  		margin-top: 2%;
+  	}
+  	
+  	#divComentarioNegociacion{
+  		margin-top: 4%;
+  	
+  	}
 }
  
 /* -----------------------------------Portrait tablet to landscape and desktop ----------------------------------------*/
