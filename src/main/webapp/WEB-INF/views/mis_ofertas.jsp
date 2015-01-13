@@ -44,7 +44,11 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<a href="${prefix}negociacion" id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</a>
+													     	 	<form action="negociacion.jsp" method="GET">
+													     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
+													    		</form>	
+														     		  <a href="negociacion?id_negociacionNombre=${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+														     		
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
@@ -95,7 +99,11 @@
 													     </div>
 													     <div class="col-md-6">
 													     	<div id="boton-ofertas">
-													     		<a href="${prefix}negociacion" id= "boton-negociacion" class="btn btn-success btn-lg">Negociar Oferta</a>
+													     		<form action="negociacion.jsp" method="GET">
+													     		<input type= "hidden" name ="id_negociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
+													    		</form>	
+														     		  <a href="negociacion?id_negociacionNombre=${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+														     		
 													     	</div>
 													     	<div>
 																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>

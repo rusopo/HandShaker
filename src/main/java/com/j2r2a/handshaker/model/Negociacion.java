@@ -6,11 +6,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
+	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+	@NamedQuery(name="DameListaComentarios",
+	query= "SELECT c FROM Comentario c, Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+	/*@NamedQuery(name = "ListaUsuariosServicio", 
+	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),*/
+   
+})
+
+
 public class Negociacion{
 	
 	private long id;	
@@ -18,6 +31,8 @@ public class Negociacion{
 	private Usuario usuario2;
 	private List<Comentario> listaComentarios;
 	private boolean aceptada;
+	
+
 	
 	@Id
     @GeneratedValue

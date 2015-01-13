@@ -1,103 +1,68 @@
+<%@page import="com.j2r2a.handshaker.model.Negociacion"%>
 <%@ include file="../fragments/header.jspf" %>
+<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
 
-<div id="cuerpo" class="container">
-		
-	<div id="cuerpo-negociacion" class="col-md-12">
-			
-				<div class="col-md-2"></div>
-				
-				<div class="col-md-8">
-					
-					<div class="col-md-12">	
-					
-						<div id="user1" class="col-md-12">
-							<div class="col-md-2">
-							 
-								PEPE
-							</div>
-							<div class="col-md-10">
-							 
-								<textarea class="form-control" rows="4"></textarea>
-								
-								<div id ="post-button" class="col-md-12"align="right">
-									<button type="submit" class="btn btn-primary">Enviar</button>
-								</div>
-							</div>
-							
-						</div>
+
+<div class="container" id = "cuerpo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <div class="btn-group pull-right">
+                        <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                    </div>
+                </div>
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                        
+						<c:forEach items="${ListaComentarios}" var ="c">
+                            <div class="chat-body clearfix">
+                                <div class="header" >
+                                    <strong class="primary-font"> ${c.id_usuario.nombre}</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                </div>
+                                <p>
+                                    ${c.texto_comentario} 
+                                </p>
+                              
+                            </div>
+                           </c:forEach>
 						
-						<div class="col-md-12">
-						
-							<div class="col-md-2"></div>
-							<div id="user2" class="col-md-10">
-							
-								<div class="col-md-2">
-								 	JUAN
-								</div>
-								<div class="col-md-10">
-								 
-									<textarea class="form-control" rows="4"></textarea>		
-																
-									<div id ="post-button" class="col-md-12"align="right">
-									<button type="submit" class="btn btn-primary">Enviar</button>
-								</div>
-								</div>
-							</div>
-						</div>
-						
-					
-					</div>
-					
-					<div class="col-md-12">	
-					
-						<div id="user1" class="col-md-12">
-							<div class="col-md-2">
-							 
-								PEPE
-							</div>
-							<div class="col-md-10">
-							 
-								<textarea class="form-control" rows="4"></textarea>
-								
-								<div id ="post-button" class="col-md-12"align="right">
-									<button type="submit" class="btn btn-primary">Enviar</button>
-								</div>
-							</div>
-							
-						</div>
-						
-						<div class="col-md-12">
-						
-							<div class="col-md-2"></div>
-							<div id="user2" class="col-md-10">
-							
-								<div class="col-md-2">
-								 	JUAN
-								</div>
-								<div class="col-md-10">
-								 
-									<textarea class="form-control" rows="4"></textarea>		
-																
-									<div id ="post-button" class="col-md-12"align="right">
-									<button type="submit" class="btn btn-primary">Enviar</button>
-								</div>
-								</div>
-							</div>
-						</div>
-						
-					
-					</div>
-					
-					</div>			
-			
-			</div>
-			
-	<div id="botones-negociacion" class="col-md-12" align="center">
-				<button type="submit" class="btn btn-success btn-lg">Aceptar</button>
-				<button type="reset" class="btn btn-danger btn-lg">Cancelar</button>
-			
-			</div>			
-			
+						 
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group"> 
+                   		<form action = "negociacion" method = "get">
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Pon tu mensaje aqui..." name = "textoAEnviar" >
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" >
+                                ENVIAR</button>
+                        </span>
+                      	</form>
+                      	<form action = "mis_ofertas.jsp" method = "GET">
+			            <input type= "hidden" name ="OfertaAceptada" value = "${c.negociacion.id_negociacion}"> 
+			            </form>
+			            <a href="mis_ofertas?OfertaAceptada=${c.negociacion.id_negociacion}" class="btn btn-success btn-lg"  >ACEPTAR</a>
+			            <a href="mis_ofertas" class="btn btn-danger btn-lg"  >VER LISTA NEGOCIACIONES</a>
+			                        
+                    </div>
+                   
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>
 </div>
+
 		 
 <%@ include file="../fragments/footer.jspf" %>

@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.j2r2a.handshaker.model.Categoria;
+import com.j2r2a.handshaker.model.Comentario;
+import com.j2r2a.handshaker.model.Negociacion;
 import com.j2r2a.handshaker.model.OfertaEnviada;
 //import com.j2r2a.handshaker.model.OfertaRecibida;
 import com.j2r2a.handshaker.model.Servicio;
@@ -557,7 +559,18 @@ public class HomeController {
 			
 		}			
 		
-		model.addAttribute("elemNavbarActive4","class='active'");
+		try{
+			long id_negociacion_pulsada= Long.parseLong(request.getParameter("OfertaAceptada"));
+			
+				
+			System.out.print("SE HA ACEPTADO LA NEGOCIACION");
+			
+		}catch(Exception e){
+			
+			
+		}
+		
+		model.addAttribute("listaActiva4","class='active'");
 	
 		return "mis_ofertas";
 	}
@@ -566,10 +579,46 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/negociacion", method = RequestMethod.GET)
-	public String negociacionHome(Model model) {
+	@Transactional
+	public String negociacionHome(Model model, HttpSession session,HttpServletRequest request) {
 		
 				
 		
+		Usuario u = (Usuario)session.getAttribute("usuario");
+		Negociacion negociacion = (Negociacion)session.getAttribute("negociacion") ;
+		long id_negociacion_pulsada = 0;
+		List <Comentario> listaComentarios = null;
+		
+		if(negociacion != null){
+			id_negociacion_pulsada = negociacion.getId_negociacion();
+			listaComentarios = entityManager.createNamedQuery("DameListaComentarios").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getResultList();
+			
+			model.addAttribute("NegociacionPorID", negociacion); // el primer atributo es el que hay que usar en la vista.
+			model.addAttribute("usuario", u);
+			
+			String texto = request.getParameter("textoAEnviar");
+			Comentario c = new Comentario();
+			c.setId_usuario(u);
+			c.setNegociacion(negociacion);
+			c.setTexto_comentario(texto);
+			listaComentarios.add(c);
+			negociacion.setLista_comentarios(listaComentarios);
+			model.addAttribute("ListaComentarios",listaComentarios);
+			entityManager.merge(c);
+		}
+		
+		if(negociacion == null){
+		id_negociacion_pulsada= Long.parseLong(request.getParameter("id_negociacionNombre"));
+		negociacion= (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getSingleResult();
+		listaComentarios= entityManager.createNamedQuery("DameListaComentarios").setParameter("IdNegociacionMetido", id_negociacion_pulsada).getResultList();
+		session.setAttribute("negociacion", negociacion);
+		
+		}
+		
+	
+	
+		model.addAttribute("ListaComentarios",listaComentarios);
+		//model.addAttribute("listaActiva6","class ='active'");
 		return "negociacion";
 	}
 	
