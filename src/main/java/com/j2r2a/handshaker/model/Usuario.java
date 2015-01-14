@@ -201,23 +201,6 @@ public class Usuario{
 		return intereses;
 	}
 	
-	public void annadirInteres(Servicio s){
-		//Iterator it = this.intereses.iterator();
-		boolean esta=false;
-		for(Servicio serv : this.intereses){
-			if(serv.getNombre().toUpperCase() == s.getNombre().toUpperCase()){
-				esta=true;
-			}
-		}
-		if(!esta){
-			this.intereses.add(s);
-		}
-	}
-	/*public void eliminaInteres(Servicio s){
-		
-		this.intereses.remove(s);
-	}*/
-
 	public void setIntereses(List<Servicio> intereses) {
 		this.intereses = intereses;
 	}

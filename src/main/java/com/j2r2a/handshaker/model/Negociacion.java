@@ -3,10 +3,11 @@ package com.j2r2a.handshaker.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -17,6 +18,7 @@ import javax.persistence.OneToOne;
 @NamedQueries({
 	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
 	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
+	@NamedQuery(name="EliminarNegociacionPorID",query="DELETE FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido")
 	/*@NamedQuery(name="DameListaComentarios",
 	query= "SELECT c FROM Comentario c JOIN c.negociacion cNeg WHERE cNeg.id_negociacion = :IdNegociacionMetido"),*/
 	/*@NamedQuery(name = "ListaUsuariosServicio", 
@@ -69,7 +71,7 @@ public class Negociacion{
 		this.usuario2 = usuario2;
 	}
 	
-	@OneToMany(targetEntity=Comentario.class) //Una negociacion tiene n comentarios tipo Comentario
+	@OneToMany(mappedBy="negociacion", fetch = FetchType.EAGER, cascade = CascadeType.ALL) //Una negociacion tiene n comentarios tipo Comentario
 	public List<Comentario> getLista_comentarios() {
 		return listaComentarios;
 	}

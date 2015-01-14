@@ -82,13 +82,13 @@ $(document).ready(function(){
                 <div class="panel-footer">
                       <div class="col-md-6" align="right">       		
                       	<form action = "${prefix}negociacionAceptada" method = "post">
-				            <input type= "hidden" name ="OfertaAceptada"> 
-				            
+				            <input type= "hidden" name ="IDNegociacion" value="${negociacion.id_negociacion}"> 			            
 				            <button type="submit" class="btn btn-success">ACEPTAR NEGOCIACI&Oacute;N</button>
 			             </form>
 			          </div>
 			          
 			             <form action="${prefix}negociacionCancelada" method="post">
+			            	<input type= "hidden" name ="IDNegociacion" value="${negociacion.id_negociacion}">
 			            	<button type="submit" class="btn btn-danger">RECHAZAR NEGOCIACI&Oacute;N</button>
 			             </form>          
                                      

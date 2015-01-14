@@ -37,7 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.j2r2a.handshaker.model.Categoria;
 import com.j2r2a.handshaker.model.Comentario;
 import com.j2r2a.handshaker.model.Negociacion;
-import com.j2r2a.handshaker.model.OfertaEnviada;
+import com.j2r2a.handshaker.model.Oferta;
 //import com.j2r2a.handshaker.model.OfertaRecibida;
 import com.j2r2a.handshaker.model.Servicio;
 import com.j2r2a.handshaker.model.Usuario;
@@ -486,10 +486,11 @@ public class HomeController {
 	@RequestMapping(value = "/mi_historial", method = RequestMethod.GET)
 	public String mi_historialHome(Model model) {
 		
+		
+		
 			
 		model.addAttribute("elemNavbarActive3","class='active'");
-
-		
+	
 		return "mi_historial";
 	}
 	
@@ -545,10 +546,10 @@ public class HomeController {
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
 		if(u!=null){
-			model.addAttribute("usuario", u);
+			//model.addAttribute("usuario", u);
 			
-			List<OfertaEnviada> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
-			List<OfertaEnviada> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
+			List<Oferta> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
+			List<Oferta> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
 			
 			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
@@ -618,21 +619,33 @@ public class HomeController {
 		return "resultadosChatNegociacion";
 	}
 	
-	//negociacionAceptada
-	
-	@RequestMapping(value = "/negociacionAceptada", method = RequestMethod.GET)
+	//negociacionAceptada	
+	@RequestMapping(value = "/negociacionAceptada", method = RequestMethod.POST)
 	@Transactional
-	public String negociacionAceptadaHome(Model model, HttpSession session
-			 ){
+	public String negociacionAceptadaHome(Model model, HttpSession session,
+			@RequestParam("IDNegociacion") long idNegociacion){
 		
-		Negociacion negociacion = (Negociacion)session.getAttribute("negociacion");
+		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
 		negociacion.setAceptada(true);
 		session.setAttribute("negociacion", negociacion);
 		entityManager.merge(negociacion);
-		
-		
-		return "mis_ofertas";
+					
+		return "redirect:"+"mis_ofertas";
 	}
+	
+		//negociacionCancelada	
+		@RequestMapping(value = "/negociacionCancelada", method = RequestMethod.POST)
+		@Transactional
+		public String negociacionCanceladaHome(Model model, HttpSession session,
+				@RequestParam("IDNegociacion") long idNegociacion){
+				
+			Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
+			Oferta oferta = (Oferta)entityManager.createNamedQuery("OfertaPorIDnegociacion").setParameter("IDNegociacion", idNegociacion).getSingleResult();
+			entityManager.remove(oferta);
+			entityManager.remove(negociacion);
+												
+			return "redirect:"+"mis_ofertas";
+		}
 	
 	
 	/**

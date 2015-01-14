@@ -1,27 +1,24 @@
 package com.j2r2a.handshaker.model;
 
-import java.sql.Date;
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
 @Entity
 
 @NamedQueries({
-    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM OfertaEnviada s WHERE s.usuarioEnvia = :UsuarioMetido"),
-    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM OfertaEnviada s WHERE s.usuarioRecibe = :UsuarioMetido"),
-    @NamedQuery(name = "CuantasOfertasTengo", 
-	query = "SELECT COUNT(u) FROM OfertaEnviada u where u.usuarioRecibe = :UsuarioMetido"),
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id_oferta_enviada DESC"),
+    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id_oferta_enviada DESC"),
+    @NamedQuery(name = "CuantasOfertasTengo",query = "SELECT COUNT(u) FROM Oferta u where u.usuarioRecibe = :UsuarioMetido"),
+    @NamedQuery(name="OfertaPorIDnegociacion",query="SELECT o FROM Oferta o JOIN o.negociacion neg WHERE neg.id_negociacion = :IDNegociacion")
 })
-public class OfertaEnviada{
+public class Oferta{
 	
 	private long id;		
 	//private Date fecha;
@@ -30,7 +27,18 @@ public class OfertaEnviada{
 	private Usuario usuarioEnvia;
 	private Usuario usuarioRecibe;
 	private Negociacion negociacion;
-	//private List<ServicioOfrecido> listaServiciosOfrecidos;
+	
+	public static Oferta crearOferta(Servicio servicioSolicitado,Servicio serviciOfrecido,Usuario usuarioEnvia, Usuario usuarioRecibe,Negociacion negociacion){
+		
+		Oferta o = new Oferta();
+		o.servicioSolicitado=servicioSolicitado;
+		o.serviciOfrecido=serviciOfrecido;
+		o.usuarioEnvia=usuarioEnvia;
+		o.usuarioRecibe=usuarioRecibe;
+		o.negociacion=negociacion;
+		
+		return o;
+	}
 	
 	
 	@Id
@@ -82,22 +90,12 @@ public class OfertaEnviada{
 		this.usuarioRecibe = usuario;
 	}
 	
-	@OneToOne(targetEntity=Negociacion.class) //Una oferta enviada le corresponde 1 negociacion
+	@OneToOne(targetEntity=Negociacion.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL) //Una oferta enviada le corresponde 1 negociacion
 	public Negociacion getNegociacion() {
 		return negociacion;
 	}
 	public void setNegociacion(Negociacion negociacion) {
 		this.negociacion = negociacion;
 	}
-	/*
-	@OneToMany(targetEntity=ServicioOfrecido.class) //Una oferta enviada puede tener 0,1 o mas servicios ofrecidos
-	@JoinColumn(name="idOfertaEnviada")
-	public List<ServicioOfrecido> getLista_servicios_ofrecidos() {
-		return listaServiciosOfrecidos;
-	}
-	public void setLista_servicios_ofrecidos(
-			List<ServicioOfrecido> lista_servicios_ofrecidos) {
-		this.listaServiciosOfrecidos = lista_servicios_ofrecidos;
-	}*/
 			
 }

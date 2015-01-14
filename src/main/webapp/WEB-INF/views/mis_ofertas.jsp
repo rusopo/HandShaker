@@ -26,6 +26,7 @@
 						No tienes Ofertas .
 					</c:when>
 					<c:otherwise>
+						<%int contador1=1; %>
 						<c:forEach items="${listaOfertasRecibidasUsuario}" var ="o">
 								<li>
 								<c:if test="${o.negociacion.aceptada eq false }">
@@ -34,7 +35,7 @@
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
 													  
-													    <h3 class="panel-title"> #1 OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}</h3>
+													    <h3 class="panel-title"> #<%=contador1%> OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}</h3>
 													    </div>
 													  
 													  	
@@ -66,6 +67,7 @@
 										</div>
 									</c:if>			
 								</li>
+								<%contador1++; %>
 							</c:forEach>
 						</c:otherwise>
 						</c:choose>	
@@ -85,13 +87,14 @@
 						No tienes Ofertas .
 					</c:when>
 					<c:otherwise>
+						<%int contador2=1; %>
 						<c:forEach items="${listaOfertasEnviadasUsuario}" var ="o">
 								<li>
 										<div class="col-md-12">
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
-													    <h3 class="panel-title">#1 OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre} </h3>
+													    <h3 class="panel-title">#<%=contador2%> OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre} </h3>
 													    
 													  </div>
 													  <div class="panel-body">
@@ -120,6 +123,7 @@
 												 </div>									 		
 										</div>		
 								</li>
+								<%contador2++; %>
 							</c:forEach>
 						</c:otherwise>
 						</c:choose>	
