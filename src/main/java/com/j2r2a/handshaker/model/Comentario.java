@@ -1,10 +1,9 @@
 package com.j2r2a.handshaker.model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -12,7 +11,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-	//@NamedQuery(name="InsertaComentarios", query="SELECT c FROM Comentario c, WHERE c.id_negociacion = : IdNegociacionMetido "),
 	@NamedQuery(name="DameListaComentariosPorIDNegociacion",query= "SELECT c FROM Comentario c JOIN c.negociacion cNeg WHERE cNeg.id_negociacion = :IdNegociacionMetido")
     
 })
@@ -58,7 +56,7 @@ public class Comentario{
 		this.textoComentario = texto_comentario;
 	}
 	
-	@OneToOne(targetEntity=Negociacion.class) //Un comentario es de 1 negociacion
+	@ManyToOne(targetEntity=Negociacion.class) //Un comentario es de 1 negociacion
 	public Negociacion getNegociacion() {
 		return negociacion;
 	}
