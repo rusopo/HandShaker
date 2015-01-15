@@ -196,7 +196,16 @@
 							</c:otherwise>
 							</c:choose>
 					        					        
-					        <li ${elemNavbarActive3}><a href="${prefix}mi_historial">Mi Historial</a></li>
+					        <c:choose>
+							<c:when test="${not empty usuario}">
+					        					        
+					        	<li ${elemNavbarActive3}><a href="${prefix}mi_historial/Usuario/${usuario.id}">Mi Historial</a></li>
+					        </c:when>
+							<c:otherwise>
+								<li ${elemNavbarActive3}><a href="${prefix}mi_historial/Usuario/0">Mi Historial</a></li>
+					        </c:otherwise>
+							</c:choose>
+							
 					        <li ${elemNavbarActive4}><a href="${prefix}mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
 					  		<c:if test="${usuario.alias eq 'admin'}">
 							   <li ${elemNavbarActive5}><a href="${prefix}administrador">Panel Administración</a></li>

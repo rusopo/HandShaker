@@ -483,13 +483,25 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/mi_historial", method = RequestMethod.GET)
-	public String mi_historialHome(Model model) {
+	@RequestMapping(value = "/mi_historial/Usuario/{id}", method = RequestMethod.GET)
+	public String mi_historialHome(Model model, HttpSession session,HttpServletRequest request,
+			@PathVariable("id") long IdUsuarioPulsado) {
 		
-		
-		
+		if(IdUsuarioPulsado==0){
+			Usuario u=null;
+		}		
+		else{
+			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", IdUsuarioPulsado).getSingleResult();
+
+			
+			
+			
+			
+		}
 			
 		model.addAttribute("elemNavbarActive3","class='active'");
+		
+		model.addAttribute("prefix", "../../");
 	
 		return "mi_historial";
 	}
