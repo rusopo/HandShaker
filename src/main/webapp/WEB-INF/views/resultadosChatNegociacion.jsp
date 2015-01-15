@@ -22,16 +22,24 @@ $(document).ready(function(){
 		  	});
 		  	
 });
+$('#myModal').on('shown.bs.modal', function () {
+    $('#historial').focus()
+  })
 </script>
 
 <div id="divChatPrincipal">
 
 <div class="col-md-1"></div>
+
+
+	
     	
         <div class="col-md-10" id="divPrincipalNegociacion">
+        	<c:if test = "${negociacion.aceptada eq false }"> 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <span class="glyphicon glyphicon-comment"></span> Chat -  ${negociacion.usuario2.alias }
+          
                 </div>
                 <div class="panel-body">
                 
@@ -95,8 +103,35 @@ $(document).ready(function(){
                 </div>
                            
             </div>
-            
+            </c:if>
+            <c:if test = "${negociacion.aceptada eq true }"> 
+				<div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-ok"></span> OFERTA ACEPTADA
+          
+                </div>
+                <div class="panel-body">
+                
+                	<p>
+                		La oferta ha sido realizada con exito. 
+                	</p>
+                	<p>
+                		Si desea ver su historial pinche aqui.
+                		
+                	</p>
+                	<form action = "${prefix}mi_historial" method = "post">
+				            <input type= "hidden" name ="IDUsuario" value="${usuario.id}"> 			            
+				            <button type="submit" class="btn btn-success">HISTORIAL</button>
+			         </form>
+                </div>
+                </div>
+        	
+        	</c:if>
         </div>
+        
+        
+        
+       
 		
 		<div class="col-md-1"></div>
 		

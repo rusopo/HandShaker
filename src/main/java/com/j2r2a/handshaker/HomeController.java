@@ -43,7 +43,7 @@ import com.j2r2a.handshaker.model.Servicio;
 import com.j2r2a.handshaker.model.Usuario;
 
 /**
- * Handles requests for the application home page.
+ * Handles requests for the application home page.re
  */
 @Controller
 public class HomeController {
@@ -483,8 +483,8 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/mi_historial", method = RequestMethod.GET)
-	public String mi_historialHome(Model model) {
+	@RequestMapping(value = "/mi_historial", method = RequestMethod.POST)
+	public String mi_historialHome(Model model, @RequestParam("IDUsuario") long idusuario) {
 		
 		
 		
@@ -601,9 +601,9 @@ public class HomeController {
 		
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
-					
+		
 		if(negociacion != null){
-
+			model.addAttribute("negociacion",negociacion);
 			List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", idNegociacion).getResultList();
 			Comentario c = Comentario.crearComentario(u, textoComentario, negociacion);
 			listaComentarios.add(c);
@@ -624,13 +624,16 @@ public class HomeController {
 	@Transactional
 	public String negociacionAceptadaHome(Model model, HttpSession session,
 			@RequestParam("IDNegociacion") long idNegociacion){
-		
+		Usuario u = (Usuario)session.getAttribute("usuario");
+		session.setAttribute("usuario", u);
 		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
 		negociacion.setAceptada(true);
 		session.setAttribute("negociacion", negociacion);
 		entityManager.merge(negociacion);
-					
-		return "redirect:"+"mis_ofertas";
+		
+		return "negociacion";
+			
+		//return "redirect:"+"mis_ofertas";
 	}
 	
 		//negociacionCancelada	
