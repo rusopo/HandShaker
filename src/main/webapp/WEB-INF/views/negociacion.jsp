@@ -8,7 +8,7 @@
 		<div class="col-md-10">
 			<div align="left" class="col-md-9">
 				
-				  	<h2><strong>oferta </strong></h2>
+				  	<h2><strong>Negociando ofertas </strong></h2>
 				  	
 							
 			</div>
