@@ -1,4 +1,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
+			
+<script type="text/javascript">
+	$(function() {
+		$(".xXx").click(function(){
+			var id=$(this).attr("id").substring("del_".length);
+			if (confirm("Estas seguro de que quieres eliminar la negociacion "+ id + "?"	) == true) 
+			{	
+				console.log("deleting", id);
+	    		delNeg(id);
+		    }		
+		});
+	})
+	
+	function delNeg(id) {
+		$.post("delService", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
+				function(data) {
+					$("#del_"+id).parent().parent().remove();
+				});
+	}
+</script>
+
 
 <div id="panel-control-admin" class="col-md-12">
 
@@ -10,6 +32,7 @@
 							 			<th>idusuario2</th>
 							 			<th>lista comentarios</th>
 							 			<th>aceptada</th>
+							 			<th>Eliminar</th>
 							 		</tr>
 							 		
 							 	</thead>
@@ -22,7 +45,8 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
+							 			<!-- <td><button class="xXx" id="del_${n.id}">X</button> -->
 							 		</tr>
 							 		<tr>
 							 		    
@@ -31,7 +55,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
 							 		</tr> 
 							 		<tr>
 							 		    
@@ -40,7 +64,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
 							 		</tr> 
 							 		<tr>
 							 			
@@ -49,7 +73,7 @@
 							 			<td>1312151</td>
 							 			<td>esto es una lista</td>
 							 			<td>false</td>
-							 			
+							 			<td>prueba</td>
 							 		</tr>  	
 							 	</tbody>
 							 	
