@@ -480,19 +480,59 @@ public class HomeController {
 		return "administrador";
 	}
 	
+	
+	
+	
+	@RequestMapping(value = "/mi_historial/Usuario/{id}", method = RequestMethod.GET)
+	 public String mi_historialHome(Model model, HttpSession session,HttpServletRequest request,
+			 @PathVariable("id") long IdUsuarioPulsado) {
+		if(IdUsuarioPulsado==0){
+			Usuario u=null;
+		}
+		else{
+			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", IdUsuarioPulsado).getSingleResult();
+			List<Oferta> listaOfertasAceptadas = entityManager.createNamedQuery("ListaOfertasAceptadas").setParameter("UsuarioMetido", u).getResultList();
+			
+			
+			if(listaOfertasAceptadas.size() !=0){
+				model.addAttribute("listaOfertasAceptadas",listaOfertasAceptadas);
+			}
+			
+		}
+	
+		model.addAttribute("elemNavbarActive3","class='active'");
+		
+		model.addAttribute("prefix", "../../");
+		return "mi_historial";
+
+	}
+	
+	
+	
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	/*
 	@RequestMapping(value = "/mi_historial", method = RequestMethod.POST)
-	public String mi_historialHome(Model model, @RequestParam("IDUsuario") long idusuario) {
+	public String mi_historialHome(Model model, HttpSession session,
+			@RequestParam("IDUsuario") long idusuario) {
+		
+		Usuario u = (Usuario)session.getAttribute("usuario");
+		
+		List<Oferta> listaOfertasAceptadas = entityManager.createNamedQuery("ListaOfertasAceptadas").setParameter("UsuarioMetido", u).getResultList();
 		
 		
+		if(listaOfertasAceptadas.size() !=0){
+			model.addAttribute("listaOfertasAceptadas",listaOfertasAceptadas);
+		}
 		
-			
+				
 		model.addAttribute("elemNavbarActive3","class='active'");
 	
 		return "mi_historial";
 	}
+	*/
 	
 	
 	/**

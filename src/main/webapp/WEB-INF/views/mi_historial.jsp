@@ -22,42 +22,21 @@
 							 			<th>Ofrece</th>
 							 			<th>Usuario</th>
 							 			<th>Recibe</th>
-							 			<th>Fecha</th>
-							 			<th>Valoraci�n</th>
 							 		</tr>
 							 		
 							 	</thead>
 							 	
 							 	<tbody>
-							 		<tr>
-							 			<td>Pepe</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Juan</td>
-							 			<td>Programacion en java</td>
-							 			<td>10/10/14</td>
-							 			<td>7/10</td>
-							 		
-							 		</tr>
-							 		<tr>
-							 			<td>Pepe</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Juan</td>
-							 			<td>Programacion en java</td>
-							 			<td>10/10/14</td>
-							 			<td>7/10</td>
-							 		
-							 		</tr>
-							 		<tr>
-							 			<td>Pepe</td>
-							 			<td>Arreglar enchufe</td>
-							 			<td>Juan</td>
-							 			<td>Programacion en java</td>
-							 			<td>10/10/14</td>
-							 			<td>7/10</td>
-							 		
-							 		</tr>
-							 		
 							 	
+							 	<c:forEach items="${listaOfertasAceptadas}" var ="o">
+							 		<tr>
+							 			<td>${o.usuarioEnvia.nombre}</td>
+							 			<td>${o.servicio_solicitado.nombre}</td>
+							 			<td>${o.usuarioRecibe.nombre}</td>
+							 			<td>${o.servicio_ofrecido.nombre}</td>
+							 		</tr>
+							 		</c:forEach>
+							 								 	
 							 	</tbody>
 							 	
 							</table>

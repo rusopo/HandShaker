@@ -113,16 +113,15 @@ $('#myModal').on('shown.bs.modal', function () {
                 <div class="panel-body">
                 
                 	<p>
-                		La oferta ha sido realizada con exito. 
+                		La oferta ha sido aceptada con exito. 
                 	</p>
                 	<p>
-                		Si desea ver su historial pinche aqui.
-                		
-                	</p>
-                	<form action = "${prefix}mi_historial" method = "post">
-				            <input type= "hidden" name ="IDUsuario" value="${usuario.id}"> 			            
-				            <button type="submit" class="btn btn-success">HISTORIAL</button>
-			         </form>
+                		Si desea ver todas las ofertas que tiene aceptadas pinche en el siguiente enlace.
+              		</p>
+                	
+                	<a href="${prefix}mi_historial/Usuario/${usuario.id}">Mi Historial</a></li>
+                	
+                	
                 </div>
                 </div>
         	

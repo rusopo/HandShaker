@@ -609,7 +609,7 @@ function obtenerServicios(serv) {
 						
 						<div align="center">
 							
-							<a href="${prefix}mi_historial" class="btn btn-primary btn-lg">Historial</a>
+							<a href="${prefix}mi_historial/Usuario/${e:forHtmlContent(usuarioPerfil.id)}" class="btn btn-primary btn-lg">Historial</a>
 						
 						</div>
 					
