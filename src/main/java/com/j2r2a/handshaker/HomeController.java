@@ -798,4 +798,17 @@ public class HomeController {
 		return "servicio";
 	}
 	
+	@RequestMapping(value = "/enviarOferta", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional // needed to allow DB change
+	public ResponseEntity<String> EnviarOferta(@RequestParam("id") long id,HttpSession session) {
+		
+	    
+		
+		
+			return new ResponseEntity<String>("Ok: user " + id + " removed",HttpStatus.OK);
+		
+			//return new ResponseEntity<String>("Error: no such user",HttpStatus.BAD_REQUEST);
+		
+	}		
 }
