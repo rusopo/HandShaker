@@ -235,12 +235,12 @@ body{
 	
 	#cabecera-servicio{
 		
-		margin-top: 3%;
+		margin-top: 1%;
 	
 	}
 	
 	#botones-servicio{
-	
+		margin-top: 2%;
 	}
 	
 	#cuerpo-servicio-der{
@@ -435,6 +435,11 @@ body{
   	#divComentarioNegociacion{
   		margin-top: 4%;
   	
+  	}
+  	
+  	.confirma_p{
+  	
+  		margin-right: 3%;
   	}
 }
  

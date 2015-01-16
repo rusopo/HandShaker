@@ -3,6 +3,12 @@
 
 <script>
 	$(function() {
+		
+		if ($('#listosParaEnviar >tbody >tr').length == 0){
+			var fila = $("<h4 id='noOfertas'>Listado de ofertas vacio</h4>");
+			$("#ofertasListas").append(fila);
+		}
+		
 		$("#bConfirma").click(preparaPeticion);
 		$("#listosParaEnviar").on("click", ".confirma_p", enviaPeticion);
 		$("#listosParaEnviar").on("click", ".cancela_p", cancelaPeticion);
@@ -27,13 +33,13 @@
 		for (var i = 0; i < aQuien.length; i++) {
 			var fila = $("<tr>");
 			fila.append($("<td>" + aQuienTexto[i] + "</td>"));
-			fila.append($("<td>" + sOfreceTexto + "</td>"));
 			fila.append($("<td>" + sSolicitaTexto + "</td>"));
-			fila
-					.append($("<td>"
-							+ "<button class='confirma_p' id='cp_" + i + "'>Enviar</button>'"
-							+ "<button class='cancela_p'>Cancelar</button>'"));
-			$("#listosParaEnviar").append(fila);
+			fila.append($("<td>" + sOfreceTexto + "</td>"));			
+			fila.append($("<td>"
+							+ "<button class='confirma_p' id='cp_" + i + "'><strong>Enviar</strong></button>"
+							+ "<button class='cancela_p'><strong>Cancelar</strong></button></td>"));
+			fila.append($("</tr>"));
+			$("#ofertasListas").append(fila);
 			peticiones.push({
 				sSolicita : sSolicita,
 				sOfrece : sOfrece,
@@ -41,17 +47,34 @@
 				uRecibe : aQuien[i]
 			});
 		}
+		$("#noOfertas").remove();
 	}
 
 	function enviaPeticion() {
 		var i = $(this).attr("id").substring("cp_".length);
 		$.post("${prefix}enviaOferta", peticiones[i], function() {
-			$(this).parent().parent().remove();
+			$('#cp_'+i).parent().parent().remove();
+			if ($('#listosParaEnviar >tbody >tr').length == 0){
+				var fila = $("<h4 id='noOfertas'>Listado de ofertas vacio</h4>");
+				$("#ofertasListas").append(fila);
+			}
+			else{
+				$("#noOfertas").remove();
+			}
 		});
+		
+		
 	}
 
 	function cancelaPeticion() {
 		$(this).parent().parent().remove();
+		if ($('#listosParaEnviar >tbody >tr').length == 0){
+			var fila = $("<h4 id='noOfertas'>Listado de ofertas vacio</h4>");
+			$("#ofertasListas").append(fila);
+		}
+		else{
+			$("#noOfertas").remove();
+		}
 	}
 </script>
 
@@ -60,15 +83,13 @@
 	<div class="col-md-12">
 
 		<div class="col-md-12" align="center">
-			<h3>
-				<strong>SERVICIO SOLICITADO</strong>
-			</h3>
+			<h2><strong>SERVICIO SOLICITADO</strong></h2>
 		</div>
 
 		<div id="cabecera-servicio" class="col-md-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">${servicio.nombre}</h3>
+					<h3 class="panel-title"><strong>${servicio.nombre}</strong></h3>
 				</div>
 				<div class="panel-body">${servicio.descripcion}</div>
 			</div>
@@ -77,7 +98,7 @@
 		<div id="cuerpo-servicio" class="col-md-12">
 				<div class="panel panel-success">
 					<div class="panel-heading">
-						<h4 class="panel-title">OFERTAS A REALIZAR</h4>
+						<h4 class="panel-title"><strong>OFERTAS A REALIZAR</strong></h4>
 					</div>
 					<div class="panel-body">
 						<c:choose>
@@ -87,6 +108,7 @@
 							<c:otherwise>
 								<div class="checkbox">
 									<div class="col-md-6">
+										<p><strong>Seleccione los usuarios a los que quiere ofrecer un servicio:</strong></p>
 										<c:forEach items="${listaUsuariosServicio}" var="u">
 											<label> <input class="checkUsuario" type="checkbox"
 												value="${u.id}"><a
@@ -95,14 +117,15 @@
 										</c:forEach>
 									</div>
 									<div class="col-md-4">
+										<p><strong>Servicio a ofrecer:</strong></p>
 										<select id="nombreServOfrecido" class="form-control">
 											<c:forEach items="${listaServiciosDeUsuario}" var="s">
 												<option value="${s.id_servicio}">${s.nombre}</option>
 											</c:forEach>
 										</select>
 									</div>
-								<div class="col-md-2" id="botones-servicio" align="left">
-									<button id="bConfirma" class="btn btn-success">Confirma</button>
+								<div class="col-md-2" id="botones-servicio" align="center">
+									<button id="bConfirma" class="btn btn-success btn-lg"><strong>Confirmar</strong></button>
 								</div>
 							</div>
 							</c:otherwise>
@@ -112,18 +135,22 @@
 			
 		</div>
 		<!-- cierro formulario superior -->
-		<table id="listosParaEnviar" class="table table-striped">
-			<thead>
-				<tr>
-					<th>solicitar a</th>
-					<th>que haga</th>
-					<th>a cambio de</th>
-					<th>acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		
+		<div class="col-md-12">
+			<table id="listosParaEnviar" class="table table-striped">	
+				<thead>		
+					<tr>
+						<th><h4><strong>OFREZCO A</strong></h4></th>
+						<th><h4><strong>SOLICITO</strong></h4></th>
+						<th><h4><strong>OFREZCO</strong></h4></th>
+						<th><h4><strong>ENVIAR/ELIMINAR OFERTA</strong></h4></th>
+					</tr>
+				</thead>
+				<tbody id="ofertasListas">
+				
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 

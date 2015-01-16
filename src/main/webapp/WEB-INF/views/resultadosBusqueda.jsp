@@ -26,10 +26,10 @@
 											    		<form action="servicio" method="get">
 											    			<input type="hidden" name="id_servicio" value="${s.id_servicio}">
 											    		</form>								    	
-											    		<a href="${prefix}servicio/${s.id_servicio}">${s.nombre}</a>								    	
+											    		<a href="${prefix}servicio/${s.id_servicio}"><strong>${s.nombre}</strong></a>								    	
 											    	</c:when>
 											    	<c:otherwise>
-											    		${s.nombre}
+											    		<strong>${s.nombre}</strong>
 											    	</c:otherwise>
 											    </c:choose>
 											    </h3>
