@@ -28,11 +28,11 @@ public class Oferta{
 	private Usuario usuarioRecibe;
 	private Negociacion negociacion;
 	
-	public static Oferta crearOferta(Servicio servicioSolicitado,Servicio serviciOfrecido,Usuario usuarioEnvia, Usuario usuarioRecibe,Negociacion negociacion){
+	public static Oferta crearOferta(Servicio servicioSolicitado,Servicio servicioOfrecido,Usuario usuarioEnvia, Usuario usuarioRecibe,Negociacion negociacion){
 		
 		Oferta o = new Oferta();
 		o.servicioSolicitado=servicioSolicitado;
-		o.serviciOfrecido=serviciOfrecido;
+		o.serviciOfrecido=servicioOfrecido;
 		o.usuarioEnvia=usuarioEnvia;
 		o.usuarioRecibe=usuarioRecibe;
 		o.negociacion=negociacion;

@@ -798,17 +798,31 @@ public class HomeController {
 		return "servicio";
 	}
 	
-	@RequestMapping(value = "/enviarOferta", method = RequestMethod.POST)
+	@RequestMapping(value = "/enviaOferta", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional // needed to allow DB change
-	public ResponseEntity<String> EnviarOferta(@RequestParam("id") long id,HttpSession session) {
-		
-	    
-		
-		
-			return new ResponseEntity<String>("Ok: user " + id + " removed",HttpStatus.OK);
-		
-			//return new ResponseEntity<String>("Error: no such user",HttpStatus.BAD_REQUEST);
-		
+	public ResponseEntity<String> EnviarOferta(HttpSession session,@RequestParam("sSolicita") long sSolicita,
+			@RequestParam("sOfrece") long sOfrece,@RequestParam("uEnvia") long uEnvia, @RequestParam("sOfrece") long uRecibe) {
+			
+			Usuario usuarioSesion=(Usuario)session.getAttribute("usuario");	
+	    	Usuario usuarioEnvia=(Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", uEnvia).getSingleResult();
+	    	Usuario usuarioRecibe=(Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", uRecibe).getSingleResult();
+	    	
+	    	Servicio servicioSolicitado=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", sSolicita).getSingleResult();
+	    	Servicio servicioOfrecido=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", sOfrece).getSingleResult();
+
+	    	if(usuarioEnvia!=null && usuarioRecibe!=null && servicioSolicitado!=null && servicioOfrecido!=null && usuarioEnvia.getId()==usuarioSesion.getId()){   		
+					
+	    			Negociacion negociacion= Negociacion.crearNegociacion(usuarioEnvia, usuarioRecibe, false);
+					entityManager.persist(negociacion);
+					
+					Oferta oferta = Oferta.crearOferta(servicioSolicitado, servicioOfrecido, usuarioEnvia, usuarioRecibe, negociacion);
+					entityManager.persist(oferta);
+	    	
+	    		return new ResponseEntity<String>("Oferta con ID: " + oferta.getId_oferta_enviada() + " realizada con exito",HttpStatus.OK);
+	    	}
+	    	else{	    		
+	    		return new ResponseEntity<String>("Oferta cancelada",HttpStatus.BAD_REQUEST);
+	    	}				
 	}		
 }
