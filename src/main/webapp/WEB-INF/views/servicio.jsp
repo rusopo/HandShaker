@@ -10,10 +10,9 @@
 		}
 		
 		$("#bConfirma").click(preparaPeticion);
-		$("#listosParaEnviar").on("click", ".confirma_p", enviaPeticion);
+		//$("#listosParaEnviar").on("click", ".confirma_p", enviaPeticion);
 		$("#listosParaEnviar").on("click", ".cancela_p", cancelaPeticion);
-	});
-
+		
 	//filas de la tabla, en JSON, preparadas para enviar
 	var peticiones = [];
 
@@ -49,6 +48,52 @@
 		}
 		$("#noOfertas").remove();
 	}
+	
+	
+	$("#listosParaEnviar").on("click", ".confirma_p", function () {
+		$( "#dialog" ).dialog({
+		      resizable: false,
+		      height:175,
+		      width:350,
+		      modal: true,
+		      buttons: {		    	  
+		        "SI": function() {		        	
+		        	var i = $(".confirma_p").attr("id").substring("cp_".length);		        	
+		    		$.post("${prefix}enviaOferta", peticiones[i], function() {
+		    			$('#cp_'+i).parent().parent().remove();
+		    			if ($('#listosParaEnviar >tbody >tr').length == 0){
+		    				var fila = $("<h4 id='noOfertas'>Listado de ofertas vacio</h4>");
+		    				$("#ofertasListas").append(fila);
+		    			}
+		    			else{
+		    				$("#noOfertas").remove();
+		    			}    			
+		    		});	 
+		    		
+		    		$(this).dialog("close");
+		            
+		            $("#dialogOK").dialog({
+		            	resizable: false,
+					    height:175,
+					    width:350,
+					    modal: true,
+		                open: function() {
+		                    var foo = $(this);
+		                    setTimeout(function() {
+		                       foo.dialog('close');
+		                    }, 2000);
+		                }
+		            });
+		    		
+		        },
+		        
+		        "NO": function() {
+		          $(this).dialog("close");
+		        }
+		      }
+	    });
+	});
+	
 
 	function enviaPeticion() {
 		var i = $(this).attr("id").substring("cp_".length);
@@ -76,6 +121,8 @@
 			$("#noOfertas").remove();
 		}
 	}
+	
+});
 </script>
 
 <div id="cuerpo" class="container">
@@ -151,6 +198,12 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
+	
+	<div id="dialog" title="Confirmaci&oacute;n Oferta" style="display:none"><strong>&iquest;Est&aacute;s seguro que quiere realizar esta oferta?</strong></div>
+	<div id="dialogOK" title="Oferta Aceptada" style="display:none">
+		<h4><strong>La oferta ha sido enviada con &eacute;xito</strong></h4><br/>
+		 <p>Este mensaje se cerrara en pocos segundos</p>
 	</div>
 </div>
 

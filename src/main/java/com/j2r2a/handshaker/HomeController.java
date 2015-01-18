@@ -779,7 +779,7 @@ public class HomeController {
 				
 		Servicio s=(Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id_servicio_pulsado).getSingleResult();
 		Usuario u = (Usuario)session.getAttribute("usuario");		
-		model.addAttribute("usuario",u);
+		
 		model.addAttribute("servicio", s);
 		
 		List<Usuario> listaUsuarios=entityManager.createNamedQuery("ListaUsuariosServicio").setParameter("IdServicioMetido", id_servicio_pulsado).setParameter("idUsuarioMetido", u.getId()).getResultList();				
@@ -802,7 +802,7 @@ public class HomeController {
 	@ResponseBody
 	@Transactional // needed to allow DB change
 	public ResponseEntity<String> EnviarOferta(HttpSession session,@RequestParam("sSolicita") long sSolicita,
-			@RequestParam("sOfrece") long sOfrece,@RequestParam("uEnvia") long uEnvia, @RequestParam("sOfrece") long uRecibe) {
+			@RequestParam("sOfrece") long sOfrece,@RequestParam("uEnvia") long uEnvia, @RequestParam("uRecibe") long uRecibe) {
 			
 			Usuario usuarioSesion=(Usuario)session.getAttribute("usuario");	
 	    	Usuario usuarioEnvia=(Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", uEnvia).getSingleResult();
