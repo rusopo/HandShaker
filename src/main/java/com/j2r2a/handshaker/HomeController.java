@@ -824,5 +824,36 @@ public class HomeController {
 	    	else{	    		
 	    		return new ResponseEntity<String>("Oferta cancelada",HttpStatus.BAD_REQUEST);
 	    	}				
-	}		
+	}	
+	
+	@RequestMapping(value = "/actualizarOfertasRecibidas", method = RequestMethod.POST)
+	@Transactional // needed to allow lazy init to work
+	
+	public ResponseEntity<String> actualizarOfertasRecibidas(HttpServletRequest request,HttpSession session) {
+					
+			Usuario usuario = (Usuario)session.getAttribute("usuario");
+			StringBuilder sb = new StringBuilder("[");
+			if(usuario!=null){
+				
+				long contadorOfertasRecibidas=(Long)entityManager.createNamedQuery("ContadorOfertasRecibidasUsuario").setParameter("UsuarioMetido", usuario).getSingleResult();
+				//List<Oferta> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", usuario).getResultList();
+				//int contadorOfertasRecibidas = listaOfertasRecibidasUsuario.size();
+				
+				if(contadorOfertasRecibidas==0){
+					sb.append("{ "+ "\"contador\": \"" + 0 + "\"");											
+					sb.append("}");
+					return new ResponseEntity<String>(sb + "]", HttpStatus.BAD_REQUEST);		
+				}
+				else{						
+					sb.append("{ "+ "\"contador\": \"" + contadorOfertasRecibidas + "\"");											
+					sb.append("}");
+					return new ResponseEntity<String>(sb + "]", HttpStatus.OK);
+				}
+			}
+			else{
+				sb.append("{ "+ "\"contador\": \"" + 0 + "\"");											
+				sb.append("}");
+				return new ResponseEntity<String>(sb + "]", HttpStatus.OK);
+			}
+	}
 }
