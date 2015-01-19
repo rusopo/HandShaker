@@ -57,6 +57,19 @@
 			    },3000);
 			});
 		</script>
+		
+		<script type="text/javascript">
+			$(function() {				
+				$.ajax({
+					dataType: "json",
+					url: "${prefix}actualizarOfertasRecibidas",
+					type: "POST",
+					success: function(data) {
+						if(data[0].contador>0) $(".badge").text(' '+ data[0].contador);
+					}					
+				});								
+			});
+		</script>
 	         
     </head>
     
@@ -205,7 +218,7 @@
 					        </c:otherwise>
 							</c:choose>	
 							
-			                <li ${elemNavbarActive4}><a href="${prefix}mis_ofertas">Mis Ofertas <span class="badge">42</span></a></li>
+			                <li ${elemNavbarActive4}><a href="${prefix}mis_ofertas">Mis Ofertas <span class="badge" style="margin-left:5px"></span></a></li>
 					  		<c:if test="${usuario.alias eq 'admin'}">
 							   <li ${elemNavbarActive5}><a href="${prefix}administrador">Panel Administración</a></li>
 							</c:if>

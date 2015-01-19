@@ -17,7 +17,7 @@
 				
 				 <div class="col-md-6">
 
-				<h2 align="center">Mis Ofertas Recibidas</h2>
+				<h2 align="center"><strong>Mis Ofertas Recibidas</strong></h2>
   
 				<ul id="lista-ofertas">
 				
@@ -35,7 +35,7 @@
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
 													  
-													    <h3 class="panel-title"> #<%=contador1%> OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}</h3>
+													    <h3 class="panel-title"><strong> #<%=contador1%> OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}</strong></h3>
 													    </div>
 													  
 													  	
@@ -43,8 +43,8 @@
 														    	
 														     <div class="col-md-6">
 														     
-														     	<h4>Te Ofrece:</h4><p>${o.servicio_solicitado.nombre}</p>
-														    	<h4>Por:</h4> <p> ${o.servicio_ofrecido.nombre}</p>
+														     	<h4><strong>Te Ofrece:</strong></h4><p>${o.servicio_solicitado.nombre}</p>
+														    	<h4><strong>Por:</strong></h4> <p> ${o.servicio_ofrecido.nombre}</p>
 														    	
 														     </div>
 														     <div class="col-md-6">
@@ -52,11 +52,11 @@
 														     	 	<form action="${prefix}negociacion" method="GET">
 														     			  <input type= "hidden" name ="idNegociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
 														    		</form>	
-															     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+															     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"><strong>Negociar Oferta</strong></a>
 															     		  					     		
 														     	</div>
 														     	<div>
-																	<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
+																	<button  class="btn btn-danger btn-lg"><strong>Rechazar Oferta</strong></button>
 																</div>
 														     </div>
 														    	
@@ -77,7 +77,7 @@
 				  
 				  <div class="col-md-6">
 
-				<h2 align="center">Mis Ofertas Enviadas</h2>
+				<h2 align="center"><strong>Mis Ofertas Enviadas</strong></h2>
 
 				<ul id="lista-ofertas">
 				
@@ -94,16 +94,16 @@
 										
 												<div class="panel panel-primary">
 													  <div class="panel-heading">
-													    <h3 class="panel-title">#<%=contador2%> OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre} </h3>
+													    <h3 class="panel-title"><strong>#<%=contador2%> OFERTA DE ${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre} </strong></h3>
 													    
 													  </div>
 													  <div class="panel-body">
 													    	
 													     <div class="col-md-6">
 													     
-													     	<h4>Ofrezco:</h4><p>${o.servicio_solicitado.nombre}</p>
+													     	<h4><strong>Ofrezco:</strong></h4><p>${o.servicio_solicitado.nombre}</p>
 											     	
-													    	<h4>Por:</h4> <p> ${o.servicio_ofrecido.nombre}</p>
+													    	<h4><strong>Por:</strong></h4> <p> ${o.servicio_ofrecido.nombre}</p>
 													    	
 													     </div>
 													     <div class="col-md-6">
@@ -111,11 +111,11 @@
 													     		<form action="${prefix}negociacion" method="GET">
 													     		<input type= "hidden" name ="idNegociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
 													    		</form>	
-														     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"  >Negociar Oferta</a>
+														     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}" class="btn btn-success btn-lg"><strong>Negociar Oferta</strong></a>
 														     		
 													     	</div>
 													     	<div>
-																<button  class="btn btn-danger btn-lg">Rechazar Oferta</button>
+																<button  class="btn btn-danger btn-lg"><strong>Rechazar Oferta</strong></button>
 															</div>
 													     </div>
 													    	
