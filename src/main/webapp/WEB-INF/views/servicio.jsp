@@ -72,19 +72,19 @@
 		    		
 		    		$(this).dialog("close");
 		            
-		            $("#dialogOK").dialog({
+		            $("#dialogOK").dialog({		         
 		            	resizable: false,
 					    height:175,
-					    width:350,
+					    width:360,
 					    modal: true,
 		                open: function() {
+		                	$(".ui-dialog-titlebar-close").hide();
 		                    var foo = $(this);
 		                    setTimeout(function() {
 		                       foo.dialog('close');
 		                    }, 2000);
 		                }
-		            });
-		    		
+		            });		    		
 		        },
 		        
 		        "NO": function() {
@@ -203,7 +203,7 @@
 	<div id="dialog" title="Confirmaci&oacute;n Oferta" style="display:none"><strong>&iquest;Est&aacute;s seguro que quiere realizar esta oferta?</strong></div>
 	<div id="dialogOK" title="Oferta Aceptada" style="display:none">
 		<h4><strong>La oferta ha sido enviada con &eacute;xito</strong></h4><br/>
-		 <p>Este mensaje se cerrara en pocos segundos</p>
+		 <p>Este mensaje se cerrara en pocos segundos...</p>
 	</div>
 </div>
 

@@ -672,18 +672,17 @@ public class HomeController {
 			
 			List<Oferta> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
 			List<Oferta> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
-			
 			if(listaOfertasEnviadasUsuario.size() !=0){
 				model.addAttribute("listaOfertasEnviadasUsuario",listaOfertasEnviadasUsuario);
 			}
 			if(listaOfertasRecibidasUsuario.size() !=0){
 				model.addAttribute("listaOfertasRecibidasUsuario",listaOfertasRecibidasUsuario);
 			}
-			
-			
+			long contOfertasEnviadas=(Long)entityManager.createNamedQuery("ContadorOfertasEnviadasUsuario").setParameter("UsuarioMetido", u).getSingleResult();
+			long contOfertasRecibidas=(Long)entityManager.createNamedQuery("ContadorOfertasRecibidasUsuario").setParameter("UsuarioMetido", u).getSingleResult();
+			model.addAttribute("contadorOfertasEnviadas",contOfertasEnviadas);
+			model.addAttribute("contadorOfertasRecibidas",contOfertasRecibidas);
 		}			
-		
-		
 		
 		model.addAttribute("listaActiva4","class='active'");
 	
@@ -744,7 +743,7 @@ public class HomeController {
 	//negociacionAceptada	
 	@RequestMapping(value = "/negociacionAceptada", method = RequestMethod.POST)
 	@Transactional
-	public String negociacionAceptadaHome(Model model, HttpSession session,
+	public ResponseEntity<String> negociacionAceptadaHome(Model model, HttpSession session,
 			@RequestParam("IDNegociacion") long idNegociacion){
 		
 		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
@@ -752,21 +751,22 @@ public class HomeController {
 		session.setAttribute("negociacion", negociacion);
 		entityManager.merge(negociacion);
 					
-		return "redirect:"+"mis_ofertas";
+		return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId_negociacion() +" Aceptada",HttpStatus.OK);	
+		
 	}
 	
 		//negociacionCancelada	
 		@RequestMapping(value = "/negociacionCancelada", method = RequestMethod.POST)
 		@Transactional
-		public String negociacionCanceladaHome(Model model, HttpSession session,
+		public ResponseEntity<String> negociacionCanceladaHome(Model model, HttpSession session,
 				@RequestParam("IDNegociacion") long idNegociacion){
 				
 			Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
 			Oferta oferta = (Oferta)entityManager.createNamedQuery("OfertaPorIDnegociacion").setParameter("IDNegociacion", idNegociacion).getSingleResult();
 			entityManager.remove(oferta);
 			entityManager.remove(negociacion);
-												
-			return "redirect:"+"mis_ofertas";
+														
+			return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId_negociacion() +" cancelada",HttpStatus.OK);
 		}
 	
 	

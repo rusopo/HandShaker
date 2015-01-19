@@ -441,6 +441,98 @@ body{
   	
   		margin-right: 3%;
   	}
+  	
+  	.botonOfertaRechazada{
+  	  
+  	  padding: 10px 16px;
+	  font-size: 18px;
+	  line-height: 1.33;
+	  border-radius: 6px;	  
+      display: inline-block;	  
+	  margin-bottom: 0;	 
+	  font-weight: normal;	
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: middle;
+	  cursor: pointer;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+	  background-image: none;
+	  border: 1px solid transparent;
+  	  color: #fff;
+	  background-color: #d9534f;
+	  border-color: #d43f3a;
+  	}
+  	
+  	.botonOfertaRechazada:hover{
+  		color: #fff;
+	    background-color: #c9302c;
+	    border-color: #ac2925;
+  	}
+  	
+  	.botonAceptarNegociacion, .confirma_p{
+ 	  display: inline-block;
+	  padding: 6px 12px;
+	  margin-bottom: 0;
+	  font-size: 14px;
+	  font-weight: normal;
+	  line-height: 1.42857143;
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: middle;
+	  cursor: pointer;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+	  background-image: none;
+	  border: 1px solid transparent;
+	  border-radius: 4px;
+	  color: #fff;
+	  background-color: #5cb85c;
+	  border-color: #4cae4c;
+  	
+  	}
+  	.botonAceptarNegociacion:hover,
+  	.confirma_p:hover{	
+ 	  color: #fff;
+	  background-color: #449d44;
+	  border-color: #398439;
+  	}
+  	
+  	.botonCancelarNegociacion, .cancela_p{
+ 	  display: inline-block;
+	  padding: 6px 12px;
+	  margin-bottom: 0;
+	  font-size: 14px;
+	  font-weight: normal;
+	  line-height: 1.42857143;
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: middle;
+	  cursor: pointer;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+	  background-image: none;
+	  border: 1px solid transparent;
+	  border-radius: 4px;
+  	  color: #fff;
+	  background-color: #d9534f;
+	  border-color: #d43f3a;
+  	}
+  	
+  	.botonCancelarNegociacion:hover,
+  	.cancela_p:hover{
+  		color: #fff;
+	    background-color: #c9302c;
+	    border-color: #ac2925;
+  	
+  	}
+  	
 }
  
 /* -----------------------------------Portrait tablet to landscape and desktop ----------------------------------------*/
