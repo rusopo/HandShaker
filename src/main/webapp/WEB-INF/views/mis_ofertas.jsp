@@ -1,4 +1,51 @@
-<%@ include file="../fragments/header.jspf" %> 
+<%@ include file="../fragments/header.jspf" %>
+
+<script>
+$(function(){	
+	$(".botonOfertaRechazada").click(function () {
+		$("#dialogRechazarOferta").dialog({
+		      resizable: false,
+		      height:175,
+		      width:350,
+		      modal: true,
+		      buttons: {		    	  
+		        "SI": function() {			        	
+	        	  var id = $(".botonOfertaRechazada").attr("id").substring("botonOfertaRechazada_".length);
+		        	$.ajax({			    	
+				    	type: "POST",
+				    	url: "${prefix}negociacionCancelada",
+				    	data:{ IDNegociacion: id},
+				    	success:function(data){					 					      		
+				    	}
+				    });
+		        	
+		    		$(this).dialog("close");
+		            
+		            $("#dialogRechazada").dialog({
+		            	resizable: false,
+					    height:175,
+					    width:360,
+					    modal: true,
+		                open: function() {
+		                	$(".ui-dialog-titlebar-close").hide();
+		                    var foo = $(this);
+		                    setTimeout(function() {
+		                       foo.dialog('close');
+		                       window.location.href = "${prefix}mis_ofertas";
+		                    }, 3000);		                    			                    
+		                }
+		            });			        				    		
+		        },
+		        
+		        "NO": function() {
+		          $(this).dialog("close");
+		        }
+		      }
+	    });		            							
+	});	
+});
+
+</script> 
 
 <div id="cuerpo" class="container">
 
@@ -22,8 +69,8 @@
 				<ul id="lista-ofertas">
 				
 				<c:choose>
-					<c:when test="${empty usuario}">
-						No tienes Ofertas .
+					<c:when test="${contadorOfertasRecibidas eq 0}">
+						<div align="center" class="alert alert-danger" role="alert"><h4><strong>No tienes Ofertas Recibidas</strong></h4></div>						
 					</c:when>
 					<c:otherwise>
 						<%int contador1=1; %>
@@ -52,17 +99,14 @@
 														     	 	<form action="${prefix}negociacion" method="GET">
 														     			  <input type= "hidden" name ="idNegociacionNombre" value = "${o.negociacion.id_negociacion}"  >  
 														    		</form>	
-															     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}"   class="btn btn-success btn-lg"><strong>Negociar Oferta</strong></a>
-															     		  					     		
+															     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}" class="btn btn-success btn-lg"><strong>Negociar Oferta</strong></a>															     		  					     		
 														     	</div>
 														     	<div>
-																	<button  class="btn btn-danger btn-lg"><strong>Rechazar Oferta</strong></button>
+																	<button id="botonOfertaRechazada_${o.negociacion.id_negociacion}" class="botonOfertaRechazada"><strong>Rechazar Oferta</strong></button>
 																</div>
 														     </div>
 														    	
-														  </div>
-														  
-													 
+														  </div>												 
 												 </div>									 		
 										</div>
 									</c:if>			
@@ -83,8 +127,8 @@
 				
 				<c:choose>
 						
-					<c:when test="${empty usuario}">
-						No tienes Ofertas .
+					<c:when test="${contadorOfertasEnviadas eq 0}">
+						<div align="center" class="alert alert-danger" role="alert"><h4><strong>No tienes Ofertas Enviadas</strong></h4></div>
 					</c:when>
 					<c:otherwise>
 						<%int contador2=1; %>
@@ -115,7 +159,7 @@
 														     		
 													     	</div>
 													     	<div>
-																<button  class="btn btn-danger btn-lg"><strong>Rechazar Oferta</strong></button>
+																<button id="botonOfertaRechazada_${o.negociacion.id_negociacion}" class="botonOfertaRechazada"><strong>Rechazar Oferta</strong></button>
 															</div>
 													     </div>
 													    	
@@ -138,5 +182,11 @@
 	</c:choose>							
 				
  </div>
+ 
+ <div id="dialogRechazarOferta" title="Oferta Rechazada" style="display:none"><strong>&iquest;Est&aacute;s seguro que quieres rechazar esta oferta?</strong></div>
+ <div id="dialogRechazada" title="Oferta Rechazada" style="display:none">
+		<h4><strong>La oferta ha sido rechazada</strong></h4><br/>
+		 <p>Este mensaje se cerrara en pocos segundos...</p>
+</div>
 		 
 <%@ include file="../fragments/footer.jspf" %>

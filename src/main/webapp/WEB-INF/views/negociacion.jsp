@@ -21,5 +21,14 @@
     	<%@ include file="../views/resultadosChatNegociacion.jsp" %>
 </div>
 
+<div id="dialogAceptarNegociacion" title="Confirmaci&oacute;n Negociaci&oacute;n" style="display:none"><strong>&iquest;Est&aacute;s seguro que quiere aceptar esta negociaci&oacute;n?</strong></div>
+<div id="dialogConfirmada" title="Negociaci&oacute;n Aceptada" style="display:none">
+		<h4><strong>La negociaci&oacute;n ha sido aceptada</strong></h4><br/>
+		 <p>Redirigiendo a su historial...</p>
+</div>
+<div id="dialogCancelada" title="Negociaci&oacute;n Cancelada" style="display:none">
+		<h4><strong>La negociaci&oacute;n ha sido cancelada</strong></h4><br/>
+		 <p>Este mensaje se cerrara en pocos segundos...</p>
+</div>	
 		 
 <%@ include file="../fragments/footer.jspf" %>

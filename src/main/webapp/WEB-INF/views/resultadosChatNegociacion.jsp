@@ -2,24 +2,97 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-			  
-		  	 $("#btn-chat").click(function(){
-		  		 
-		  		var textoComentario =  $('#textoComentario').val();
-	  			var idNegociacion = $('#idNegociacion').val();
-		  		
-			    $.ajax({			    	
+$(function(){
+	
+	$("#btn-chat").click(function(){
+ 		 
+  		var textoComentario =  $('#textoComentario').val();
+ 			var idNegociacion = $('#idNegociacion').val();
+  		
+	    $.ajax({			    	
+	    	type: "POST",
+	    	url: "${prefix}anadirComentarioNegociacion",
+	    	data:{ idNegociacion: idNegociacion,
+	    		textoComentario: textoComentario},
+	    	success:function(data){
+	      		$("#divChatPrincipal").html(data);
+	      		
+	    	}
+	    });
+  	});
+	
+	$(".botonAceptarNegociacion").click(function () {
+		$("#dialogAceptarNegociacion").dialog({
+		      resizable: false,
+		      height:175,
+		      width:350,
+		      modal: true,
+		      buttons: {		    	  
+		        "SI": function() {	
+		        	
+	        	  var id = $(".botonAceptarNegociacion").attr("id").substring("botonAceptarNegociacion_".length);
+		        	$.ajax({			    	
+				    	type: "POST",
+				    	url: "${prefix}negociacionAceptada",
+				    	data:{ IDNegociacion: id},
+				    	success:function(data){					 					      		
+				    	}
+				    });
+		        	
+		    		$(this).dialog("close");
+		            
+		            $("#dialogConfirmada").dialog({
+		            	resizable: false,
+					    height:175,
+					    width:360,
+					    modal: true,
+		                open: function() {
+		                    var foo = $(this);
+		                    setTimeout(function() {
+		                       $(".ui-dialog-titlebar-close").hide();
+		                       foo.dialog('close');
+		                       window.location.href = "${prefix}mi_historial/Usuario/${usuario.id}";
+		                    }, 3000);		                    			                    
+		                }
+		            });			        				    		
+		        },
+		        
+		        "NO": function() {
+		          $(this).dialog("close");
+		        }
+		      }
+	    });
+	});
+
+	$(".botonCancelarNegociacion").click(function () {
+		$("#dialogCancelada").dialog({
+	    	resizable: false,
+		    height:175,
+		    width:360,
+		    modal: true,
+	        open: function() {
+	        	
+	        	var id = $(".botonCancelarNegociacion").attr("id").substring("botonCancelarNegociacion_".length);
+	        	$.ajax({			    	
 			    	type: "POST",
-			    	url: "${prefix}anadirComentarioNegociacion",
-			    	data:{ idNegociacion: idNegociacion,
-			    		textoComentario: textoComentario},
-			    	success:function(data){
-			      		$("#divChatPrincipal").html(data);
-			      		
+			    	url: "${prefix}negociacionCancelada",
+			    	data:{ IDNegociacion: id},
+			    	success:function(data){					 					      		
 			    	}
 			    });
-		  	});
+	        	        	
+	            var foo = $(this);
+	            setTimeout(function() {
+	               $(".ui-dialog-titlebar-close").hide();
+	               foo.dialog('close');
+	               $(location).attr('href','${prefix}mis_ofertas');
+	            }, 3000);         
+	      }
+	    });			            
+							
+	});
+			  
+  	 
 		  	
 });
 </script>
@@ -31,7 +104,7 @@ $(document).ready(function(){
         <div class="col-md-10" id="divPrincipalNegociacion">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <span class="glyphicon glyphicon-comment"></span><strong> CHAT</strong>
                 </div>
                 <div class="panel-body">
                 
@@ -73,26 +146,18 @@ $(document).ready(function(){
 	                       <input type="text" id="textoComentario" name="textoComentario" class="form-control" placeholder="Escribe aqui tu comentario ...">
 	                      
 	                       <div align="right">	                     
-	                           <button class="btn btn-primary" id="btn-chat" >ENVIAR</button>        
+	                           <button class="btn btn-primary" id="btn-chat" ><strong>ENVIAR</strong></button>        
 	                       </div>
 	                    
                    </div>
                 </div>
                 
                 <div class="panel-footer">
-                      <div class="col-md-6" align="right">       		
-                      	<form action = "${prefix}negociacionAceptada" method = "post">
-				            <input type= "hidden" name ="IDNegociacion" value="${negociacion.id_negociacion}"> 			            
-				            <button type="submit" class="btn btn-success">ACEPTAR NEGOCIACI&Oacute;N</button>
-			             </form>
-			          </div>
-			          
-			             <form action="${prefix}negociacionCancelada" method="post">
-			            	<input type= "hidden" name ="IDNegociacion" value="${negociacion.id_negociacion}">
-			            	<button type="submit" class="btn btn-danger">RECHAZAR NEGOCIACI&Oacute;N</button>
-			             </form>          
-                                     
-                </div>
+                      <div class="col-md-6" align="right">       		                    	 			            
+				            <button id="botonAceptarNegociacion_${negociacion.id_negociacion}" class="botonAceptarNegociacion"><strong>ACEPTAR NEGOCIACI&Oacute;N</strong></button>			             
+			          </div>	         
+			            	<button id="botonCancelarNegociacion_${negociacion.id_negociacion}" class="botonCancelarNegociacion"><strong>RECHAZAR NEGOCIACI&Oacute;N</strong></button>
+              </div>
                            
             </div>
             

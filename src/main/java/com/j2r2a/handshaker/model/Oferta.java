@@ -1,6 +1,5 @@
 package com.j2r2a.handshaker.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,8 +14,9 @@ import javax.persistence.OneToOne;
 @NamedQueries({
     @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id_oferta_enviada DESC"),
     @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id_oferta_enviada DESC"),
+    @NamedQuery(name="ContadorOfertasEnviadasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false"),
     @NamedQuery(name="ContadorOfertasRecibidasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false"),
-    @NamedQuery(name = "CuantasOfertasTengo",query = "SELECT COUNT(u) FROM Oferta u where u.usuarioRecibe = :UsuarioMetido"),
+    @NamedQuery(name ="CuantasOfertasTengo",query = "SELECT COUNT(u) FROM Oferta u where u.usuarioRecibe = :UsuarioMetido"),
     @NamedQuery(name="OfertaPorIDnegociacion",query="SELECT o FROM Oferta o JOIN o.negociacion neg WHERE neg.id_negociacion = :IDNegociacion")
 })
 public class Oferta{
@@ -91,7 +91,7 @@ public class Oferta{
 		this.usuarioRecibe = usuario;
 	}
 	
-	@OneToOne(targetEntity=Negociacion.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL) //Una oferta enviada le corresponde 1 negociacion
+	@OneToOne(targetEntity=Negociacion.class,fetch = FetchType.EAGER) //Una oferta enviada le corresponde 1 negociacion
 	public Negociacion getNegociacion() {
 		return negociacion;
 	}
