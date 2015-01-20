@@ -7,9 +7,24 @@ $(function() {
 	$(".loadEdit").click(function()
 	{
 		var id=$(this).attr("id").substring("edit_".length);
-		getUser(id);
-		 $("#editUserCP").find('#idUser').text(id);
-		 $("#editUserCP").dialog(); //assign the ID for later use
+		$("#editUserCP").find('#idUser').text(id);		 
+		$.get("getUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, function(data) {
+			
+			var datos = JSON.parse(data);
+			$("#editUserCP").find('#aliasUser').text(datos.alias);
+			$("#editUserCP").find('#nombreUser').text(datos.nombre);
+			$("#editUserCP").find('#edadUser').text(datos.edad);
+			$("#editUserCP").find('#emailUser').text(datos.email);
+			$("#editUserCP").find('#passUser').text(datos.pass);
+			
+			document.getElementById('inputAlias').value = datos.alias;
+			document.getElementById('inputNombre').value = datos.nombre;
+			document.getElementById('inputEdad').value = datos.edad;
+			document.getElementById('inputEmail').value = datos.email;
+			//document.getElementById('inputPass').value = datos.pass;
+			document.getElementById('inputID').value = id;
+		});	
+		$("#editUserCP").dialog(); //assign the ID for later use
 	});
 })
 </script>
@@ -64,8 +79,9 @@ function getUser(id) {
 							 			<th>id_usuario</th>
 							 			<th>alias</th>
 							 			<th>nombre</th>
-							 			<th>habilidades</th>
-							 			<th>Intereses</th>
+							 			<th>edad</th>
+							 			<th>email</th>
+							 			<th>contrasena</th>
 							 			<th>Administrar</th>
 							 		</tr>
 							 	</thead>      
@@ -78,8 +94,9 @@ function getUser(id) {
 											<td>${u.id}</td>
 											<td>${u.alias}</td>	
 											<td>${u.nombre}</td>
-											<td>mis habilidades</td>
-											<td>mis intereses</td>
+											<td>${u.edad}</td>
+											<td>${u.email}</td>
+											<td>${u.contrasenia}</td>
 											<td><button class="x" id="del_${u.id}">X</button>
 												<button class="loadEdit" id="edit_${u.id}">Editar</button></td>
 											</tr>	
@@ -94,62 +111,68 @@ function getUser(id) {
 												
          </div>	
          
-         <div id="editUserCP" title="Edit User CP" class="col-md-6" style="display:none">
+         <div id="editUserCP" title="Edit User CP" class="col-md-12" style="display:none">
        
-         <p align="center"><strong>Tus datos actuales:</strong></p>
+         <p align="left"><strong>Datos actuales:</strong></p>
   			<table id="tabla-editar-usuario" class="table">
 			<thead>
 			<tr>
 			<th>id_usuario</th>
 			<th>alias</th>
 			<th>nombre</th>
+			<th>edad</th>
+			<th>e-mail</th>
+			<th>Constrasena</th>
 			</tr>
 			</thead>
 			
 			<tbody>      
 			<tr>
 			<td id=idUser></td>
-			<td><c:out value='${e:forHtmlContent(usuarioSeleccionado.alias)}'/></td>	
-			<td>${usuarioSeleccionado.nombre}</td>
+			<td id=aliasUser></td>	
+			<td id=nombreUser></td>
+			<td id=edadUser></td>
+			<td id=emailUser></td>
+			<td id=passUser></td>
 			</tr>
 			</tbody>
 			</table>
-		<p align="center"><strong>Nuevos datos:</strong></p>
+		<p align="left"><strong>Nuevos datos:</strong></p>
 			<form action="editUser" id="form-editar" name="form-editar" enctype="multipart/form-data" class="form-horizontal" role="form" method="post">	
 				
 				<div class="col-md-12">	
 				
-					<div id="col-iz-registro" class="col-md-6">		
-						  <input type="hidden" class="form-control" name="id">  
+					<div id="col-iz-registro" class="col-md-10">		
+						  <input type="hidden" class="form-control" name="id" value="" id="inputID">  
 						  <div class="form-group">
 						    <label for="alias_nuevo" class="col-sm-2 control-label">Alias</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="alias_nuevo">
+						      <input type="text" class="form-control" name="alias_nuevo" value="" id="inputAlias">
 						    </div>
 						  </div>									
 						  <div class="form-group">
 						    <label for="nombre_nuevo" class="col-sm-2 control-label">Nombre</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="nombre_nuevo">
+						      <input type="text" class="form-control" name="nombre_nuevo" value="" id="inputNombre">
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="edad_nuevo" class="col-sm-2 control-label">Edad</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="edad_nuevo">
+						      <input type="text" class="form-control" name="edad_nuevo" value="" id="inputEdad">
 						    </div>
 						  </div>
 						 
 						   <div class="form-group">
 						    <label for="email_nuevo" class="col-sm-2 control-label">E-mail</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="email_nuevo">
+						      <input type="text" class="form-control" name="email_nuevo" value="" id="inputEmail">
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="pass1_nuevo" class="col-sm-2 control-label">Contrasena</label>
 						    <div class="col-sm-10">
-						      <input type="password" class="form-control" id="pass1_nuevo" name="pass1_nuevo">
+						      <input type="password" class="form-control" id="pass1_nuevo" name="pass1_nuevo ">
 						    </div>
 						  </div>
 						  
@@ -162,8 +185,7 @@ function getUser(id) {
 						
 				
 				<div id="botones-registro" class="col-sm-12" align="center">
-			      <button type="submit" class="btn btn-lg btn-success">Aceptar</button>
-			      <button type="reset" class="btn btn-lg btn-danger">Cancelar</button>
+			      <button type="submit" class="btn btn-lg btn-success">Confirmar edicion</button>
 			    </div>
 		    </div>
 		    </div>
