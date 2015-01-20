@@ -125,7 +125,7 @@ $(function(){
                            <div class="chat-body clearfix">
                                 <div class="header" >
                                     <strong class="primary-font">  ${c.id_usuario.nombre}</strong> 
-                                    <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                    <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>${c.fechaComentario}</small>
                                 </div>
                                 <p>
                                     ${c.texto_comentario} 
