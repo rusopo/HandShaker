@@ -578,24 +578,30 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/getUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
 	@ResponseBody
 	@Transactional // needed to allow DB change
-	public ResponseEntity<String> obtenerUsuarioPorID(HttpServletRequest request,
-			@RequestParam("csrf") String token,@RequestParam("id") long id,
-			Model model,HttpSession session) {
+	public ResponseEntity<String> obtenerUsuarioPorID(@RequestParam("csrf") String token,
+			@RequestParam("id") long id) {
 
 		//Traigo al usuario con el id a actualizar, si lo encuentra, lo modifico	
 		Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", id).getSingleResult();
-						
+								
+		
 			if(u!=null){
+				StringBuilder sb = new StringBuilder();			
+				if (sb.length()>1) sb.append(",");				
+				sb.append("{"
+				+ "\"alias\":\"" + u.getAlias() + "\", " 
+				+ "\"edad\":\"" + u.getEdad() + "\", "
+				+ "\"email\":\"" + u.getEmail() + "\", "
+				+ "\"pass\":\"" + u.getContrasenia() + "\", "
+				+ "\"nombre\":\"" + u.getNombre() + "\"}");
+
+				String datos = sb.toString();
+				System.err.println(datos);
 				
-				model.addAttribute("usuarioSeleccionado", u);
-				//session.setAttribute("usuarioSeleccionado", u);
-				System.err.println(u.getAlias());
-	    	
-			return new ResponseEntity<String>("Ok: user " + id + " obtained", 
-					HttpStatus.OK);
+				return new ResponseEntity<String>(datos, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("Error: no such user", 
 					HttpStatus.BAD_REQUEST);
@@ -611,7 +617,7 @@ public class HomeController {
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional // needed to allow DB change
-	public ResponseEntity<String> editarUsuario(HttpServletRequest request,
+	public String editarUsuario(HttpServletRequest request,
 			@RequestParam("id") long id,
 			@RequestParam("alias_nuevo") String alias,
 			@RequestParam("nombre_nuevo") String nombre,
@@ -624,7 +630,7 @@ public class HomeController {
 			 HttpSession session) {
 
 		//Traigo al usuario con el id a actualizar, si lo encuentra, lo modifico
-		Usuario user = entityManager.find(Usuario.class, id);
+		Usuario user = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", id).getSingleResult();
 		
 		
 	    if (user!=null)
@@ -633,16 +639,15 @@ public class HomeController {
 	    	user.setNombre(nombre);
 	    	user.setEdad(edad);
 	    	user.setEmail(email);
-	    	/*user.setContrasenia(pass1);
+	    	//Si las dos contraseñas son iguales(se han modificado) las grabo, sino las dejo como están
+	    	if(pass1 == pass2)
+	    	user.setContrasenia(pass1);
+	    	/*
 	    	user.setLatitud(lat);
 	    	user.setLongitud(lng);*/
-			return new ResponseEntity<String>("Ok: user " + id + " updated", 
-					HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>("Error: no such user", 
-					HttpStatus.BAD_REQUEST);
-		}
-		
+			
+		} 
+	    return "redirect:"+ "administrador";	
 		
 	}		
 	
