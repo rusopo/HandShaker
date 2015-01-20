@@ -1,5 +1,7 @@
 package com.j2r2a.handshaker.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,13 +22,15 @@ public class Comentario{
 	private long id;	
 	private Usuario usuario;
 	private String textoComentario;
+	private Date fechaComentario;
 	private Negociacion negociacion;
 	
-	public static Comentario crearComentario(Usuario usuario,String textoComentario,Negociacion idNegociacion){
+	public static Comentario crearComentario(Usuario usuario,String textoComentario,Negociacion idNegociacion,Date fecha){
 		
 		Comentario c = new Comentario();
 		c.usuario=usuario;
 		c.textoComentario=textoComentario;
+		c.fechaComentario = fecha;
 		c.negociacion=idNegociacion;
 			
 		return c;
@@ -62,6 +66,14 @@ public class Comentario{
 	}
 	public void setNegociacion(Negociacion negociacion) {
 		this.negociacion = negociacion;
+	}
+
+	public Date getFechaComentario() {
+		return fechaComentario;
+	}
+
+	public void setFechaComentario(Date fechaComentario) {
+		this.fechaComentario = fechaComentario;
 	}
 	
 			

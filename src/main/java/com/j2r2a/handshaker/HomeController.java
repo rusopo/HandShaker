@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -652,7 +653,7 @@ public class HomeController {
 	    	user.setNombre(nombre);
 	    	user.setEdad(edad);
 	    	user.setEmail(email);
-	    	//Si las dos contraseñas son iguales(se han modificado) las grabo, sino las dejo como están
+	    	//Si las dos contraseï¿½as son iguales(se han modificado) las grabo, sino las dejo como estï¿½n
 	    	if(pass1 == pass2)
 	    	user.setContrasenia(pass1);
 	    	/*
@@ -708,6 +709,8 @@ public class HomeController {
 				
 		List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", IdNegociacionPulsada).getResultList();
 		
+		
+		
 		if(listaComentarios.size()==0){
 			model.addAttribute("NoHayComentarios","No hay comentarios en esta negociaciÃ³n. Escriba uno si lo desea");
 		}
@@ -732,14 +735,18 @@ public class HomeController {
 		if(negociacion != null){
 
 			List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", idNegociacion).getResultList();
-			Comentario c = Comentario.crearComentario(u, textoComentario, negociacion);
+			Date fecha =new Date();
+			Comentario c = Comentario.crearComentario(u, textoComentario, negociacion,fecha);
 			listaComentarios.add(c);
 			entityManager.persist(c);
 			negociacion.setLista_comentarios(listaComentarios);
 			entityManager.merge(negociacion);
 			
-			model.addAttribute("ListaComentarios",listaComentarios);					
+			model.addAttribute("ListaComentarios",listaComentarios);
+			
 		}
+		
+		 
 		
 		model.addAttribute("prefix", "../");
 				
