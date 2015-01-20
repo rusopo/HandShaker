@@ -484,27 +484,28 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/mi_historial/Usuario/{id}", method = RequestMethod.GET)
-	public String mi_historialHome(Model model, HttpSession session,HttpServletRequest request,
-			@PathVariable("id") long IdUsuarioPulsado) {
-		
+	 public String mi_historialHome(Model model, HttpSession session,HttpServletRequest request,
+			 @PathVariable("id") long IdUsuarioPulsado) {
 		if(IdUsuarioPulsado==0){
 			Usuario u=null;
-		}		
+		}
 		else{
 			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", IdUsuarioPulsado).getSingleResult();
-
-			
-			
-			
-			
-		}
-			
-		model.addAttribute("elemNavbarActive3","class='active'");
-		
-		model.addAttribute("prefix", "../../");
+			List<Oferta> listaOfertasAceptadas = entityManager.createNamedQuery("ListaOfertasAceptadas").setParameter("UsuarioMetido", u).getResultList();
 	
+	
+			if(listaOfertasAceptadas.size() !=0){
+				model.addAttribute("listaOfertasAceptadas",listaOfertasAceptadas);
+			}
+	
+		}
+	
+		model.addAttribute("elemNavbarActive3","class='active'");
+	
+		model.addAttribute("prefix", "../../");
 		return "mi_historial";
-	}
+	
+	 }
 	
 	
 	/**
@@ -652,7 +653,7 @@ public class HomeController {
 	    	user.setNombre(nombre);
 	    	user.setEdad(edad);
 	    	user.setEmail(email);
-	    	//Si las dos contraseñas son iguales(se han modificado) las grabo, sino las dejo como están
+	    	//Si las dos contraseï¿½as son iguales(se han modificado) las grabo, sino las dejo como estï¿½n
 	    	if(pass1 == pass2)
 	    	user.setContrasenia(pass1);
 	    	/*
