@@ -8,7 +8,13 @@
 		<div class="col-md-10">
 			<div align="left" class="col-md-9">
 				
-				  	<h2><strong>OFERTA</strong></h2>
+				
+				  	<h2><strong>OFERTA DE ${oferta.usuarioEnvia.nombre} HACIA ${oferta.usuarioRecibe.nombre}</strong></h2>
+				  	<p>
+				  		SERVICIO OFRECIDO:   ${oferta.servicio_solicitado.nombre}
+					 	SERVICIO SOLICITADO: ${oferta.servicio_ofrecido.nombre}
+					</p>
+				
 				  	
 							
 			</div>
