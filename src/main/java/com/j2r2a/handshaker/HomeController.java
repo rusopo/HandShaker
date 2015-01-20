@@ -707,7 +707,10 @@ public class HomeController {
 		
 		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", IdNegociacionPulsada).getSingleResult();
 		session.setAttribute("negociacion", negociacion);
-				
+		
+		Oferta oferta = (Oferta)entityManager.createNamedQuery("OfertaPorIDnegociacion").setParameter("IDNegociacion", IdNegociacionPulsada).getSingleResult();
+		model.addAttribute("oferta",oferta);
+		
 		List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", IdNegociacionPulsada).getResultList();
 		
 		
@@ -716,6 +719,7 @@ public class HomeController {
 			model.addAttribute("NoHayComentarios","No hay comentarios en esta negociación. Escriba uno si lo desea");
 		}
 		else{
+			
 			model.addAttribute("ListaComentarios",listaComentarios);
 		}
 		
