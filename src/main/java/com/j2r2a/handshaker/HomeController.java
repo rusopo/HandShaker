@@ -625,6 +625,7 @@ public class HomeController {
 			@RequestParam("email_nuevo") String email,
 			@RequestParam("pass1_nuevo") String pass1,
 			@RequestParam("pass2_nuevo") String pass2,
+			
 			//@RequestParam("lat_nuevo") double lat,
 			//@RequestParam("lng_nuevo") double lng,
 			 HttpSession session) {
