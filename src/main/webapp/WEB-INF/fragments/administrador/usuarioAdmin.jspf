@@ -1,193 +1,229 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib
+	uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project"
+	prefix="e"%>
 
 <script type="text/javascript">
+	$(function() {
+		$(".loadEdit").click(function() {
+			var id = $(this).attr("id").substring("edit_".length);
+			$("#editUserCP").find('#idUser').text(id);
+			$.get("getUser", {
+				id : id,
+				csrf : "${e:forJavaScript(csrf_token)}"
+			}, function(data) {
 
-$(function() {
-	$(".loadEdit").click(function()
-	{
-		var id=$(this).attr("id").substring("edit_".length);
-		$("#editUserCP").find('#idUser').text(id);		 
-		$.get("getUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, function(data) {
-			
-			var datos = JSON.parse(data);
-			$("#editUserCP").find('#aliasUser').text(datos.alias);
-			$("#editUserCP").find('#nombreUser').text(datos.nombre);
-			$("#editUserCP").find('#edadUser').text(datos.edad);
-			$("#editUserCP").find('#emailUser').text(datos.email);
-			$("#editUserCP").find('#passUser').text(datos.pass);
-			
-			document.getElementById('inputAlias').value = datos.alias;
-			document.getElementById('inputNombre').value = datos.nombre;
-			document.getElementById('inputEdad').value = datos.edad;
-			document.getElementById('inputEmail').value = datos.email;
-			//document.getElementById('inputPass').value = datos.pass;
-			document.getElementById('inputID').value = id;
-		});	
-		$("#editUserCP").dialog(); //assign the ID for later use
-	});
-})
-</script>
+				var datos = JSON.parse(data);
+				$("#editUserCP").find('#aliasUser').text(datos.alias);
+				$("#editUserCP").find('#nombreUser').text(datos.nombre);
+				$("#editUserCP").find('#edadUser').text(datos.edad);
+				$("#editUserCP").find('#emailUser').text(datos.email);
+				$("#editUserCP").find('#passUser').text(datos.pass);
 
-<script type="text/javascript">
-$(function() {
-	$(".x").click(function(){
-		var id=$(this).attr("id").substring("del_".length);
-	
-		if (confirm("Estas seguro de que quieres eliminar al usuario "+id + "?"	) == true) 
-		{	
-			console.log("deleting", id);
-    		delUser(id);
-	    }		
-	});
-})
-
-function delUser(id) {
-		
-	$.post("delUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
-			function(data) {
-				$("#del_"+id).parent().parent().remove();
+				document.getElementById('inputAlias').value = datos.alias;
+				document.getElementById('inputNombre').value = datos.nombre;
+				document.getElementById('inputEdad').value = datos.edad;
+				document.getElementById('inputEmail').value = datos.email;
+				//document.getElementById('inputPass').value = datos.pass;
+				document.getElementById('inputID').value = id;
 			});
-}
+			$("#editUserCP").dialog({
+				modal : true,
+				height : 620,
+				width : 800
+				
+			}); //assign the ID for later use
+		});
+		
+		$("#botonConfirm").click(function(){
+			$("#editUserCP").dialog('close');
+		});
+	})
 </script>
 
 <script type="text/javascript">
-$(function() {
-	$(".edit").click(function(){
-		var id=$(this).attr("id").substring("edit_".length);
-	
-		if (confirm("Estas seguro de que quieres editar al usuario "+id + "?"	) == true) 
-		{	
-			console.log("editing", id);
-    		editUser(id);
-	    }		
-	});
-})
+	$(function() {
+		$(".x")
+				.click(
+						function() {
+							var id = $(this).attr("id")
+									.substring("del_".length);
 
-function getUser(id) {
-		
-	$.post("getUser", {id: id, csrf: "${e:forJavaScript(csrf_token)}"});
-}
+							if (confirm("Estas seguro de que quieres eliminar al usuario "
+									+ id + "?") == true) {
+								console.log("deleting", id);
+								delUser(id);
+							}
+						});
+	})
+
+	function delUser(id) {
+
+		$.post("delUser", {
+			id : id,
+			csrf : "${e:forJavaScript(csrf_token)}"
+		}, function(data) {
+			$("#del_" + id).parent().parent().remove();
+		});
+	}
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		$(".edit")
+				.click(
+						function() {
+							var id = $(this).attr("id").substring(
+									"edit_".length);
+
+							if (confirm("Estas seguro de que quieres editar al usuario "
+									+ id + "?") == true) {
+								console.log("editing", id);
+								editUser(id);
+							}
+						});
+	})
+
+	function getUser(id) {
+
+		$.post("getUser", {
+			id : id,
+			csrf : "${e:forJavaScript(csrf_token)}"
+		});
+	}
 </script>
 
 
 <div id="panel-control-admin" class="col-md-12">
-						
-						<table id="tabla-administracion1" class="table">
-							 	<thead>
-							 		<tr>
-							 			<th>id_usuario</th>
-							 			<th>alias</th>
-							 			<th>nombre</th>
-							 			<th>edad</th>
-							 			<th>email</th>
-							 			<th>contrasena</th>
-							 			<th>Administrar</th>
-							 		</tr>
-							 	</thead>      
-				      		      
-				      		    <tbody>
-				      		    <c:choose>
-				      		       <c:when test="${not empty usuario}">
-										<c:forEach items="${lista_todos_usuarios}" var="u">
-											<tr>
-											<td>${u.id}</td>
-											<td>${u.alias}</td>	
-											<td>${u.nombre}</td>
-											<td>${u.edad}</td>
-											<td>${u.email}</td>
-											<td>${u.contrasenia}</td>
-											<td><button class="x" id="del_${u.id}">X</button>
-												<button class="loadEdit" id="edit_${u.id}">Editar</button></td>
-											</tr>	
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
+
+	<table id="tabla-administracion1" class="table">
+		<thead>
+			<tr>
+				<th>id_usuario</th>
+				<th>alias</th>
+				<th>nombre</th>
+				<th>edad</th>
+				<th>email</th>
+				<th>contrasena</th>
+				<th>Administrar</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<c:choose>
+				<c:when test="${not empty usuario}">
+					<c:forEach items="${lista_todos_usuarios}" var="u">
+						<tr>
+							<td>${u.id}</td>
+							<td>${u.alias}</td>
+							<td>${u.nombre}</td>
+							<td>${u.edad}</td>
+							<td>${u.email}</td>
+							<td>${u.contrasenia}</td>
+							<td><button class="x" id="del_${u.id}">X</button>
+								<button class="loadEdit" id="edit_${u.id}">Editar</button></td>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
 										No tiene servicios.
 									</c:otherwise>
-								</c:choose> 
-				      		    </tbody>  
-	         	   </table>
-												
-         </div>	
-         
-         <div id="editUserCP" title="Edit User CP" class="col-md-12" style="display:none">
-       
-         <p align="left"><strong>Datos actuales:</strong></p>
-  			<table id="tabla-editar-usuario" class="table">
-			<thead>
+			</c:choose>
+		</tbody>
+	</table>
+
+</div>
+
+<div id="editUserCP" title="Edit User CP" class="col-md-12"
+	style="display: none">
+
+	<p align="left">
+		<strong>Datos actuales:</strong>
+	</p>
+	<table id="tabla-editar-usuario" class="table">
+		<thead>
 			<tr>
-			<th>id_usuario</th>
-			<th>alias</th>
-			<th>nombre</th>
-			<th>edad</th>
-			<th>e-mail</th>
-			<th>Constrasena</th>
+				<th>id_usuario</th>
+				<th>alias</th>
+				<th>nombre</th>
+				<th>edad</th>
+				<th>e-mail</th>
+				<th>Constrasena</th>
 			</tr>
-			</thead>
-			
-			<tbody>      
+		</thead>
+
+		<tbody>
 			<tr>
-			<td id=idUser></td>
-			<td id=aliasUser></td>	
-			<td id=nombreUser></td>
-			<td id=edadUser></td>
-			<td id=emailUser></td>
-			<td id=passUser></td>
+				<td id=idUser></td>
+				<td id=aliasUser></td>
+				<td id=nombreUser></td>
+				<td id=edadUser></td>
+				<td id=emailUser></td>
+				<td id=passUser></td>
 			</tr>
-			</tbody>
-			</table>
-		<p align="left"><strong>Nuevos datos:</strong></p>
-			<form action="editUser" id="form-editar" name="form-editar" enctype="multipart/form-data" class="form-horizontal" role="form" method="post">	
-				
-				<div class="col-md-12">	
-				
-					<div id="col-iz-registro" class="col-md-10">		
-						  <input type="hidden" class="form-control" name="id" value="" id="inputID">  
-						  <div class="form-group">
-						    <label for="alias_nuevo" class="col-sm-2 control-label">Alias</label>
-						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="alias_nuevo" value="" id="inputAlias">
-						    </div>
-						  </div>									
-						  <div class="form-group">
-						    <label for="nombre_nuevo" class="col-sm-2 control-label">Nombre</label>
-						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="nombre_nuevo" value="" id="inputNombre">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="edad_nuevo" class="col-sm-2 control-label">Edad</label>
-						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="edad_nuevo" value="" id="inputEdad">
-						    </div>
-						  </div>
-						 
-						   <div class="form-group">
-						    <label for="email_nuevo" class="col-sm-2 control-label">E-mail</label>
-						    <div class="col-sm-10">
-						      <input type="text" class="form-control" name="email_nuevo" value="" id="inputEmail">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="pass1_nuevo" class="col-sm-2 control-label">Contrasena</label>
-						    <div class="col-sm-10">
-						      <input type="password" class="form-control" id="pass1_nuevo" name="pass1_nuevo ">
-						    </div>
-						  </div>
-						  
-						  <div class="form-group">
-						    <label for="pass2_nuevo" class="col-sm-2 control-label">Verificar Contrasena</label>
-						    <div class="col-sm-10">
-						      <input type="password" class="form-control" id="pass2_nuevo" name="pass2_nuevo">
-						    </div>
-						  </div>
-						
-				
-				<div id="botones-registro" class="col-sm-12" align="center">
-			      <button type="submit" class="btn btn-lg btn-success">Confirmar edicion</button>
-			    </div>
-		    </div>
-		    </div>
-		    </form>		
-         </div>
+		</tbody>
+	</table>
+	<p align="left">
+		<strong>Nuevos datos:</strong>
+	</p>
+	<form action="${prefix}editUser" id="form-editar" name="form-editar"
+		enctype="multipart/form-data" class="form-horizontal" role="form"
+		method="post">
+
+
+		<div class="col-md-12">
+			<input type="hidden" class="form-control" name="id" value=""
+				id="inputID">
+			<div class="form-group">
+				<label for="alias_nuevo" class="col-sm-2 control-label">Alias</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="alias_nuevo" value=""
+						id="inputAlias">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="nombre_nuevo" class="col-sm-2 control-label">Nombre</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="nombre_nuevo"
+						value="" id="inputNombre">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="edad_nuevo" class="col-sm-2 control-label">Edad</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="edad_nuevo" value=""
+						id="inputEdad">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="email_nuevo" class="col-sm-2 control-label">E-mail</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="email_nuevo" value=""
+						id="inputEmail">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="pass1_nuevo" class="col-sm-2 control-label">Contrasena</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="pass1_nuevo"
+						name="pass1_nuevo ">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="pass2_nuevo" class="col-sm-2 control-label">Verificar
+					Contrasena</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="pass2_nuevo"
+						name="pass2_nuevo">
+				</div>
+			</div>
+
+			<div id="botones-registro" class="col-sm-12" align="center">
+				<button id="botonConfirm" type="submit" class="btn btn-lg btn-success">Confirmar
+					edicion</button>
+			</div>
+		</div>
+	</form>
+</div>
