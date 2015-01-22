@@ -629,7 +629,6 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
-	@ResponseBody
 	@Transactional // needed to allow DB change
 	public String editarUsuario(HttpServletRequest request,
 			@RequestParam("id") long id,
@@ -660,10 +659,9 @@ public class HomeController {
 	    	/*
 	    	user.setLatitud(lat);
 	    	user.setLongitud(lng);*/
-			
-		} 
-	    return "redirect:"+ "administrador";	
-		
+	    
+		}	
+	    return "redirect:" + "administrador#panel-admin-usuarios";
 	}		
 	
 	
