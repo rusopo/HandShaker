@@ -14,70 +14,47 @@
 	})
 	
 	function delNeg(id) {
-		$.post("delService", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
+		$.post("delNeg", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
 				function(data) {
 					$("#del_"+id).parent().parent().remove();
+					//$("#del_"+id).closest("tr").parent().remove();
+					
 				});
 	}
 </script>
 
-
 <div id="panel-control-admin" class="col-md-12">
-
+			
 						<table id="tabla-administracion3" class="table">
 							 	<thead>
 							 		<tr>
-							 			<th align="center">id_negociacion</th>
-							 			<th>id_usuario1</th>
-							 			<th>idusuario2</th>
-							 			<th>lista comentarios</th>
-							 			<th>aceptada</th>
+							 			<th>ID</th>
+							 			<th>Usuario1</th>
+							 			<th>Usuario2</th>
+							 			<th>Aceptada</th>
 							 			<th>Eliminar</th>
 							 		</tr>
-							 		
-							 	</thead>
-							 	
-							 	<tbody>
-							 		<tr>
-							 			
-							 			<td align="center">8793223</td>
-							 			<td>0000012</td>
-							 			<td>1312151</td>
-							 			<td>esto es una lista</td>
-							 			<td>false</td>
-							 			<td>prueba</td>
-							 			<!-- <td><button class="xXx" id="del_${n.id}">X</button> -->
-							 		</tr>
-							 		<tr>
-							 		    
-							 			<td>8793223</td>
-							 			<td>0000012</td>
-							 			<td>1312151</td>
-							 			<td>esto es una lista</td>
-							 			<td>false</td>
-							 			<td>prueba</td>
-							 		</tr> 
-							 		<tr>
-							 		    
-							 			<td>8793223</td>
-							 			<td>0000012</td>
-							 			<td>1312151</td>
-							 			<td>esto es una lista</td>
-							 			<td>false</td>
-							 			<td>prueba</td>
-							 		</tr> 
-							 		<tr>
-							 			
-							 			<td>8793223</td>
-							 			<td>0000012</td>
-							 			<td>1312151</td>
-							 			<td>esto es una lista</td>
-							 			<td>false</td>
-							 			<td>prueba</td>
-							 		</tr>  	
-							 	</tbody>
-							 	
-							</table>
+							 	</thead>      
+				      		      
+				      		    <tbody>
+				      		    <c:choose>
+				      		       <c:when test="${not empty usuario}">
+										<c:forEach items="${lista_todas_negociaciones}" var="n">
+											<tr>
+											<td>${n.id_negociacion}</td>	
+											<td>${n.usuario1.alias}</td>
+											<td>${n.usuario2.alias}</td>
+											<td>${n.aceptada}</td>
+											<td><button class="xXx" id="del_${n.id_negociacion}">X</button>
+										    </tr>			
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										No tiene servicios.
+									</c:otherwise>
+								</c:choose> 
+				      		    </tbody>  
+				      		      
+				         	   </table>
 			
-      </div>	
-
+         </div>	
