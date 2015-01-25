@@ -37,24 +37,23 @@
 		
 		$("#botonConfirm").click(function(){
 			$("#editUserCP").dialog('close');
+			
 		});
 	})
 </script>
 
 <script type="text/javascript">
 	$(function() {
-		$(".x")
-				.click(
-						function() {
-							var id = $(this).attr("id")
-									.substring("del_".length);
+		$(".x").click(function() {
+			var id = $(this).attr("id")
+					.substring("del_".length);
 
-							if (confirm("Estas seguro de que quieres eliminar al usuario "
-									+ id + "?") == true) {
-								console.log("deleting", id);
-								delUser(id);
-							}
-						});
+			if (confirm("Estas seguro de que quieres eliminar al usuario "
+					+ id + "?") == true) {
+				console.log("deleting", id);
+				delUser(id);
+			}
+		});
 	})
 
 	function delUser(id) {
@@ -63,25 +62,24 @@
 			id : id,
 			csrf : "${e:forJavaScript(csrf_token)}"
 		}, function(data) {
-			$("#del_" + id).parent().parent().remove();
+			var table = $('#tabla-administracion1').dataTable();
+			table.$("#del_" + id).parent().parent().remove().draw(false);
 		});
 	}
 </script>
 
 <script type="text/javascript">
 	$(function() {
-		$(".edit")
-				.click(
-						function() {
-							var id = $(this).attr("id").substring(
-									"edit_".length);
+		$(".edit").click(function() {
+			var id = $(this).attr("id").substring(
+					"edit_".length);
 
-							if (confirm("Estas seguro de que quieres editar al usuario "
-									+ id + "?") == true) {
-								console.log("editing", id);
-								editUser(id);
-							}
-						});
+			if (confirm("Estas seguro de que quieres editar al usuario "
+					+ id + "?") == true) {
+				console.log("editing", id);
+				editUser(id);
+			}
+		});
 	})
 
 	function getUser(id) {
@@ -95,7 +93,6 @@
 
 
 <div id="panel-control-admin" class="col-md-12">
-
 	<table id="tabla-administracion1" class="table">
 		<thead>
 			<tr>
@@ -108,7 +105,6 @@
 				<th>Administrar</th>
 			</tr>
 		</thead>
-
 		<tbody>
 			<c:choose>
 				<c:when test="${not empty usuario}">
@@ -126,17 +122,14 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-										No tiene servicios.
-									</c:otherwise>
+					No tiene servicios.
+				</c:otherwise>
 			</c:choose>
 		</tbody>
 	</table>
-
 </div>
-
 <div id="editUserCP" title="Edit User CP" class="col-md-12"
 	style="display: none">
-
 	<p align="left">
 		<strong>Datos actuales:</strong>
 	</p>
@@ -151,7 +144,6 @@
 				<th>Constrasena</th>
 			</tr>
 		</thead>
-
 		<tbody>
 			<tr>
 				<td id=idUser></td>
@@ -169,8 +161,6 @@
 	<form action="${prefix}editUser" id="form-editar" name="form-editar"
 		enctype="multipart/form-data" class="form-horizontal" role="form"
 		method="post">
-
-
 		<div class="col-md-12">
 			<input type="hidden" class="form-control" name="id" value=""
 				id="inputID">

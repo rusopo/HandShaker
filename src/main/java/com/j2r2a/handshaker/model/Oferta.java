@@ -1,5 +1,6 @@
 package com.j2r2a.handshaker.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,9 @@ import javax.persistence.OneToOne;
     @NamedQuery(name="ContadorOfertasRecibidasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false"),
     @NamedQuery(name ="CuantasOfertasTengo",query = "SELECT COUNT(u) FROM Oferta u where u.usuarioRecibe = :UsuarioMetido"),
     @NamedQuery(name="OfertaPorIDnegociacion",query="SELECT o FROM Oferta o JOIN o.negociacion neg WHERE neg.id_negociacion = :IDNegociacion"),
-    @NamedQuery(name="BorrarOferta",query="DELETE FROM Oferta o  WHERE o.negociacion.id_negociacion = :IDNegociacion"),
+    @NamedQuery(name="BorrarOfertasPorIDServicio",query="DELETE FROM Oferta o WHERE o.servicio_solicitado = :ServicioMetido OR o.servicio_ofrecido= :ServicioMetido"),
     @NamedQuery(name="ListaOfertasAceptadas",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = true OR s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = true ORDER BY s.id_oferta_enviada DESC"),
+    @NamedQuery(name="BorrarOfertaPorIDnegociacion",query="DELETE FROM Oferta o WHERE o.negociacion = :NegociacionMetida")
 })
 public class Oferta{
 	
@@ -60,16 +62,15 @@ public class Oferta{
 		this.fecha = fecha;
 	}*/
 	
-	@OneToOne(targetEntity=Servicio.class) //Una oferta enviada tiene un servicio recibido
+	@OneToOne(targetEntity=Servicio.class,cascade=CascadeType.ALL) //Una oferta enviada tiene un servicio recibido
 	public Servicio getServicio_solicitado() {
 		return servicioSolicitado;
 	}
 	public void setServicio_solicitado(Servicio servicioRecibido) {
 		this.servicioSolicitado = servicioRecibido;
 	}
-	
-	
-	@OneToOne(targetEntity=Servicio.class) //Una oferta enviada tiene un servicio ofrecido
+		
+	@OneToOne(targetEntity=Servicio.class,cascade=CascadeType.ALL) //Una oferta enviada tiene un servicio ofrecido
 	public Servicio getServicio_ofrecido() {
 		return serviciOfrecido;
 	}

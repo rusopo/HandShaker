@@ -56,7 +56,7 @@ public class Negociacion{
 		this.id = id;
 	}
 		
-	@OneToOne(targetEntity=Usuario.class) //Una negociacion es de un usuario
+	@OneToOne(targetEntity=Usuario.class,fetch = FetchType.EAGER) //Una negociacion es de un usuario
 	public Usuario getUsuario1() {
 		return usuario1;
 	}
@@ -64,7 +64,7 @@ public class Negociacion{
 		this.usuario1 = usuario1;
 	}
 	
-	@OneToOne(targetEntity=Usuario.class) //Una negociacion es de otro usuario
+	@OneToOne(targetEntity=Usuario.class,fetch = FetchType.EAGER) //Una negociacion es de otro usuario
 	public Usuario getUsuario2() {
 		return usuario2;
 	}
@@ -72,7 +72,7 @@ public class Negociacion{
 		this.usuario2 = usuario2;
 	}
 	
-	@OneToMany(mappedBy="negociacion", fetch = FetchType.EAGER, cascade = CascadeType.ALL) //Una negociacion tiene n comentarios tipo Comentario
+	@OneToMany(mappedBy="negociacion",fetch = FetchType.EAGER) //Una negociacion tiene n comentarios tipo Comentario
 	public List<Comentario> getLista_comentarios() {
 		return listaComentarios;
 	}

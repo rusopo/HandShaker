@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
 
 <script type="text/javascript">
 
@@ -91,9 +92,7 @@ $(function(){
 	    });			            
 							
 	});
-			  
-  	 
-		  	
+			  	  	
 });
 </script>
 
@@ -120,15 +119,15 @@ $(function(){
                     	
                     	<c:forEach items="${ListaComentarios}" var ="c">
                         <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="${prefix}mi_perfil/usuario?id_usuario=${c.id_usuario.id}" height="45px" width="45px" class="img-circle" /></span>
+                            <img src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(c.id_usuario.id)}" height="45px" width="45px" class="img-circle" /></span>
 
                            <div class="chat-body clearfix">
                                 <div class="header" >
-                                    <strong class="primary-font">  ${c.id_usuario.nombre}</strong> 
-                                    <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>${c.fechaComentario}</small>
+                                    <strong class="primary-font">${e:forHtmlContent(c.id_usuario.nombre)}</strong> 
+                                    <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>${e:forHtmlContent(c.fechaComentario)}</small>
                                 </div>
                                 <p>
-                                    ${c.texto_comentario} 
+                                   ${e:forHtmlContent(c.texto_comentario)} 
                                 </p>
                               
                             </div>
@@ -142,9 +141,8 @@ $(function(){
                    <div class="col-md-12" id="divComentarioNegociacion">
                                       
 	                 	   <input type="hidden" id="idNegociacion" name="idNegociacion" value="${negociacion.id_negociacion}">
-	                       <!-- <textarea id="btn-input" id="textoComentario" name="textoComentario" class="form-control" rows="5" autofocus="autofocus" placeholder="Escribe aqui tu comentario ..." ></textarea>-->
-	                       <input type="text" id="textoComentario" name="textoComentario" class="form-control" placeholder="Escribe aqui tu comentario ...">
-	                      
+	                       <textarea id="textoComentario" name="textoComentario" class="form-control" rows="5" autofocus="autofocus" placeholder="Escribe aqui tu comentario ..." ></textarea>
+	                       
 	                       <div align="right">	                     
 	                           <button class="btn btn-primary" id="btn-chat" ><strong>ENVIAR</strong></button>        
 	                       </div>
@@ -154,9 +152,9 @@ $(function(){
                 
                 <div class="panel-footer">
                       <div class="col-md-6" align="right">       		                    	 			            
-				            <button id="botonAceptarNegociacion_${negociacion.id_negociacion}" class="botonAceptarNegociacion"><strong>ACEPTAR NEGOCIACI&Oacute;N</strong></button>			             
+				            <button id="botonAceptarNegociacion_${negociacion.id_negociacion}" class="botonAceptarNegociacion btn btn-success"><strong>ACEPTAR NEGOCIACI&Oacute;N</strong></button>			             
 			          </div>	         
-			            	<button id="botonCancelarNegociacion_${negociacion.id_negociacion}" class="botonCancelarNegociacion"><strong>RECHAZAR NEGOCIACI&Oacute;N</strong></button>
+			            	<button id="botonCancelarNegociacion_${negociacion.id_negociacion}" class="botonCancelarNegociacion btn btn-danger"><strong>RECHAZAR NEGOCIACI&Oacute;N</strong></button>
               </div>
                            
             </div>

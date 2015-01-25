@@ -1,19 +1,9 @@
-<footer id="pie" class="container">
-
-	 	<div id="footer" class="col-md-12" align="center">
-							
-				Proyecto Ingeniería Web <br>
-				Universidad Complutense de Madrid <br>
-				Curso 2014/2015
-			
+	<footer id="pie" class="container">
+		<div id="footer" class="col-md-12" align="center">
+			Proyecto Ingeniería Web <br> Universidad Complutense de Madrid <br>
+			Curso 2014/2015
 		</div>
-						
-			            
-         
-     </footer>
-                
-	    <script src="${prefix}resources/bootstrap/js/bootstrap.js"></script>
-	    
-	    	    
-    </body>
+	</footer>
+	<script src="${prefix}resources/bootstrap/js/bootstrap.js"></script>
+  </body>
 </html>

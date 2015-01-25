@@ -5,7 +5,7 @@ var map = null;
 var geocoder = null;
 var marker = null;
          
-jQuery(document).ready(function(){
+$(function(){
      //obtenemos los valores en caso de tenerlos en un formulario ya guardado en la base de datos
      lat = jQuery('#lat').val();
      lng = jQuery('#long').val();

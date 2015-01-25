@@ -470,9 +470,9 @@ public class HomeController {
         Usuario u = (Usuario)session.getAttribute("usuario");
         
 		if(u!=null && u.getRol().equalsIgnoreCase("administrador")){			
-			model.addAttribute("usuario", u);	
+				
 			List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
-			List<Usuario> lista_servicios = entityManager.createNamedQuery("ListarTodo").getResultList();
+			List<Servicio> lista_servicios = entityManager.createNamedQuery("ListarTodo").getResultList();
 			List<Negociacion> lista_negociacion = entityManager.createNamedQuery("DameListaNegociacion").getResultList();
 			model.addAttribute("lista_todas_negociaciones",lista_negociacion);
 			model.addAttribute("lista_todos_usuarios", lista_usuarios);
@@ -560,14 +560,28 @@ public class HomeController {
 	public ResponseEntity<String> borrarServicio(@RequestParam("id") long id,
 			@RequestParam("csrf") String token, HttpSession session) {
 		
-		System.err.println(id);
-	    if (entityManager.createNamedQuery("BorrarServicio")
-				.setParameter("idService", id).executeUpdate() == 1) {
-			return new ResponseEntity<String>("Ok: service " + id + " removed", 
-					HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>("Error: no such service", 
-					HttpStatus.BAD_REQUEST);
+		Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id).getSingleResult();
+	/*
+		List<Oferta> listaOfertas= entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).getResultList();		
+		for(int i=0;i< listaOfertas.size();i++){			
+			Oferta o = listaOfertas.get(i);
+			entityManager.remove(o);			
+		}
+		*/
+		
+		if(entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).executeUpdate() >=1){
+		
+			if(entityManager.createNamedQuery("BorrarServicio").setParameter("IDServicio", s.getId_servicio()).executeUpdate()==1){
+				return new ResponseEntity<String>("Ok: service " + id + " removed", HttpStatus.OK);
+			}
+			
+			else{	 
+				return new ResponseEntity<String>("Fallo al eliminar servicio: " + id, HttpStatus.BAD_REQUEST);	
+			}
+		}
+		else{
+			return new ResponseEntity<String>("Fallo al eliminar servicio: " + id, HttpStatus.BAD_REQUEST);	
+
 		}
 	}	
 	
@@ -580,8 +594,9 @@ public class HomeController {
 	public ResponseEntity<String> borrarNegociacion(@RequestParam("id") long id,
 			@RequestParam("csrf") String token, HttpSession session) {
 		
-		//Oferta o = (Oferta)entityManager.createNamedQuery("OfertaPorIDnegociacion").setParameter("IDNegociacion", id).getSingleResult();
-		int a = entityManager.createNamedQuery("BorrarOferta").setParameter("IDNegociacion", id).executeUpdate();
+		Negociacion n = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id).getSingleResult();
+		
+		int a = entityManager.createNamedQuery("BorrarOfertaPorIDnegociacion").setParameter("NegociacionMetida", n).executeUpdate();
 		int b = entityManager.createNamedQuery("EliminarNegociacionPorID")
 				.setParameter("IdNegociacionMetido", id).executeUpdate();
 	    if (b == 1) {
@@ -665,7 +680,7 @@ public class HomeController {
 	    	user.setLongitud(lng);*/
 	    
 		}	
-	    return "redirect:" + "administrador#panel-admin-usuarios";
+	    return "redirect:" + "administrador";
 	}		
 	
 	

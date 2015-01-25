@@ -102,7 +102,7 @@ $(function(){
 															     		  <a href="${prefix}negociacion/${o.negociacion.id_negociacion}" class="btn btn-success btn-lg"><strong>Negociar Oferta</strong></a>															     		  					     		
 														     	</div>
 														     	<div>
-																	<button id="botonOfertaRechazada_${o.negociacion.id_negociacion}" class="botonOfertaRechazada"><strong>Rechazar Oferta</strong></button>
+																	<button id="botonOfertaRechazada_${o.negociacion.id_negociacion}" class="botonOfertaRechazada btn btn-danger btn-lg"><strong>Rechazar Oferta</strong></button>
 																</div>
 														     </div>
 														    	
@@ -159,7 +159,7 @@ $(function(){
 														     		
 													     	</div>
 													     	<div>
-																<button id="botonOfertaRechazada_${o.negociacion.id_negociacion}" class="botonOfertaRechazada"><strong>Rechazar Oferta</strong></button>
+																<button id="botonOfertaRechazada_${o.negociacion.id_negociacion}" class="botonOfertaRechazada btn btn-danger btn-lg"><strong>Rechazar Oferta</strong></button>
 															</div>
 													     </div>
 													    	

@@ -3,7 +3,9 @@ package com.j2r2a.handshaker.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -23,8 +25,8 @@ import javax.persistence.OneToOne;
 	@NamedQuery(name = "ListaUsuariosServicio", 
 	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido AND u.id <> :idUsuarioMetido AND u.id <> 1"),
 	@NamedQuery(name="BusquedaServicioPorTextoYCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE LOWER(s.nombre) LIKE :textoMetido AND sCat.id_categoria= :categoriaMetida"),
-	@NamedQuery(name="BusquedaServicioPorSoloTexto",query="SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE :textoMetido")
-	
+	@NamedQuery(name="BusquedaServicioPorSoloTexto",query="SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE :textoMetido"),
+	@NamedQuery(name="BorrarServicio",query="DELETE FROM Servicio s WHERE s.id_servicio = :IDServicio")
 })
 
 public class Servicio{

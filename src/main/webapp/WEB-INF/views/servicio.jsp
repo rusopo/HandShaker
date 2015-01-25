@@ -35,8 +35,8 @@
 			fila.append($("<td>" + sSolicitaTexto + "</td>"));
 			fila.append($("<td>" + sOfreceTexto + "</td>"));			
 			fila.append($("<td>"
-							+ "<button class='confirma_p' id='cp_" + i + "'><strong>Enviar</strong></button>"
-							+ "<button class='cancela_p'><strong>Cancelar</strong></button></td>"));
+							+ "<button class='confirma_p btn btn-success' id='cp_" + i + "'><strong>Enviar</strong></button>"
+							+ "<button class='cancela_p btn btn-danger'><strong>Cancelar</strong></button></td>"));
 			fila.append($("</tr>"));
 			$("#ofertasListas").append(fila);
 			peticiones.push({

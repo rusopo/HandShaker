@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -184,7 +186,7 @@ public class Usuario{
 		this.valoracion = valoracion;
 	}
 
-	@ManyToMany(targetEntity=Servicio.class)//Un usuario tiene n habilidades de tipo Servicio
+	@ManyToMany(targetEntity=Servicio.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL)//Un usuario tiene n habilidades de tipo Servicio
 	@JoinTable(name="habilidadesUsuario",joinColumns = {@JoinColumn(name = "IDUsuario")}, inverseJoinColumns = {@JoinColumn(name = "IDServicio")})
 	public List<Servicio> getHabilidades() {
 		return habilidades;
@@ -195,7 +197,7 @@ public class Usuario{
 		this.habilidades = habilidades;
 	}
 
-	@ManyToMany(targetEntity=Servicio.class) //Un usuario tiene n intereses de tipo Servicio
+	@ManyToMany(targetEntity=Servicio.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL) //Un usuario tiene n intereses de tipo Servicio
 	@JoinTable(name="interesesUsuario",joinColumns = {@JoinColumn(name = "IDUsuario")}, inverseJoinColumns = {@JoinColumn(name = "IDServicio")}) 
 	public List<Servicio> getIntereses() {
 		return intereses;

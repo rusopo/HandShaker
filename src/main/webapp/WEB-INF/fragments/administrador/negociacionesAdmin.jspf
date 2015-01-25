@@ -1,60 +1,64 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
-			
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib
+	uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project"
+	prefix="e"%>
+
 <script type="text/javascript">
 	$(function() {
-		$(".xXx").click(function(){
-			var id=$(this).attr("id").substring("del_".length);
-			if (confirm("Estas seguro de que quieres eliminar la negociacion "+ id + "?"	) == true) 
-			{	
-				console.log("deleting", id);
-	    		delNeg(id);
-		    }		
-		});
+		$(".xXx")
+				.click(
+						function() {
+							var id = $(this).attr("id")
+									.substring("del_".length);
+							if (confirm("Estas seguro de que quieres eliminar la negociacion "
+									+ id + "?") == true) {
+								console.log("deleting", id);
+								delNeg(id);
+							}
+						});
 	})
-	
+
 	function delNeg(id) {
-		$.post("delNeg", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
-				function(data) {
-					$("#del_"+id).parent().parent().remove();
-					//$("#del_"+id).closest("tr").parent().remove();
-					
-				});
+		$.post("delNeg", {
+			id : id,
+			csrf : "${e:forJavaScript(csrf_token)}"
+		}, function(data) {
+			var table = $('#tabla-administracion3').dataTable();
+			table.$("#del_" + id).parent().parent().remove().draw(false);
+			//$("#del_"+id).closest("tr").parent().remove();
+
+		});
 	}
 </script>
 
 <div id="panel-control-admin" class="col-md-12">
-			
-						<table id="tabla-administracion3" class="table">
-							 	<thead>
-							 		<tr>
-							 			<th>ID</th>
-							 			<th>Usuario1</th>
-							 			<th>Usuario2</th>
-							 			<th>Aceptada</th>
-							 			<th>Eliminar</th>
-							 		</tr>
-							 	</thead>      
-				      		      
-				      		    <tbody>
-				      		    <c:choose>
-				      		       <c:when test="${not empty usuario}">
-										<c:forEach items="${lista_todas_negociaciones}" var="n">
-											<tr>
-											<td>${n.id_negociacion}</td>	
-											<td>${n.usuario1.alias}</td>
-											<td>${n.usuario2.alias}</td>
-											<td>${n.aceptada}</td>
-											<td><button class="xXx" id="del_${n.id_negociacion}">X</button>
-										    </tr>			
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
+	<table id="tabla-administracion3" class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Usuario1</th>
+				<th>Usuario2</th>
+				<th>Aceptada</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${not empty usuario}">
+					<c:forEach items="${lista_todas_negociaciones}" var="n">
+						<tr>
+							<td>${n.id_negociacion}</td>
+							<td>${n.usuario1.alias}</td>
+							<td>${n.usuario2.alias}</td>
+							<td>${n.aceptada}</td>
+							<td><button class="xXx" id="del_${n.id_negociacion}">X</button>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
 										No tiene servicios.
 									</c:otherwise>
-								</c:choose> 
-				      		    </tbody>  
-				      		      
-				         	   </table>
-			
-         </div>	
+			</c:choose>
+		</tbody>
+	</table>
+</div>

@@ -1,59 +1,64 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
-			
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib
+	uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project"
+	prefix="e"%>
+
 <script type="text/javascript">
 	$(function() {
-		$(".xX").click(function(){
-			var id=$(this).attr("id").substring("del_".length);
-			if (confirm("Estas seguro de que quieres eliminar el servicio "+ id + "?"	) == true) 
-			{	
-				console.log("deleting", id);
-	    		delService(id);
-		    }		
-		});
+		$(".xX")
+				.click(
+						function() {
+							var id = $(this).attr("id")
+									.substring("del_".length);
+							if (confirm("Estas seguro de que quieres eliminar el servicio "
+									+ id + "?") == true) {
+								console.log("deleting", id);
+								delService(id);
+							}
+						});
 	})
-	
+
 	function delService(id) {
-		$.post("delService", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
-				function(data) {
-					$("#del_"+id).parent().parent().remove();
-				});
+		$.post("delService", {
+			id : id,
+			csrf : "${e:forJavaScript(csrf_token)}"
+		}, function(data) {
+			var table = $('#tabla-administracion2').dataTable();
+			//var fila = $("#del_"+id).parent().parent();
+			table.$("#del_" + id).parent().parent().remove().draw(false);
+		});
 	}
 </script>
 
 
-		<div id="panel-control-admin" class="col-md-12">
-			
-						<table id="tabla-administracion2" class="table">
-							 	<thead>
-							 		<tr>
-							 			<th>id_servicio</th>
-							 			<th>nombre</th>
-							 			<th>categoria</th>
-							 			<th>descripcion</th>
-							 			<th>Eliminar</th>
-							 		</tr>
-							 	</thead>      
-				      		      
-				      		    <tbody>
-				      		    <c:choose>
-				      		       <c:when test="${not empty usuario}">
-										<c:forEach items="${lista_todos_servicios}" var="s">
-											<tr>
-											<td>${s.id_servicio}</td>	
-											<td>${s.nombre}</td>
-											<td>${s.categoria.nombreCategoria}</td>
-											<td>${s.descripcion}</td>
-											<td><button class="xX" id="del_${s.id_servicio}">X</button>
-										    </tr>			
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
+<div id="panel-control-admin" class="col-md-12">
+	<table id="tabla-administracion2" class="table">
+		<thead>
+			<tr>
+				<th>id_servicio</th>
+				<th>nombre</th>
+				<th>categoria</th>
+				<th>descripcion</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${not empty usuario}">
+					<c:forEach items="${lista_todos_servicios}" var="s">
+						<tr>
+							<td>${s.id_servicio}</td>
+							<td>${s.nombre}</td>
+							<td>${s.categoria.nombreCategoria}</td>
+							<td>${s.descripcion}</td>
+							<td><button class="xX" id="del_${s.id_servicio}">X</button>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
 										No tiene servicios.
 									</c:otherwise>
-								</c:choose> 
-				      		    </tbody>  
-				      		      
-				         	   </table>
-			
-         </div>	
+			</c:choose>
+		</tbody>
+	</table>
+</div>
