@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
     @NamedQuery(name="ContadorOfertasRecibidasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false"),
     @NamedQuery(name ="CuantasOfertasTengo",query = "SELECT COUNT(u) FROM Oferta u where u.usuarioRecibe = :UsuarioMetido"),
     @NamedQuery(name="OfertaPorIDnegociacion",query="SELECT o FROM Oferta o JOIN o.negociacion neg WHERE neg.id_negociacion = :IDNegociacion"),
+    @NamedQuery(name="BorrarOferta",query="DELETE FROM Oferta o  WHERE o.negociacion.id_negociacion = :IDNegociacion"),
     @NamedQuery(name="ListaOfertasAceptadas",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = true OR s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = true ORDER BY s.id_oferta_enviada DESC"),
 })
 public class Oferta{

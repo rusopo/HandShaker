@@ -14,7 +14,7 @@
 	})
 	
 	function delService(id) {
-		$.post("delNeg", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
+		$.post("delService", {id: id, csrf: "${e:forJavaScript(csrf_token)}"}, 
 				function(data) {
 					$("#del_"+id).parent().parent().remove();
 				});

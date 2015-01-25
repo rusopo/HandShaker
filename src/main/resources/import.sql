@@ -11,7 +11,9 @@
 --salt varchar(255),
 --valoracion varbinary(255),
 
---CONTRASEÑAS:
+
+--ejecucion maven : mvn compile hibernate3:hbm2ddl
+--CONTRASEÑAS:0
 --1.admin -> admin
 --2.rusopo -> 12345
 --3.test1 -> admin
@@ -108,8 +110,8 @@ INSERT INTO Oferta VALUES(4,4,2,3,2,4);
 --texto_comentario varchar(255),
 --id_usuario_id bigint,
 --negociacion_id_negociacion bigint,
-INSERT INTO Comentario VALUES(1,'Hola Manuel',2,1);
-INSERT INTO Comentario VALUES(2,'Hola Ruben',4,1);
+--INSERT INTO Comentario VALUES(1,'Hola Manuel',2,1);
+--INSERT INTO Comentario VALUES(2,'Hola Ruben',4,1);
 
 
 

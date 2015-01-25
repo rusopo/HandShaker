@@ -473,7 +473,8 @@ public class HomeController {
 			model.addAttribute("usuario", u);	
 			List<Usuario> lista_usuarios = entityManager.createQuery("select u from Usuario u").getResultList();
 			List<Usuario> lista_servicios = entityManager.createNamedQuery("ListarTodo").getResultList();
-			
+			List<Negociacion> lista_negociacion = entityManager.createNamedQuery("DameListaNegociacion").getResultList();
+			model.addAttribute("lista_todas_negociaciones",lista_negociacion);
 			model.addAttribute("lista_todos_usuarios", lista_usuarios);
 			model.addAttribute("lista_todos_servicios", lista_servicios);
 			model.addAttribute("elemNavbarActive5","class='active'");		
@@ -579,8 +580,11 @@ public class HomeController {
 	public ResponseEntity<String> borrarNegociacion(@RequestParam("id") long id,
 			@RequestParam("csrf") String token, HttpSession session) {
 		
-	    if (entityManager.createNamedQuery("BorrarNegociacion")
-				.setParameter("idNeg", id).executeUpdate() == 1) {
+		//Oferta o = (Oferta)entityManager.createNamedQuery("OfertaPorIDnegociacion").setParameter("IDNegociacion", id).getSingleResult();
+		int a = entityManager.createNamedQuery("BorrarOferta").setParameter("IDNegociacion", id).executeUpdate();
+		int b = entityManager.createNamedQuery("EliminarNegociacionPorID")
+				.setParameter("IdNegociacionMetido", id).executeUpdate();
+	    if (b == 1) {
 			return new ResponseEntity<String>("Ok: user " + id + " removed", 
 					HttpStatus.OK);
 		} else {
