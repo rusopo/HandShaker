@@ -5,17 +5,15 @@
 
 <script type="text/javascript">
 	$(function() {
-		$(".xXx")
-				.click(
-						function() {
-							var id = $(this).attr("id")
-									.substring("del_".length);
-							if (confirm("Estas seguro de que quieres eliminar la negociacion "
-									+ id + "?") == true) {
-								console.log("deleting", id);
-								delNeg(id);
-							}
-						});
+		$(".xXx").click(
+			function() {
+				var id = $(this).attr("id").substring("del_".length);
+				if (confirm("Estas seguro de que quieres eliminar la negociacion "
+						+ id + "?") == true) {
+					console.log("deleting", id);
+					delNeg(id);
+				}
+			});
 	})
 
 	function delNeg(id) {
@@ -25,7 +23,6 @@
 		}, function(data) {
 			var table = $('#tabla-administracion3').dataTable();
 			table.$("#del_" + id).parent().parent().remove().draw(false);
-			//$("#del_"+id).closest("tr").parent().remove();
 
 		});
 	}
@@ -51,13 +48,13 @@
 							<td>${n.usuario1.alias}</td>
 							<td>${n.usuario2.alias}</td>
 							<td>${n.aceptada}</td>
-							<td><button class="xXx" id="del_${n.id_negociacion}">X</button>
+							<td><button class="xXx" id="del_${n.id_negociacion}">X</button></td>
 						</tr>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-										No tiene servicios.
-									</c:otherwise>
+					No tiene servicios.
+				</c:otherwise>
 			</c:choose>
 		</tbody>
 	</table>

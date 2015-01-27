@@ -23,7 +23,7 @@
 							 			<th>Usuario</th>
 							 			<th>Recibe</th>
 							 			<th>Fecha</th>
-							 			<th>Valoraci�n</th>
+							 			<th>Valoraci&oacute;n</th>
 							 		</tr>
 							 		
 							 	</thead>

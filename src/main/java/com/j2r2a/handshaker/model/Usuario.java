@@ -25,7 +25,7 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name="delUser", query="delete from Usuario u where u.id= :idParam"),
     @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido"),
     @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c"),
-    @NamedQuery(name="ExisteUsuarioPorID",query="SELECT u FROM Usuario u WHERE u.id = :IDMetido")
+    @NamedQuery(name="ExisteUsuarioPorID",query="SELECT u FROM Usuario u WHERE u.id = :IDMetido ORDER BY u.id")
 })
 
 public class Usuario{

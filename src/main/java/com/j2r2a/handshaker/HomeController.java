@@ -561,13 +561,6 @@ public class HomeController {
 			@RequestParam("csrf") String token, HttpSession session) {
 		
 		Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id).getSingleResult();
-	/*
-		List<Oferta> listaOfertas= entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).getResultList();		
-		for(int i=0;i< listaOfertas.size();i++){			
-			Oferta o = listaOfertas.get(i);
-			entityManager.remove(o);			
-		}
-		*/
 		
 		if(entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).executeUpdate() >=1){
 		
@@ -729,8 +722,6 @@ public class HomeController {
 		model.addAttribute("oferta",oferta);
 		
 		List<Comentario> listaComentarios = entityManager.createNamedQuery("DameListaComentariosPorIDNegociacion").setParameter("IdNegociacionMetido", IdNegociacionPulsada).getResultList();
-		
-		
 		
 		if(listaComentarios.size()==0){
 			model.addAttribute("NoHayComentarios","No hay comentarios en esta negociación. Escriba uno si lo desea");
