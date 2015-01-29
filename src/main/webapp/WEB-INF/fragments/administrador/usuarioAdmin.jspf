@@ -45,8 +45,7 @@
 <script type="text/javascript">
 	$(function() {
 		$(".x").click(function() {
-			var id = $(this).attr("id")
-					.substring("del_".length);
+			var id = $(this).attr("id").substring("del_".length);
 
 			if (confirm("Estas seguro de que quieres eliminar al usuario "
 					+ id + "?") == true) {
@@ -71,8 +70,7 @@
 <script type="text/javascript">
 	$(function() {
 		$(".edit").click(function() {
-			var id = $(this).attr("id").substring(
-					"edit_".length);
+			var id = $(this).attr("id").substring("edit_".length);
 
 			if (confirm("Estas seguro de que quieres editar al usuario "
 					+ id + "?") == true) {
@@ -96,13 +94,13 @@
 	<table id="tabla-administracion1" class="table">
 		<thead>
 			<tr>
-				<th>id_usuario</th>
-				<th>alias</th>
-				<th>nombre</th>
-				<th>edad</th>
-				<th>email</th>
-				<th>contrasena</th>
-				<th>Administrar</th>
+				<th>Id Usuario</th>
+				<th>Alias</th>
+				<th>Nombre</th>
+				<th>Edad</th>
+				<th>E-mail</th>
+				<th>Contrase&ntilde;a</th>
+				<th>Eliminar/Editar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -116,8 +114,8 @@
 							<td>${u.edad}</td>
 							<td>${u.email}</td>
 							<td>${u.contrasenia}</td>
-							<td><button class="x" id="del_${u.id}">X</button>
-								<button class="loadEdit" id="edit_${u.id}">Editar</button></td>
+							<td><button class="x btn btn-danger btn-sm" id="del_${u.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+								<button class="loadEdit btn btn-info btn-sm" id="edit_${u.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span><strong> Editar</strong> </button></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -136,12 +134,12 @@
 	<table id="tabla-editar-usuario" class="table">
 		<thead>
 			<tr>
-				<th>id_usuario</th>
-				<th>alias</th>
-				<th>nombre</th>
-				<th>edad</th>
-				<th>e-mail</th>
-				<th>Constrasena</th>
+				<th>Id Usuario</th>
+				<th>Alias</th>
+				<th>Nombre</th>
+				<th>Edad</th>
+				<th>E-mail</th>
+				<th>Contrase&ntilde;a</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -194,25 +192,23 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="pass1_nuevo" class="col-sm-2 control-label">Contrasena</label>
+				<label for="pass1_nuevo" class="col-sm-2 control-label">Contrase&ntilde;a</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" id="pass1_nuevo"
 						name="pass1_nuevo ">
 				</div>
 			</div>
-
 			<div class="form-group">
 				<label for="pass2_nuevo" class="col-sm-2 control-label">Verificar
-					Contrasena</label>
+					Contrase&ntilde;a</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" id="pass2_nuevo"
 						name="pass2_nuevo">
 				</div>
 			</div>
-
 			<div id="botones-registro" class="col-sm-12" align="center">
-				<button id="botonConfirm" type="submit" class="btn btn-lg btn-success">Confirmar
-					edicion</button>
+				<button id="botonConfirm" type="submit" class="btn btn-lg btn-success"><strong>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Confirmar edici&oacute;n</strong></button>
 			</div>
 		</div>
 	</form>

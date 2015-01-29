@@ -5,17 +5,16 @@
 
 <script type="text/javascript">
 	$(function() {
-		$(".xX")
-				.click(
-						function() {
-							var id = $(this).attr("id")
-									.substring("del_".length);
-							if (confirm("Estas seguro de que quieres eliminar el servicio "
-									+ id + "?") == true) {
-								console.log("deleting", id);
-								delService(id);
-							}
-						});
+		$(".xX").click(
+			function() {
+				var id = $(this).attr("id")
+						.substring("del_".length);
+				if (confirm("Estas seguro de que quieres eliminar el servicio "
+						+ id + "?") == true) {
+					console.log("deleting", id);
+					delService(id);
+				}
+		});
 	})
 
 	function delService(id) {
@@ -35,10 +34,10 @@
 	<table id="tabla-administracion2" class="table">
 		<thead>
 			<tr>
-				<th>id_servicio</th>
-				<th>nombre</th>
-				<th>categoria</th>
-				<th>descripcion</th>
+				<th>Id Servicio</th>
+				<th>Nombre</th>
+				<th>Categoria</th>
+				<th>Descripci&oacute;n</th>
 				<th>Eliminar</th>
 			</tr>
 		</thead>
@@ -47,17 +46,17 @@
 				<c:when test="${not empty usuario}">
 					<c:forEach items="${lista_todos_servicios}" var="s">
 						<tr>
-							<td>${s.id_servicio}</td>
+							<td>${s.id}</td>
 							<td>${s.nombre}</td>
 							<td>${s.categoria.nombreCategoria}</td>
 							<td>${s.descripcion}</td>
-							<td><button class="xX" id="del_${s.id_servicio}">X</button>
+							<td><button class="xX btn btn-danger btn-sm" id="del_${s.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 						</tr>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-										No tiene servicios.
-									</c:otherwise>
+					No tiene servicios.
+				</c:otherwise>
 			</c:choose>
 		</tbody>
 	</table>

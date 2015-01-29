@@ -56,7 +56,7 @@
 					class="form-control">
 					<option>-- Selecciona --</option>
 					<c:forEach items="${listaCategorias}" var="c">
-						<option value="${c.id_categoria}">${c.nombreCategoria}</option>
+						<option value="${c.id}">${c.nombreCategoria}</option>
 					</c:forEach>
 				</select>
 			</div>

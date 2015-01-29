@@ -9,7 +9,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 	
     @NamedQuery(name="ExisteCategoria",query="SELECT c FROM Categoria c where c.nombreCategoria = :CategoriaMetida"),
-    @NamedQuery(name="ExisteCategoriaPorID",query="SELECT c FROM Categoria c where c.id_categoria = :IDCategoriaMetida"),
+    @NamedQuery(name="ExisteCategoriaPorID",query="SELECT c FROM Categoria c where c.id = :IDCategoriaMetida"),
     @NamedQuery(name="ListaCategorias",query="SELECT DISTINCT c FROM Categoria c")
 })
 
@@ -31,10 +31,10 @@ public class Categoria{
 	
 	@Id
 	@GeneratedValue
-	public long getId_categoria() {
+	public long getId() {
 		return id;
 	}
-	public void setId_categoria(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

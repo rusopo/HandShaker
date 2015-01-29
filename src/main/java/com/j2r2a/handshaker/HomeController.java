@@ -422,7 +422,7 @@ public class HomeController {
 				
 				if (sb.length()>1) sb.append(",");				
 				sb.append("{ "
-						+ "\"id\": \"" + listaCategorias.get(i).getId_categoria() + "\", "
+						+ "\"id\": \"" + listaCategorias.get(i).getId() + "\", "
 						+ "\"nombre\": \"" + listaCategorias.get(i).getNombreCategoria() + "\", "
 						+ "\"valores\":");
 								
@@ -430,19 +430,19 @@ public class HomeController {
 				StringBuilder sb2 = new StringBuilder("[");
 				
 				for(int j=0;j < listaServicios.size();j++){					
-					if(listaCategorias.get(i).getId_categoria()==1){
+					if(listaCategorias.get(i).getId()==1){
 						
 						if (sb2.length()>1) sb2.append(",");
 						sb2.append("{ "
-								+ "\"id\": \"" + listaServicios.get(j).getId_servicio() + "\", "
+								+ "\"id\": \"" + listaServicios.get(j).getId() + "\", "
 								+ "\"nombre\": \"" + listaServicios.get(j).getNombre() + "\"}");
 					}					
 					else{					
-						if(listaServicios.get(j).getCategoria().getId_categoria() == listaCategorias.get(i).getId_categoria()){
+						if(listaServicios.get(j).getCategoria().getId() == listaCategorias.get(i).getId()){
 						
 							if (sb2.length()>1) sb2.append(",");
 							sb2.append("{ "
-									+ "\"id\": \"" + listaServicios.get(j).getId_servicio() + "\", "
+									+ "\"id\": \"" + listaServicios.get(j).getId() + "\", "
 									+ "\"nombre\": \"" + listaServicios.get(j).getNombre() + "\"}");
 						}
 					}
@@ -564,7 +564,7 @@ public class HomeController {
 		
 		if(entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).executeUpdate() >=1){
 		
-			if(entityManager.createNamedQuery("BorrarServicio").setParameter("IDServicio", s.getId_servicio()).executeUpdate()==1){
+			if(entityManager.createNamedQuery("BorrarServicio").setParameter("IDServicio", s.getId()).executeUpdate()==1){
 				return new ResponseEntity<String>("Ok: service " + id + " removed", HttpStatus.OK);
 			}
 			
@@ -650,15 +650,11 @@ public class HomeController {
 			@RequestParam("email_nuevo") String email,
 			@RequestParam("pass1_nuevo") String pass1,
 			@RequestParam("pass2_nuevo") String pass2,
-			
-			//@RequestParam("lat_nuevo") double lat,
-			//@RequestParam("lng_nuevo") double lng,
 			 HttpSession session) {
 
 		//Traigo al usuario con el id a actualizar, si lo encuentra, lo modifico
 		Usuario user = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", id).getSingleResult();
-		
-		
+			
 	    if (user!=null)
 		{
 	    	user.setAlias(alias);
@@ -667,11 +663,7 @@ public class HomeController {
 	    	user.setEmail(email);
 	    	//Si las dos contrase�as son iguales(se han modificado) las grabo, sino las dejo como est�n
 	    	if(pass1 == pass2)
-	    	user.setContrasenia(pass1);
-	    	/*
-	    	user.setLatitud(lat);
-	    	user.setLongitud(lng);*/
-	    
+	    	user.setContrasenia(pass1);	    
 		}	
 	    return "redirect:" + "administrador";
 	}		
@@ -685,9 +677,7 @@ public class HomeController {
 		
 		Usuario u = (Usuario)session.getAttribute("usuario");
 		
-		if(u!=null){
-			//model.addAttribute("usuario", u);
-			
+		if(u!=null){	
 			List<Oferta> listaOfertasEnviadasUsuario= entityManager.createNamedQuery("ListaOfertaEnviadaUsuario").setParameter("UsuarioMetido", u).getResultList();
 			List<Oferta> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", u).getResultList();
 			if(listaOfertasEnviadasUsuario.size() !=0){
@@ -752,15 +742,12 @@ public class HomeController {
 			Comentario c = Comentario.crearComentario(u, textoComentario, negociacion,fecha);
 			listaComentarios.add(c);
 			entityManager.persist(c);
-			negociacion.setLista_comentarios(listaComentarios);
+			negociacion.setListaComentarios(listaComentarios);
 			entityManager.merge(negociacion);
 			
 			model.addAttribute("ListaComentarios",listaComentarios);
 			
-		}
-		
-		 
-		
+		}	
 		model.addAttribute("prefix", "../");
 				
 		return "resultadosChatNegociacion";
@@ -777,7 +764,7 @@ public class HomeController {
 		session.setAttribute("negociacion", negociacion);
 		entityManager.merge(negociacion);
 					
-		return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId_negociacion() +" Aceptada",HttpStatus.OK);	
+		return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId() +" Aceptada",HttpStatus.OK);	
 		
 	}
 	
@@ -786,13 +773,19 @@ public class HomeController {
 		@Transactional
 		public ResponseEntity<String> negociacionCanceladaHome(Model model, HttpSession session,
 				@RequestParam("IDNegociacion") long idNegociacion){
-				
+			
 			Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
+			/*
+			if(entityManager.createNamedQuery("EliminarNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).executeUpdate()==1){
+				
+				entityManager.createNamedQuery("BorrarOfertaPorIDnegociacion").setParameter("NegociacionMetida", negociacion).executeUpdate();
+			}
+			*/
 			Oferta oferta = (Oferta)entityManager.createNamedQuery("OfertaPorIDnegociacion").setParameter("IDNegociacion", idNegociacion).getSingleResult();
-			entityManager.remove(oferta);
 			entityManager.remove(negociacion);
-														
-			return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId_negociacion() +" cancelada",HttpStatus.OK);
+			entityManager.remove(oferta);
+																
+			return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId() +" cancelada",HttpStatus.OK);
 		}
 	
 	
@@ -845,7 +838,7 @@ public class HomeController {
 					Oferta oferta = Oferta.crearOferta(servicioSolicitado, servicioOfrecido, usuarioEnvia, usuarioRecibe, negociacion);
 					entityManager.persist(oferta);
 	    	
-	    		return new ResponseEntity<String>("Oferta con ID: " + oferta.getId_oferta_enviada() + " realizada con exito",HttpStatus.OK);
+	    		return new ResponseEntity<String>("Oferta con ID: " + oferta.getId() + " realizada con exito",HttpStatus.OK);
 	    	}
 	    	else{	    		
 	    		return new ResponseEntity<String>("Oferta cancelada",HttpStatus.BAD_REQUEST);
@@ -859,12 +852,9 @@ public class HomeController {
 					
 			Usuario usuario = (Usuario)session.getAttribute("usuario");
 			StringBuilder sb = new StringBuilder("[");
-			if(usuario!=null){
-				
+			if(usuario!=null){			
 				long contadorOfertasRecibidas=(Long)entityManager.createNamedQuery("ContadorOfertasRecibidasUsuario").setParameter("UsuarioMetido", usuario).getSingleResult();
-				//List<Oferta> listaOfertasRecibidasUsuario= entityManager.createNamedQuery("ListaOfertaRecibidaUsuario").setParameter("UsuarioMetido", usuario).getResultList();
-				//int contadorOfertasRecibidas = listaOfertasRecibidasUsuario.size();
-				
+			
 				if(contadorOfertasRecibidas==0){
 					sb.append("{ "+ "\"contador\": \"" + 0 + "\"");											
 					sb.append("}");

@@ -3,9 +3,7 @@ package com.j2r2a.handshaker.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -18,28 +16,23 @@ import javax.persistence.OneToOne;
 @NamedQueries({
 	
 	@NamedQuery(name="ListarTodo",query="SELECT DISTINCT s FROM Servicio s"),
-    @NamedQuery(name="BusquedaPorCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE sCat.id_categoria= :CategoriaMetida"),
-	@NamedQuery(name="ExisteServicioPorNombre",query="SELECT s FROM Servicio s WHERE s.id_servicio = :IdServicioMetido"),
-	@NamedQuery(name = "CuantosOfertan", 
-	query = "SELECT COUNT(u) FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),
-	@NamedQuery(name = "ListaUsuariosServicio", 
-	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido AND u.id <> :idUsuarioMetido AND u.id <> 1"),
-	@NamedQuery(name="BusquedaServicioPorTextoYCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE LOWER(s.nombre) LIKE :textoMetido AND sCat.id_categoria= :categoriaMetida"),
+    @NamedQuery(name="BusquedaPorCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE sCat.id= :CategoriaMetida"),
+	@NamedQuery(name="ExisteServicioPorNombre",query="SELECT s FROM Servicio s WHERE s.id = :IdServicioMetido"),
+	@NamedQuery(name = "CuantosOfertan",query = "SELECT COUNT(u) FROM Usuario u, IN(u.habilidades) AS s where s.id = :IdServicioMetido"),
+	@NamedQuery(name = "ListaUsuariosServicio",query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id = :IdServicioMetido AND u.id <> :idUsuarioMetido AND u.id <> 1"),
+	@NamedQuery(name="BusquedaServicioPorTextoYCategoria",query="SELECT s FROM Servicio s JOIN s.categoria sCat WHERE LOWER(s.nombre) LIKE :textoMetido AND sCat.id= :categoriaMetida"),
 	@NamedQuery(name="BusquedaServicioPorSoloTexto",query="SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE :textoMetido"),
-	@NamedQuery(name="BorrarServicio",query="DELETE FROM Servicio s WHERE s.id_servicio = :IDServicio")
+	@NamedQuery(name="BorrarServicio",query="DELETE FROM Servicio s WHERE s.id = :IDServicio")
 })
 
 public class Servicio{
 		
 	private long id;	
 	private String nombre;
-
 	private Categoria categoria;
-	private String descripcion;
-	
+	private String descripcion;	
 	private List<Usuario> usuarios1; //Para habilidades
-	private List<Usuario> usuarios2; //Para intereses
-	
+	private List<Usuario> usuarios2; //Para intereses	
 	private long contadorUsuarios;
 	
 	public Servicio(){}
@@ -57,10 +50,10 @@ public class Servicio{
 	
 	@Id
     @GeneratedValue
-	public long getId_servicio() {
+	public long getId() {
 		return id;
 	}
-	public void setId_servicio(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getNombre() {

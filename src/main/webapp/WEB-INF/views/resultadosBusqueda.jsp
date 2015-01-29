@@ -19,9 +19,9 @@
 											<c:when test="${not empty usuario}">
 												<form action="servicio" method="get">
 													<input type="hidden" name="id_servicio"
-														value="${s.id_servicio}">
+														value="${s.id}">
 												</form>
-												<a href="${prefix}servicio/${s.id_servicio}"><strong>${s.nombre}</strong></a>
+												<a href="${prefix}servicio/${s.id}"><strong>${s.nombre}</strong></a>
 											</c:when>
 											<c:otherwise>
 												<strong>${s.nombre}</strong>

@@ -95,23 +95,17 @@ function obtenerServicios(serv) {
 	 
 	 $.each(que.children(), function (i, o){
 		 
-		var selec = parseInt($(o).val());
-		
-		selec = selec + 1;
-		
-		if (selec == buscado){
-			
-			bueno = i;
-			
-			servs = document.getElementById("sersel");
-			
+		var selec = parseInt($(o).val());		
+		selec = selec + 1;		
+		if (selec == buscado){			
+			bueno = i;			
+			servs = document.getElementById("sersel");			
 			if ( servs.hasChildNodes() ){
 				while ( servs.childNodes.length >= 1 )
 				{
 					servs.removeChild( servs.firstChild );
 				}
-			}
-			
+			}			
 			servs = $("#sersel");
 			
 			$("#sersel").empty();
@@ -122,12 +116,9 @@ function obtenerServicios(serv) {
 			$.each(serv[bueno].valores, function(a,u) {
 			 	var s = $("<option value='" + u.id + "'>" + u.nombre + "</option>");
 			 	servs.append(s);
-			 });
-			 
-		} 
-		
-	 });
-	 	 	 	 
+			 });		 
+		} 		
+	 });	 	 	 	 
  }
  
  function obtenerServiciosIntereses(serv) {
@@ -197,23 +188,17 @@ function obtenerServicios(serv) {
 	 
 	 $.each(que.children(), function (i, o){
 		 
-		var selec = parseInt($(o).val());
-		
-		selec = selec + 1;
-		
-		if (selec == buscado){
-			
-			bueno = i;
-			
-			servs = document.getElementById("serselInteres");
-			
+		var selec = parseInt($(o).val());	
+		selec = selec + 1;		
+		if (selec == buscado){			
+			bueno = i;			
+			servs = document.getElementById("serselInteres");			
 			if ( servs.hasChildNodes() ){
 				while ( servs.childNodes.length >= 1 )
 				{
 					servs.removeChild( servs.firstChild );
 				}
-			}
-			
+			}			
 			servs = $("#serselInteres");
 			
 			$("#serselInteres").empty();
@@ -224,12 +209,9 @@ function obtenerServicios(serv) {
 			$.each(serv[bueno].valores, function(a,u) {
 			 	var s = $("<option value='" + u.id + "'>" + u.nombre + "</option>");
 			 	servs.append(s);
-			 });
-			 
-		} 
-		
-	 });
-	 	 	 	 
+			 });			 
+		} 		
+	 });	 	 	 	 
  }
  
  </script>
@@ -314,7 +296,7 @@ function obtenerServicios(serv) {
 														class="form-control">
 														<option>-- Selecciona --</option>
 														<c:forEach items="${listaCategorias}" var="c">
-															<option value="${c.id_categoria}">${c.nombreCategoria}</option>
+															<option value="${c.id}">${c.nombreCategoria}</option>
 														</c:forEach>
 													</select>
 												</div>

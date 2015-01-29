@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="DameListaComentariosPorIDNegociacion",query= "SELECT c FROM Comentario c JOIN c.negociacion cNeg WHERE cNeg.id_negociacion = :IdNegociacionMetido")
+	@NamedQuery(name="DameListaComentariosPorIDNegociacion",query= "SELECT c FROM Comentario c JOIN c.negociacion cNeg WHERE cNeg.id = :IdNegociacionMetido")
     
 })
 public class Comentario{
@@ -38,25 +38,25 @@ public class Comentario{
 	
 	@Id
     @GeneratedValue
-	public long getId_comentario() {
+	public long getId() {
 		return id;
 	}
-	public void setId_comentario(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
 	@OneToOne(targetEntity=Usuario.class) //Un comentario es de 1 usuario
-	public Usuario getId_usuario() {
+	public Usuario getUsuarioComenta() {
 		return usuario;
 	}
-	public void setId_usuario(Usuario idUsuario) {
-		this.usuario = idUsuario;
+	public void setUsuarioComenta(Usuario Usuario) {
+		this.usuario = Usuario;
 	}
 	
-	public String getTexto_comentario() {
+	public String getTextoComentario() {
 		return textoComentario;
 	}
-	public void setTexto_comentario(String texto_comentario) {
+	public void setTextoComentario(String texto_comentario) {
 		this.textoComentario = texto_comentario;
 	}
 	

@@ -18,9 +18,9 @@
 				<div id="panel-botones-admin">												
 					<!-- Nav tabs -->
 					<ul class="nav nav-pills" role="tablist" id="myTab">
-					  <li role="presentation" class="active"><a class="enlace-admin" href="#panel-admin-usuarios" role="tab" data-toggle="tab">Usuarios</a></li>
-					  <li role="presentation"><a class="enlace-admin" href="#panel-admin-servicios" role="tab" data-toggle="tab">Servicios</a></li>
-					  <li role="presentation"><a class="enlace-admin" href="#panel-admin-negociaciones" role="tab" data-toggle="tab">Negociaciones</a></li>
+					  <li role="presentation" class="active"><a class="enlace-admin" href="#panel-admin-usuarios" role="tab" data-toggle="tab"><strong>Usuarios</strong></a></li>
+					  <li role="presentation"><a class="enlace-admin" href="#panel-admin-servicios" role="tab" data-toggle="tab"><strong>Servicios</strong></a></li>
+					  <li role="presentation"><a class="enlace-admin" href="#panel-admin-negociaciones" role="tab" data-toggle="tab"><strong>Negociaciones</strong></a></li>
 					</ul>					
 				</div>														
 				<!-- Tab panes -->

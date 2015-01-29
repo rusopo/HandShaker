@@ -24,7 +24,7 @@
 		})
 		var sOfrece = $("#nombreServOfrecido").val();
 		var sOfreceTexto = $("#nombreServOfrecido option:selected").text();
-		var sSolicita = "${servicio.id_servicio}";
+		var sSolicita = "${servicio.id}";
 		var sSolicitaTexto = "${servicio.nombre}";
 		var uEnvia = "${usuario.id}";
 
@@ -173,7 +173,7 @@
 									</p>
 									<select id="nombreServOfrecido" class="form-control">
 										<c:forEach items="${listaServiciosDeUsuario}" var="s">
-											<option value="${s.id_servicio}">${s.nombre}</option>
+											<option value="${s.id}">${s.nombre}</option>
 										</c:forEach>
 									</select>
 								</div>

@@ -3,7 +3,6 @@ package com.j2r2a.handshaker.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,14 +16,9 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
-	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
-	@NamedQuery(name="EliminarNegociacionPorID",query="DELETE FROM Negociacion n WHERE n.id_negociacion = :IdNegociacionMetido"),
-	
-	/*@NamedQuery(name="DameListaComentarios",
-	query= "SELECT c FROM Comentario c JOIN c.negociacion cNeg WHERE cNeg.id_negociacion = :IdNegociacionMetido"),*/
-	/*@NamedQuery(name = "ListaUsuariosServicio", 
-	query = "SELECT u FROM Usuario u, IN(u.habilidades) AS s where s.id_servicio = :IdServicioMetido"),*/
-   
+	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id = :IdNegociacionMetido"),
+	@NamedQuery(name="EliminarNegociacionPorID",query="DELETE FROM Negociacion n WHERE n.id = :IdNegociacionMetido"),
+	 
 })
 
 
@@ -49,10 +43,10 @@ public class Negociacion{
 	
 	@Id
     @GeneratedValue
-	public long getId_negociacion() {
+	public long getId() {
 		return id;
 	}
-	public void setId_negociacion(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 		
@@ -73,10 +67,10 @@ public class Negociacion{
 	}
 	
 	@OneToMany(mappedBy="negociacion",fetch = FetchType.EAGER) //Una negociacion tiene n comentarios tipo Comentario
-	public List<Comentario> getLista_comentarios() {
+	public List<Comentario> getListaComentarios() {
 		return listaComentarios;
 	}
-	public void setLista_comentarios(List<Comentario> lista_comentarios) {
+	public void setListaComentarios(List<Comentario> lista_comentarios) {
 		this.listaComentarios = lista_comentarios;
 	}
 	

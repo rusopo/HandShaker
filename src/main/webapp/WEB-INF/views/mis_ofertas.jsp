@@ -3,6 +3,8 @@
 <script>
 $(function(){	
 	$(".botonOfertaRechazada").click(function () {
+		var id = $(this).attr("id").substring("botonOfertaRechazada_".length);
+		
 		$("#dialogRechazarOferta").dialog({
 		      resizable: false,
 		      height:175,
@@ -10,7 +12,7 @@ $(function(){
 		      modal: true,
 		      buttons: {		    	  
 		        "SI": function() {			        	
-	        	  var id = $(".botonOfertaRechazada").attr("id").substring("botonOfertaRechazada_".length);
+	        	  
 		        	$.ajax({			    	
 				    	type: "POST",
 				    	url: "${prefix}negociacionCancelada",
@@ -68,7 +70,7 @@ $(function(){
 							<c:when test="${contadorOfertasRecibidas eq 0}">
 								<div align="center" class="alert alert-danger" role="alert">
 									<h4>
-										<strong>No tienes Ofertas Recibidas</strong>
+										<strong>No tienes Ofertas Recibidas pendientes</strong>
 									</h4>
 								</div>
 							</c:when>
@@ -76,14 +78,14 @@ $(function(){
 								<%
 									int contador1 = 1;
 								%>
-								<c:forEach items="${listaOfertasRecibidasUsuario}" var="o">
-									<li><c:if test="${o.negociacion.aceptada eq false }">
+								<c:forEach items="${listaOfertasRecibidasUsuario}" var="ofertaRecibida">
+									<li><c:if test="${ofertaRecibida.negociacion.aceptada eq false }">
 											<div class="col-md-12">
 												<div class="panel panel-primary">
 													<div class="panel-heading">
 														<h3 class="panel-title">
 															<strong> #<%=contador1%> OFERTA DE
-																${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}
+																${ofertaRecibida.usuarioEnvia.nombre} HACIA ${ofertaRecibida.usuarioRecibe.nombre}
 															</strong>
 														</h3>
 													</div>
@@ -92,25 +94,25 @@ $(function(){
 															<h4>
 																<strong>Te Ofrece:</strong>
 															</h4>
-															<p>${o.servicio_solicitado.nombre}</p>
+															<p>${ofertaRecibida.servicioSolicitado.nombre}</p>
 															<h4>
 																<strong>Por:</strong>
 															</h4>
-															<p>${o.servicio_ofrecido.nombre}</p>
+															<p>${ofertaRecibida.servicioOfrecido.nombre}</p>
 														</div>
 														<div class="col-md-6">
 															<div id="boton-ofertas">
 																<form action="${prefix}negociacion" method="GET">
 																	<input type="hidden" name="idNegociacionNombre"
-																		value="${o.negociacion.id_negociacion}">
+																		value="${ofertaRecibida.negociacion.id}">
 																</form>
-																<a href="${prefix}negociacion/${o.negociacion.id_negociacion}"
+																<a href="${prefix}negociacion/${ofertaRecibida.negociacion.id}"
 																	class="btn btn-success btn-lg"><strong>Negociar
 																		Oferta</strong></a>
 															</div>
 															<div>
 																<button
-																	id="botonOfertaRechazada_${o.negociacion.id_negociacion}"
+																	id="botonOfertaRechazada_${ofertaRecibida.negociacion.id}"
 																	class="botonOfertaRechazada btn btn-danger btn-lg">
 																	<strong>Rechazar Oferta</strong>
 																</button>
@@ -137,7 +139,7 @@ $(function(){
 							<c:when test="${contadorOfertasEnviadas eq 0}">
 								<div align="center" class="alert alert-danger" role="alert">
 									<h4>
-										<strong>No tienes Ofertas Enviadas</strong>
+										<strong>No tienes Ofertas Enviadas pendientes</strong>
 									</h4>
 								</div>
 							</c:when>
@@ -145,7 +147,7 @@ $(function(){
 								<%
 									int contador2 = 1;
 								%>
-								<c:forEach items="${listaOfertasEnviadasUsuario}" var="o">
+								<c:forEach items="${listaOfertasEnviadasUsuario}" var="ofertaEnviada">
 									<li>
 										<div class="col-md-12">
 
@@ -153,7 +155,7 @@ $(function(){
 												<div class="panel-heading">
 													<h3 class="panel-title">
 														<strong>#<%=contador2%> OFERTA DE
-															${o.usuarioEnvia.nombre} HACIA ${o.usuarioRecibe.nombre}
+															${ofertaEnviada.usuarioEnvia.nombre} HACIA ${ofertaEnviada.usuarioRecibe.nombre}
 														</strong>
 													</h3>
 												</div>
@@ -162,27 +164,27 @@ $(function(){
 														<h4>
 															<strong>Ofrezco:</strong>
 														</h4>
-														<p>${o.servicio_solicitado.nombre}</p>
+														<p>${ofertaEnviada.servicioSolicitado.nombre}</p>
 
 														<h4>
 															<strong>Por:</strong>
 														</h4>
-														<p>${o.servicio_ofrecido.nombre}</p>
+														<p>${ofertaEnviada.servicioOfrecido.nombre}</p>
 													</div>
 													<div class="col-md-6">
 														<div id="boton-ofertas">
 															<form action="${prefix}negociacion" method="GET">
 																<input type="hidden" name="idNegociacionNombre"
-																	value="${o.negociacion.id_negociacion}">
+																	value="${ofertaEnviada.negociacion.id}">
 															</form>
 															<a
-																href="${prefix}negociacion/${o.negociacion.id_negociacion}"
+																href="${prefix}negociacion/${ofertaEnviada.negociacion.id}"
 																class="btn btn-success btn-lg"><strong>Negociar
 																	Oferta</strong></a>
 														</div>
 														<div>
 															<button
-																id="botonOfertaRechazada_${o.negociacion.id_negociacion}"
+																id="botonOfertaRechazada_${ofertaEnviada.negociacion.id}"
 																class="botonOfertaRechazada btn btn-danger btn-lg">
 																<strong>Rechazar Oferta</strong>
 															</button>

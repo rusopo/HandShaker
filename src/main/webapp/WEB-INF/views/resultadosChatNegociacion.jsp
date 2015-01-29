@@ -8,7 +8,7 @@ $(function(){
 	$("#btn-chat").click(function(){
  		 
   		var textoComentario =  $('#textoComentario').val();
- 			var idNegociacion = $('#idNegociacion').val();
+ 		var idNegociacion = $('#idNegociacion').val();
   		
 	    $.ajax({			    	
 	    	type: "POST",
@@ -23,15 +23,15 @@ $(function(){
   	});
 	
 	$(".botonAceptarNegociacion").click(function () {
+		
+		var id = $(this).attr("id").substring("botonAceptarNegociacion_".length);
 		$("#dialogAceptarNegociacion").dialog({
 		      resizable: false,
 		      height:175,
 		      width:350,
 		      modal: true,
 		      buttons: {		    	  
-		        "SI": function() {	
-		        	
-	        	  var id = $(".botonAceptarNegociacion").attr("id").substring("botonAceptarNegociacion_".length);
+		        "SI": function() {	        	  
 		        	$.ajax({			    	
 				    	type: "POST",
 				    	url: "${prefix}negociacionAceptada",
@@ -66,14 +66,15 @@ $(function(){
 	});
 
 	$(".botonCancelarNegociacion").click(function () {
+		var id = $(this).attr("id").substring("botonCancelarNegociacion_".length);
+		
 		$("#dialogCancelada").dialog({
 	    	resizable: false,
 		    height:175,
 		    width:360,
 		    modal: true,
 	        open: function() {
-	        	
-	        	var id = $(".botonCancelarNegociacion").attr("id").substring("botonCancelarNegociacion_".length);
+	        	        	
 	        	$.ajax({			    	
 			    	type: "POST",
 			    	url: "${prefix}negociacionCancelada",
@@ -115,18 +116,16 @@ $(function(){
 						<ul class="listaChat">
 							<c:forEach items="${ListaComentarios}" var="c">
 								<li class="left clearfix"><span class="chat-img pull-left">
-										<img
-										src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(c.id_usuario.id)}"
-										height="45px" width="45px" class="img-circle" />
+										<img src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(c.usuarioComenta.id)}" height="45px" width="45px" class="img-circle" />
 								</span>
 
 									<div class="chat-body clearfix">
 										<div class="header">
-											<strong class="primary-font">${e:forHtmlContent(c.id_usuario.nombre)}</strong>
+											<strong class="primary-font">${e:forHtmlContent(c.usuarioComenta.nombre)}</strong>
 											<small class="pull-right text-muted"><span
 												class="glyphicon glyphicon-time"></span>${e:forHtmlContent(c.fechaComentario)}</small>
 										</div>
-										<p>${e:forHtmlContent(c.texto_comentario)}</p>
+										<p>${e:forHtmlContent(c.textoComentario)}</p>
 
 									</div></li>
 							</c:forEach>
@@ -134,11 +133,8 @@ $(function(){
 					</c:otherwise>
 				</c:choose>
 				<div class="col-md-12" id="divComentarioNegociacion">
-					<input type="hidden" id="idNegociacion" name="idNegociacion"
-						value="${negociacion.id_negociacion}">
-					<textarea id="textoComentario" name="textoComentario"
-						class="form-control" rows="5" autofocus="autofocus"
-						placeholder="Escribe aqui tu comentario ..."></textarea>
+					<input type="hidden" id="idNegociacion" name="idNegociacion" value="${negociacion.id}">
+					<textarea id="textoComentario" name="textoComentario" class="form-control" rows="5" autofocus="autofocus" placeholder="Escribe aqui tu comentario ..."></textarea>
 					<div align="right">
 						<button class="btn btn-primary" id="btn-chat">
 							<strong>ENVIAR</strong>
@@ -148,12 +144,12 @@ $(function(){
 			</div>
 			<div class="panel-footer">
 				<div class="col-md-6" align="right">
-					<button id="botonAceptarNegociacion_${negociacion.id_negociacion}"
+					<button id="botonAceptarNegociacion_${negociacion.id}"
 						class="botonAceptarNegociacion btn btn-success">
 						<strong>ACEPTAR NEGOCIACI&Oacute;N</strong>
 					</button>
 				</div>
-				<button id="botonCancelarNegociacion_${negociacion.id_negociacion}"
+				<button id="botonCancelarNegociacion_${negociacion.id}"
 					class="botonCancelarNegociacion btn btn-danger">
 					<strong>RECHAZAR NEGOCIACI&Oacute;N</strong>
 				</button>

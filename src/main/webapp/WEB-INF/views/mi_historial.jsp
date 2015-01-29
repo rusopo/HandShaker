@@ -27,10 +27,10 @@
 						<c:forEach items="${listaOfertasAceptadas}" var="o">
 							<tr>
 								<td>${o.usuarioEnvia.nombre}</td>
-								<td>${o.servicio_solicitado.nombre}</td>
+								<td>${o.servicioSolicitado.nombre}</td>
 								<td>${o.usuarioRecibe.nombre}</td>
-								<td>${o.servicio_ofrecido.nombre}</td>
-								<td>23- 10- 2013</td>
+								<td>${o.servicioOfrecido.nombre}</td>
+								<td>23-10-2013</td>
 								<td>7.63</td>
 							</tr>
 						</c:forEach>

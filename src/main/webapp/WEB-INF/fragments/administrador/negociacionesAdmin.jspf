@@ -32,7 +32,7 @@
 	<table id="tabla-administracion3" class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
+				<th>ID Negociaci&oacute;n</th>
 				<th>Usuario1</th>
 				<th>Usuario2</th>
 				<th>Aceptada</th>
@@ -44,11 +44,11 @@
 				<c:when test="${not empty usuario}">
 					<c:forEach items="${lista_todas_negociaciones}" var="n">
 						<tr>
-							<td>${n.id_negociacion}</td>
+							<td>${n.id}</td>
 							<td>${n.usuario1.alias}</td>
 							<td>${n.usuario2.alias}</td>
 							<td>${n.aceptada}</td>
-							<td><button class="xXx" id="del_${n.id_negociacion}">X</button></td>
+							<td><button class="xXx btn btn-danger btn-sm" id="del_${n.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 						</tr>
 					</c:forEach>
 				</c:when>

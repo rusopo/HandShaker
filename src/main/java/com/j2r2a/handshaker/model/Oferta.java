@@ -13,14 +13,14 @@ import javax.persistence.OneToOne;
 @Entity
 
 @NamedQueries({
-    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id_oferta_enviada DESC"),
-    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id_oferta_enviada DESC"),
+    @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id DESC"),
+    @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id DESC"),
     @NamedQuery(name="ContadorOfertasEnviadasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false"),
     @NamedQuery(name="ContadorOfertasRecibidasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false"),
     @NamedQuery(name ="CuantasOfertasTengo",query = "SELECT COUNT(u) FROM Oferta u where u.usuarioRecibe = :UsuarioMetido"),
-    @NamedQuery(name="OfertaPorIDnegociacion",query="SELECT o FROM Oferta o JOIN o.negociacion neg WHERE neg.id_negociacion = :IDNegociacion"),
-    @NamedQuery(name="BorrarOfertasPorIDServicio",query="DELETE FROM Oferta o WHERE o.servicio_solicitado = :ServicioMetido OR o.servicio_ofrecido= :ServicioMetido"),
-    @NamedQuery(name="ListaOfertasAceptadas",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = true OR s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = true ORDER BY s.id_oferta_enviada DESC"),
+    @NamedQuery(name="OfertaPorIDnegociacion",query="SELECT o FROM Oferta o JOIN o.negociacion neg WHERE neg.id = :IDNegociacion"),
+    @NamedQuery(name="BorrarOfertasPorIDServicio",query="DELETE FROM Oferta o WHERE o.servicioSolicitado = :ServicioMetido OR o.servicioOfrecido= :ServicioMetido"),
+    @NamedQuery(name="ListaOfertasAceptadas",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = true OR s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = true ORDER BY s.id DESC"),
     @NamedQuery(name="BorrarOfertaPorIDnegociacion",query="DELETE FROM Oferta o WHERE o.negociacion = :NegociacionMetida")
 })
 public class Oferta{
@@ -48,10 +48,10 @@ public class Oferta{
 	
 	@Id
     @GeneratedValue
-	public long getId_oferta_enviada() {
+	public long getId() {
 		return id;
 	}
-	public void setId_oferta_enviada(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	/*
@@ -63,18 +63,18 @@ public class Oferta{
 	}*/
 	
 	@OneToOne(targetEntity=Servicio.class,cascade=CascadeType.ALL) //Una oferta enviada tiene un servicio recibido
-	public Servicio getServicio_solicitado() {
+	public Servicio getServicioSolicitado() {
 		return servicioSolicitado;
 	}
-	public void setServicio_solicitado(Servicio servicioRecibido) {
+	public void setServicioSolicitado(Servicio servicioRecibido) {
 		this.servicioSolicitado = servicioRecibido;
 	}
 		
 	@OneToOne(targetEntity=Servicio.class,cascade=CascadeType.ALL) //Una oferta enviada tiene un servicio ofrecido
-	public Servicio getServicio_ofrecido() {
+	public Servicio getServicioOfrecido() {
 		return serviciOfrecido;
 	}
-	public void setServicio_ofrecido(Servicio serviciOfrecido) {
+	public void setServicioOfrecido(Servicio serviciOfrecido) {
 		this.serviciOfrecido = serviciOfrecido;
 	}
 	

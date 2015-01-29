@@ -13,8 +13,8 @@
 							<strong>OFERTA: ${oferta.usuarioEnvia.nombre} >>>>>
 								${oferta.usuarioRecibe.nombre}</strong>
 						</h4>
-						<h4>Servicio Ofrecido: ${oferta.servicio_solicitado.nombre}</h4>
-						<h4>Servicio Solicitado: ${oferta.servicio_ofrecido.nombre}</h4>
+						<h4>Servicio Ofrecido: ${oferta.servicioSolicitado.nombre}</h4>
+						<h4>Servicio Solicitado: ${oferta.servicioOfrecido.nombre}</h4>
 					</div>
 				</div>
 			</div>
