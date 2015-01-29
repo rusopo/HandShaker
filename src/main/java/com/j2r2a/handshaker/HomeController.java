@@ -589,7 +589,7 @@ public class HomeController {
 		
 		Negociacion n = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", id).getSingleResult();
 		
-		int a = entityManager.createNamedQuery("BorrarOfertaPorIDnegociacion").setParameter("NegociacionMetida", n).executeUpdate();
+		entityManager.createNamedQuery("BorrarOfertaPorIDnegociacion").setParameter("NegociacionMetida", n).executeUpdate();
 		int b = entityManager.createNamedQuery("EliminarNegociacionPorID")
 				.setParameter("IdNegociacionMetido", id).executeUpdate();
 	    if (b == 1) {

@@ -1,5 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib  uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" prefix="e" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <script type="text/javascript">
 
@@ -97,70 +97,68 @@ $(function(){
 </script>
 
 <div id="divChatPrincipal">
+	<div class="col-md-1"></div>
+	<div class="col-md-10" id="divPrincipalNegociacion">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-comment"></span><strong>
+					CHAT</strong>
+			</div>
+			<div class="panel-body">
+				<c:choose>
+					<c:when test="${empty ListaComentarios}">
+						<h4>
+							<strong>${NoHayComentarios}</strong>
+						</h4>
+					</c:when>
+					<c:otherwise>
+						<ul class="listaChat">
+							<c:forEach items="${ListaComentarios}" var="c">
+								<li class="left clearfix"><span class="chat-img pull-left">
+										<img
+										src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(c.id_usuario.id)}"
+										height="45px" width="45px" class="img-circle" />
+								</span>
 
-<div class="col-md-1"></div>
-    	
-        <div class="col-md-10" id="divPrincipalNegociacion">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-comment"></span><strong> CHAT</strong>
-                </div>
-                <div class="panel-body">
-                
-                <c:choose>
-                	
-                	<c:when test="${empty ListaComentarios}">              		
-                		<h4><strong>${NoHayComentarios}</strong></h4>               	
-                	</c:when>
-                
-                	<c:otherwise>
-                	          
-                    <ul class="listaChat">
-                    	
-                    	<c:forEach items="${ListaComentarios}" var ="c">
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(c.id_usuario.id)}" height="45px" width="45px" class="img-circle" /></span>
+									<div class="chat-body clearfix">
+										<div class="header">
+											<strong class="primary-font">${e:forHtmlContent(c.id_usuario.nombre)}</strong>
+											<small class="pull-right text-muted"><span
+												class="glyphicon glyphicon-time"></span>${e:forHtmlContent(c.fechaComentario)}</small>
+										</div>
+										<p>${e:forHtmlContent(c.texto_comentario)}</p>
 
-                           <div class="chat-body clearfix">
-                                <div class="header" >
-                                    <strong class="primary-font">${e:forHtmlContent(c.id_usuario.nombre)}</strong> 
-                                    <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>${e:forHtmlContent(c.fechaComentario)}</small>
-                                </div>
-                                <p>
-                                   ${e:forHtmlContent(c.texto_comentario)} 
-                                </p>
-                              
-                            </div>
-                         												 
-                        </li>
-                         </c:forEach>
-                    </ul>
-                    </c:otherwise>
-                   </c:choose>
-                   
-                   <div class="col-md-12" id="divComentarioNegociacion">
-                                      
-	                 	   <input type="hidden" id="idNegociacion" name="idNegociacion" value="${negociacion.id_negociacion}">
-	                       <textarea id="textoComentario" name="textoComentario" class="form-control" rows="5" autofocus="autofocus" placeholder="Escribe aqui tu comentario ..." ></textarea>
-	                       
-	                       <div align="right">	                     
-	                           <button class="btn btn-primary" id="btn-chat" ><strong>ENVIAR</strong></button>        
-	                       </div>
-	                    
-                   </div>
-                </div>
-                
-                <div class="panel-footer">
-                      <div class="col-md-6" align="right">       		                    	 			            
-				            <button id="botonAceptarNegociacion_${negociacion.id_negociacion}" class="botonAceptarNegociacion btn btn-success"><strong>ACEPTAR NEGOCIACI&Oacute;N</strong></button>			             
-			          </div>	         
-			            	<button id="botonCancelarNegociacion_${negociacion.id_negociacion}" class="botonCancelarNegociacion btn btn-danger"><strong>RECHAZAR NEGOCIACI&Oacute;N</strong></button>
-              </div>
-                           
-            </div>
-            
-        </div>
-		
-		<div class="col-md-1"></div>
-		
+									</div></li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+				<div class="col-md-12" id="divComentarioNegociacion">
+					<input type="hidden" id="idNegociacion" name="idNegociacion"
+						value="${negociacion.id_negociacion}">
+					<textarea id="textoComentario" name="textoComentario"
+						class="form-control" rows="5" autofocus="autofocus"
+						placeholder="Escribe aqui tu comentario ..."></textarea>
+					<div align="right">
+						<button class="btn btn-primary" id="btn-chat">
+							<strong>ENVIAR</strong>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="col-md-6" align="right">
+					<button id="botonAceptarNegociacion_${negociacion.id_negociacion}"
+						class="botonAceptarNegociacion btn btn-success">
+						<strong>ACEPTAR NEGOCIACI&Oacute;N</strong>
+					</button>
+				</div>
+				<button id="botonCancelarNegociacion_${negociacion.id_negociacion}"
+					class="botonCancelarNegociacion btn btn-danger">
+					<strong>RECHAZAR NEGOCIACI&Oacute;N</strong>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-1"></div>
 </div>
