@@ -261,7 +261,7 @@ function obtenerServicios(serv) {
 						<!-- Button trigger modal -->
 						<button type="button" class="btn btn-success btn-lg"
 							data-toggle="modal" data-target="#nuevoServicio">
-							<strong>A&ntilde;adir nuevo servicio</strong>
+							<strong><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> A&ntilde;adir nuevo servicio</strong>
 						</button>
 						<!-- Modal -->
 						<div class="modal fade" id="nuevoServicio" tabindex="-1"
@@ -289,6 +289,7 @@ function obtenerServicios(serv) {
 														name="tituloServicio">
 												</div>
 											</div>
+											<br/><br/>
 											<div class="form-group">
 												<label for="inputCategoria3" class="col-sm-2 control-label">Categor&iacute;a</label>
 												<div class="col-sm-10">
@@ -382,7 +383,7 @@ function obtenerServicios(serv) {
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-link" data-toggle="modal"
 									data-target="#nuevaHabilidad">
-									<strong>A&ntilde;adir nueva habilidad</strong>
+									<strong><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> A&ntilde;adir nueva habilidad</strong>
 								</button>
 								<!-- Modal -->
 								<div class="modal fade" id="nuevaHabilidad" tabindex="-1"
@@ -457,7 +458,7 @@ function obtenerServicios(serv) {
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-link" data-toggle="modal"
 								data-target="#nuevoInteres">
-								<strong>A&ntilde;adir nuevo interes</strong>
+								<strong><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> A&ntilde;adir nuevo interes</strong>
 							</button>
 							<!-- Modal -->
 							<div class="modal fade" id="nuevoInteres" tabindex="-1"
@@ -525,7 +526,7 @@ function obtenerServicios(serv) {
 					<div id="perfil-mapa"></div>
 					<div align="center">
 						<a href="${prefix}mi_historial/Usuario/${e:forHtmlContent(usuarioPerfil.id)}"
-							class="btn btn-primary btn-lg">Historial</a>
+							class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Historial</a>
 					</div>
 				</div>
 			</div>

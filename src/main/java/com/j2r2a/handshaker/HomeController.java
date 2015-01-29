@@ -494,12 +494,11 @@ public class HomeController {
 		else{
 			Usuario u = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", IdUsuarioPulsado).getSingleResult();
 			List<Oferta> listaOfertasAceptadas = entityManager.createNamedQuery("ListaOfertasAceptadas").setParameter("UsuarioMetido", u).getResultList();
-	
-	
+			int contadorofertasAceptadas=listaOfertasAceptadas.size();
 			if(listaOfertasAceptadas.size() !=0){
 				model.addAttribute("listaOfertasAceptadas",listaOfertasAceptadas);
 			}
-	
+			model.addAttribute("contadorOfertasAceptadas", contadorofertasAceptadas);
 		}
 	
 		model.addAttribute("elemNavbarActive3","class='active'");
@@ -562,19 +561,28 @@ public class HomeController {
 		
 		Servicio s = (Servicio)entityManager.createNamedQuery("ExisteServicioPorNombre").setParameter("IdServicioMetido", id).getSingleResult();
 		
-		if(entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).executeUpdate() >=1){
+		int contOfertasPorServicio = entityManager.createNamedQuery("ListaOfertasPorServicio").setParameter("ServicioMetido", s).getResultList().size();
 		
-			if(entityManager.createNamedQuery("BorrarServicio").setParameter("IDServicio", s.getId()).executeUpdate()==1){
-				return new ResponseEntity<String>("Ok: service " + id + " removed", HttpStatus.OK);
-			}
-			
-			else{	 
-				return new ResponseEntity<String>("Fallo al eliminar servicio: " + id, HttpStatus.BAD_REQUEST);	
-			}
+		if(contOfertasPorServicio==0){
+			entityManager.createNamedQuery("BorrarServicio").setParameter("IDServicio", s.getId()).executeUpdate();
+			return new ResponseEntity<String>("Ok: service " + id + " removed", HttpStatus.OK);
 		}
 		else{
-			return new ResponseEntity<String>("Fallo al eliminar servicio: " + id, HttpStatus.BAD_REQUEST);	
-
+		
+			if(entityManager.createNamedQuery("BorrarOfertasPorIDServicio").setParameter("ServicioMetido", s).executeUpdate() >=1){
+			
+				if(entityManager.createNamedQuery("BorrarServicio").setParameter("IDServicio", s.getId()).executeUpdate()==1){
+					return new ResponseEntity<String>("Ok: service " + id + " removed", HttpStatus.OK);
+				}
+				
+				else{	 
+					return new ResponseEntity<String>("Fallo al eliminar servicio: " + id, HttpStatus.BAD_REQUEST);	
+				}
+			}
+			else{
+				return new ResponseEntity<String>("Fallo al eliminar servicio: " + id, HttpStatus.BAD_REQUEST);	
+	
+			}
 		}
 	}	
 	

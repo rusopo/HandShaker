@@ -103,22 +103,24 @@
 				<div id="form-login">
 					<c:choose>
 						<c:when test="${not empty usuario}">
-							<div class="col-md-5"></div>
-							<div class="col-md-7">
-								<div class="col-md-5" align="right">
-									<h4 align="right">
-										( <a style="color: #FFFFFF" href="${prefix}logout">Salir</a> )
-									</h4>
-								</div>
-								<div class="col-md-7" align="center">
-									<img id="foto-index"
-										src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}"
-										height="100px" width="90px" />
+							<div class="col-md-7" align="right">
+								<h4>
+									<a class="btn btn-danger" style="color: #FFFFFF"
+										href="${prefix}logout"> <span
+										class="glyphicon glyphicon-off" aria-hidden="true"></span><strong>
+											Cerrar sesi&oacute;n</strong>
+									</a>
+								</h4>
+							</div>
+							<div class="col-md-5" align="center">
+								<img id="foto-index"
+									src="${prefix}mi_perfil/usuario?id_usuario=${e:forHtmlContent(usuario.id)}"
+									height="100px" width="90px" />
 
-									<h4 style="color: #FFFFFF">
-										<strong>${e:forHtmlContent(usuario.alias)}</strong>
-									</h4>
-								</div>
+								<h4 style="color: #FFFFFF">
+									<strong>${e:forHtmlContent(usuario.alias)}</strong>
+								</h4>
+
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -185,37 +187,37 @@
 				<ul class="nav navbar-nav">
 					<c:choose>
 						<c:when test="${usuario.rol eq 'administrador'}">
-							<li ${elemNavbarActive5}><a href="${prefix}administrador">Panel
-									Administración</a></li>
+							<li ${elemNavbarActive5}><a href="${prefix}administrador"><strong>Panel
+									Administración</strong></a></li>
 						</c:when>
 						<c:otherwise>
-							<li ${elemNavbarActive1}><a href="${prefix}index">Inicio</a></li>
+							<li ${elemNavbarActive1}><a href="${prefix}index"><strong>Inicio</strong></a></li>
 							<c:choose>
 								<c:when test="${not empty usuario}">
 
 									<li ${elemNavbarActive2}><a
-										href="${prefix}mi_perfil/Usuario/${usuario.id}">Mi Perfil</a></li>
+										href="${prefix}mi_perfil/Usuario/${usuario.id}"><strong>Mi Perfil</strong></a></li>
 								</c:when>
 								<c:otherwise>
 
-									<li ${elemNavbarActive2}><a href="mi_perfil/Usuario/0">Mi
-											Perfil</a></li>
+									<li ${elemNavbarActive2}><a href="${prefix}mi_perfil/Usuario/0"><strong>Mi
+											Perfil</strong></a></li>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
 								<c:when test="${not empty usuario}">
 
 									<li ${elemNavbarActive3}><a
-										href="${prefix}mi_historial/Usuario/${usuario.id}">Mi
-											Historial</a></li>
+										href="${prefix}mi_historial/Usuario/${usuario.id}"><strong>Mi
+											Historial</strong></a></li>
 								</c:when>
 								<c:otherwise>
 									<li ${elemNavbarActive3}><a
-										href="${prefix}mi_historial/Usuario/0">Mi Historial</a></li>
+										href="${prefix}mi_historial/Usuario/0"><strong>Mi Historial</strong></a></li>
 								</c:otherwise>
 							</c:choose>
-							<li ${elemNavbarActive4}><a href="${prefix}mis_ofertas">Mis
-									Ofertas <span class="badge" style="margin-left: 5px"></span>
+							<li ${elemNavbarActive4}><a href="${prefix}mis_ofertas"><strong>Mis
+									Ofertas</strong> <span class="badge" style="margin-left: 5px"></span>
 							</a></li>
 						</c:otherwise>
 					</c:choose>

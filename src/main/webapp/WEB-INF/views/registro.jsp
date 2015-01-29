@@ -355,8 +355,9 @@ function obtenerServicios(serv) {
 							<input type="text" class="form-control" id="direccion"
 								name="direccion" value="" />
 						</div>
-						<button class="btn btn-primary" id="boton-pasar-direccion-mapa">Insertar
-							Direcci&oacute;n en Mapa</button>
+						<button class="btn btn-primary" id="boton-pasar-direccion-mapa"> 
+						<span class="glyphicon glyphicon-send" aria-hidden="true"></span> <strong>Insertar
+							Direcci&oacute;n en Mapa</strong></button>
 					</div>
 					<!-- div donde se dibuja el mapa-->
 					<div id="mapa-registro" class="col-md-12"></div>

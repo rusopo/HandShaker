@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 @Entity
 
 @NamedQueries({
+	@NamedQuery(name="ListaOfertasPorServicio",query="SELECT o FROM Oferta o WHERE o.servicioSolicitado = :ServicioMetido OR o.servicioOfrecido= :ServicioMetido"),
     @NamedQuery(name="ListaOfertaEnviadaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id DESC"),
     @NamedQuery(name="ListaOfertaRecibidaUsuario",query="SELECT s FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioRecibe = :UsuarioMetido AND neg.aceptada = false ORDER BY s.id DESC"),
     @NamedQuery(name="ContadorOfertasEnviadasUsuario",query="SELECT COUNT(s) FROM Oferta s JOIN s.negociacion neg WHERE s.usuarioEnvia = :UsuarioMetido AND neg.aceptada = false"),

@@ -11,32 +11,43 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<div class="col-md-12">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Usuario</th>
-							<th>Ofrece</th>
-							<th>Usuario</th>
-							<th>Recibe</th>
-							<th>Fecha</th>
-							<th>Valoraci&oacute;n</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${listaOfertasAceptadas}" var="o">
-							<tr>
-								<td>${o.usuarioEnvia.nombre}</td>
-								<td>${o.servicioSolicitado.nombre}</td>
-								<td>${o.usuarioRecibe.nombre}</td>
-								<td>${o.servicioOfrecido.nombre}</td>
-								<td>23-10-2013</td>
-								<td>7.63</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+			<c:choose>
+				<c:when test="${contadorOfertasAceptadas eq 0}">
+				  <div class="col-md-12">
+						<h3>
+							<strong>No tiene ninguna oferta aceptada.</strong>
+						</h3>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="col-md-12">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Usuario</th>
+									<th>Ofrece</th>
+									<th>Usuario</th>
+									<th>Recibe</th>
+									<th>Fecha</th>
+									<th>Valoraci&oacute;n</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${listaOfertasAceptadas}" var="o">
+									<tr>
+										<td>${o.usuarioEnvia.nombre}</td>
+										<td>${o.servicioSolicitado.nombre}</td>
+										<td>${o.usuarioRecibe.nombre}</td>
+										<td>${o.servicioOfrecido.nombre}</td>
+										<td>23-10-2013</td>
+										<td>7.63</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</c:otherwise>
 	</c:choose>
 </div>

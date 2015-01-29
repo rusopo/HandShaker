@@ -21,7 +21,7 @@
 													<input type="hidden" name="id_servicio"
 														value="${s.id}">
 												</form>
-												<a href="${prefix}servicio/${s.id}"><strong>${s.nombre}</strong></a>
+												<a href="${prefix}servicio/${s.id}"><strong><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> ${s.nombre}</strong></a>
 											</c:when>
 											<c:otherwise>
 												<strong>${s.nombre}</strong>
