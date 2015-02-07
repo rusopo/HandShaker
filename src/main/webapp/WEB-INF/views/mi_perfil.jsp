@@ -251,9 +251,9 @@ function obtenerServicios(serv) {
 				<div class="col-md-12">
 					<h3 class="h3-perfil" align="center">Valoraci&oacute;n</h3>
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="7"
-							aria-valuemin="0" aria-valuemax="10" style="width: 70%;">
-							7/10</div>
+						<div class="progress-bar" role="progressbar" aria-valuenow="${mediaValoracion}"
+							aria-valuemin="0" aria-valuemax="10" style="width: ${anchuraMedia};">
+							${mediaValoracion}/10</div>
 					</div>
 				</div>
 				<c:if test="${usuario.id eq usuarioPerfil.id}">

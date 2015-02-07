@@ -65,6 +65,7 @@
 					<strong><span class="glyphicon glyphicon-search"
 						aria-hidden="true"></span> Buscar</strong>
 				</button>
+										
 			</div>
 		</div>
 	</div>

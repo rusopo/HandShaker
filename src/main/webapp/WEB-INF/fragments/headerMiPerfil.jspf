@@ -222,6 +222,8 @@
 							<li ${elemNavbarActive4}><a href="${prefix}mis_ofertas"><strong>Mis
 									Ofertas</strong> <span class="badge" style="margin-left: 5px"></span>
 							</a></li>
+							<li><a href="${prefix}valoraciones"><strong>Valoraciones</strong></a></li>
+							
 						</c:otherwise>
 					</c:choose>
 				</ul>

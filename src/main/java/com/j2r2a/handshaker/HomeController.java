@@ -42,6 +42,7 @@ import com.j2r2a.handshaker.model.Oferta;
 //import com.j2r2a.handshaker.model.OfertaRecibida;
 import com.j2r2a.handshaker.model.Servicio;
 import com.j2r2a.handshaker.model.Usuario;
+import com.j2r2a.handshaker.model.Valoracion;
 
 /**
  * Handles requests for the application home page.
@@ -298,6 +299,16 @@ public class HomeController {
 					if(listaInteresesUsuario!=null){
 						model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
 					}
+				List<Valoracion> listaValoracionesUsuario = entityManager.createNamedQuery("ListaValoracionesPorId").setParameter("IDUsuarioMetido", u.getId()).getResultList();
+				long num_valoraciones = listaValoracionesUsuario.size();
+				long suma=0;
+				for (int i = 0; i < listaValoracionesUsuario.size(); i++) {
+					Valoracion v = listaValoracionesUsuario.get(i);
+					suma=suma+v.getPuntuacion();
+				}
+				long media = suma/num_valoraciones;
+				model.addAttribute("mediaValoracion", media);
+				model.addAttribute("anchuraMedia", media*10 +"%");
 			}
 		}
 		
@@ -880,4 +891,44 @@ public class HomeController {
 				return new ResponseEntity<String>(sb + "]", HttpStatus.OK);
 			}
 	}
+	
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/valoraciones", method = RequestMethod.GET)
+	public String valoracionHome(Model model,HttpServletRequest request,HttpSession session) {
+		
+		Usuario u = (Usuario)session.getAttribute("usuario");
+		
+		List<Negociacion> listaNegociaciones = entityManager.createNamedQuery("ListaNegociacionesAValorar").setParameter("UsuarioMetido", u).getResultList();
+		
+		List<Usuario> listaUsuariosAValorar=new ArrayList<Usuario>();
+		for (int i = 0; i < listaNegociaciones.size(); i++) {
+			Usuario user = listaNegociaciones.get(i).getUsuario1();
+			listaUsuariosAValorar.add(user);
+		}
+		
+		model.addAttribute("listaUsuariosAValorar", listaUsuariosAValorar);
+		
+		return "valoraciones";
+	}
+	
+	@RequestMapping(value = "/gestionValoracion", method = RequestMethod.POST)
+	@Transactional // needed to allow lazy init to work
+	
+	public ResponseEntity<String> gestionValoracion(HttpSession session,@RequestParam("idUsuarioAValorar") long idUsuarioAValorar,
+			@RequestParam("puntuacion") long puntuacion) {
+		
+		Usuario u = (Usuario)session.getAttribute("usuario");
+		
+		Usuario usuarioAValorar = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", idUsuarioAValorar).getSingleResult();
+		
+		Valoracion v = Valoracion.crearValoracion(usuarioAValorar, u, puntuacion);
+		
+		entityManager.persist(v);
+		
+		return new ResponseEntity<String>("Votacion con exito", HttpStatus.OK);
+	}
+	
 }

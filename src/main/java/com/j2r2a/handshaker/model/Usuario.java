@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -26,11 +27,11 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name="ExisteUsuarioLogin",query="select u from Usuario u where u.alias = :UsuarioMetido"),
     @NamedQuery(name="ListaUsuarios",query="SELECT DISTINCT c FROM Usuario c"),
     @NamedQuery(name="ExisteUsuarioPorID",query="SELECT u FROM Usuario u WHERE u.id = :IDMetido")
+
 })
 
 public class Usuario{
 	
-
 	private long id;
 	private String alias;
 	private String nombre;
@@ -41,7 +42,8 @@ public class Usuario{
 	private String salt;
 	private double latitud;
 	private double longitud;
-	private ArrayList<Integer> valoracion;
+	//private long valoracion;
+	//private List<Valoracion> valoraciones;
 	private List<Servicio> habilidades;
 	private List<Servicio> intereses;
 	
@@ -67,7 +69,8 @@ public class Usuario{
 		u.latitud=latitud;
 		u.longitud=longitud;
 		
-		u.valoracion=new ArrayList<Integer>();
+		//u.valoraciones=new ArrayList<Valoracion>();
+		//u.valoracion=new ArrayList<Integer>();
 		u.habilidades= new ArrayList<Servicio>();
 		u.intereses=new ArrayList<Servicio>();
 		
@@ -175,17 +178,26 @@ public class Usuario{
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
-
-
-	public ArrayList<Integer> getValoracion() {
+	
+	/*
+	public long getValoracion() {
 		return valoracion;
 	}
 
-
-	public void setValoracion(ArrayList<Integer> valoracion) {
+	public void setValoracion(long valoracion) {
 		this.valoracion = valoracion;
 	}
+	*/
+	/*
+	@OneToMany(targetEntity=Valoracion.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	public List<Valoracion> getValoraciones() {
+		return valoraciones;
+	}
 
+	public void setValoraciones(List<Valoracion> valoraciones) {
+		this.valoraciones = valoraciones;
+	}
+	*/
 	@ManyToMany(targetEntity=Servicio.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL)//Un usuario tiene n habilidades de tipo Servicio
 	@JoinTable(name="habilidadesUsuario",joinColumns = {@JoinColumn(name = "IDUsuario")}, inverseJoinColumns = {@JoinColumn(name = "IDServicio")})
 	public List<Servicio> getHabilidades() {
