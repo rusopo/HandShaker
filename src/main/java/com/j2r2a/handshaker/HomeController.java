@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -773,6 +775,9 @@ public class HomeController {
 		
 		Negociacion negociacion = (Negociacion)entityManager.createNamedQuery("ExisteNegociacionPorID").setParameter("IdNegociacionMetido", idNegociacion).getSingleResult();
 		negociacion.setAceptada(true);
+		Date fecha = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		negociacion.setFechaAceptada(dateFormat.format(fecha));
 		session.setAttribute("negociacion", negociacion);
 		entityManager.merge(negociacion);
 		

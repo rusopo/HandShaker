@@ -1,6 +1,9 @@
 package com.j2r2a.handshaker.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,6 +31,7 @@ public class Negociacion{
 	private Usuario usuario2;
 	private List<Comentario> listaComentarios;
 	private boolean aceptada;
+	private String fechaAceptada;
 	
 	public static Negociacion crearNegociacion(Usuario usuario1,Usuario usuario2,boolean aceptada){
 		
@@ -36,6 +40,7 @@ public class Negociacion{
 		negociacion.usuario2=usuario2;
 		negociacion.listaComentarios=new ArrayList<Comentario>();
 		negociacion.aceptada=aceptada;
+		negociacion.fechaAceptada=null;
 		
 		return negociacion;
 	}
@@ -79,5 +84,15 @@ public class Negociacion{
 	public void setAceptada(boolean aceptada) {
 		this.aceptada = aceptada;
 	}
+
+	public String getFechaAceptada() {
+		return fechaAceptada;
+	}
+
+	public void setFechaAceptada(String fechaAceptada) {
+		this.fechaAceptada = fechaAceptada;
+	}
+	
+	
 		
 }

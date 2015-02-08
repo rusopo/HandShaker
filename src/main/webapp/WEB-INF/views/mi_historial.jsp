@@ -25,22 +25,25 @@
 							<thead>
 								<tr>
 									<th>Usuario</th>
+									<th>Valoraci&oacute;n</th>
 									<th>Ofrece</th>
 									<th>Usuario</th>
+									<th>Valoraci&oacute;n</th>
 									<th>Recibe</th>
 									<th>Fecha</th>
-									<th>Valoraci&oacute;n</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${listaOfertasAceptadas}" var="o">
 									<tr>
 										<td>${o.usuarioEnvia.nombre}</td>
+										<td>${o.usuarioEnvia.valoracionMedia}/10</td>
 										<td>${o.servicioSolicitado.nombre}</td>
 										<td>${o.usuarioRecibe.nombre}</td>
+										<td>${o.usuarioRecibe.valoracionMedia}/10</td>
 										<td>${o.servicioOfrecido.nombre}</td>
-										<td>23-10-2013</td>
-										<td>7.63</td>
+										<td>${o.negociacion.fechaAceptada}</td>									
 									</tr>
 								</c:forEach>
 							</tbody>
