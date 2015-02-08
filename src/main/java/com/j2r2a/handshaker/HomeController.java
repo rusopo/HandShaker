@@ -162,7 +162,7 @@ public class HomeController {
 				logger.info( "El usuario con id " + id_usuario + "no ha elegido ninguna foto");				
 			}
 						
-		Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,"usuario",formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro);								
+		Usuario user = Usuario.crearUsuario(formAliasRegistro, formNombreRegistro,"usuario",formEdadRegistro, formEmailRegistro, formContrasenia1Registro,formLatitudRegistro,formLongitudRegistro,0);								
 		List<Servicio> lista_habilidades = new ArrayList<Servicio>();		
 		String aux = habilidades_metidas.replaceAll("[^0-9]+","");
 			
@@ -299,16 +299,9 @@ public class HomeController {
 					if(listaInteresesUsuario!=null){
 						model.addAttribute("listaInteresesUsuario",listaInteresesUsuario);
 					}
-				List<Valoracion> listaValoracionesUsuario = entityManager.createNamedQuery("ListaValoracionesPorId").setParameter("IDUsuarioMetido", u.getId()).getResultList();
-				long num_valoraciones = listaValoracionesUsuario.size();
-				long suma=0;
-				for (int i = 0; i < listaValoracionesUsuario.size(); i++) {
-					Valoracion v = listaValoracionesUsuario.get(i);
-					suma=suma+v.getPuntuacion();
-				}
-				long media = suma/num_valoraciones;
-				model.addAttribute("mediaValoracion", media);
-				model.addAttribute("anchuraMedia", media*10 +"%");
+				
+				model.addAttribute("mediaValoracion", u.getValoracionMedia());
+				model.addAttribute("anchuraMedia", u.getValoracionMedia()*10 +"%");
 			}
 		}
 		
@@ -782,6 +775,11 @@ public class HomeController {
 		negociacion.setAceptada(true);
 		session.setAttribute("negociacion", negociacion);
 		entityManager.merge(negociacion);
+		
+		Valoracion v1 = Valoracion.crearValoracion(negociacion.getUsuario1(), negociacion.getUsuario2(), 0,false);			
+		entityManager.persist(v1);
+		Valoracion v2 = Valoracion.crearValoracion(negociacion.getUsuario2(), negociacion.getUsuario1(), 0,false);			
+		entityManager.persist(v2);
 					
 		return new ResponseEntity<String>("Negociacion con ID:"+ negociacion.getId() +" Aceptada",HttpStatus.OK);	
 		
@@ -856,7 +854,7 @@ public class HomeController {
 					
 					Oferta oferta = Oferta.crearOferta(servicioSolicitado, servicioOfrecido, usuarioEnvia, usuarioRecibe, negociacion);
 					entityManager.persist(oferta);
-	    	
+						
 	    		return new ResponseEntity<String>("Oferta con ID: " + oferta.getId() + " realizada con exito",HttpStatus.OK);
 	    	}
 	    	else{	    		
@@ -900,16 +898,11 @@ public class HomeController {
 	public String valoracionHome(Model model,HttpServletRequest request,HttpSession session) {
 		
 		Usuario u = (Usuario)session.getAttribute("usuario");
-		
-		List<Negociacion> listaNegociaciones = entityManager.createNamedQuery("ListaNegociacionesAValorar").setParameter("UsuarioMetido", u).getResultList();
-		
-		List<Usuario> listaUsuariosAValorar=new ArrayList<Usuario>();
-		for (int i = 0; i < listaNegociaciones.size(); i++) {
-			Usuario user = listaNegociaciones.get(i).getUsuario1();
-			listaUsuariosAValorar.add(user);
-		}
-		
+				
+		List<Valoracion> listaUsuariosAValorar=entityManager.createNamedQuery("ListaValoracionesUsuarios").setParameter("UsuarioMetido", u).getResultList();
+		long contValoraciones=listaUsuariosAValorar.size();	
 		model.addAttribute("listaUsuariosAValorar", listaUsuariosAValorar);
+		model.addAttribute("contValoraciones", contValoraciones);
 		
 		return "valoraciones";
 	}
@@ -917,16 +910,23 @@ public class HomeController {
 	@RequestMapping(value = "/gestionValoracion", method = RequestMethod.POST)
 	@Transactional // needed to allow lazy init to work
 	
-	public ResponseEntity<String> gestionValoracion(HttpSession session,@RequestParam("idUsuarioAValorar") long idUsuarioAValorar,
+	public ResponseEntity<String> gestionValoracion(HttpSession session,@RequestParam("idValoracion") long idValoracion,
 			@RequestParam("puntuacion") long puntuacion) {
+			
+		Valoracion v = (Valoracion)entityManager.createNamedQuery("ExisteValoracionPorId").setParameter("IdValoracionMetido", idValoracion).getSingleResult();
+		v.setPuntuacion(puntuacion);
+		v.setEstaValorado(true);
+		entityManager.merge(v);
 		
-		Usuario u = (Usuario)session.getAttribute("usuario");
-		
-		Usuario usuarioAValorar = (Usuario)entityManager.createNamedQuery("ExisteUsuarioPorID").setParameter("IDMetido", idUsuarioAValorar).getSingleResult();
-		
-		Valoracion v = Valoracion.crearValoracion(usuarioAValorar, u, puntuacion);
-		
-		entityManager.persist(v);
+		List<Valoracion> listaValoracionesUsuario = entityManager.createNamedQuery("ListaValoracionesPorId").setParameter("IDUsuarioMetido", v.getUsuarioValorado().getId()).getResultList();
+		long num_valoraciones = listaValoracionesUsuario.size();
+		long suma=0;
+		for (int i = 0; i < listaValoracionesUsuario.size(); i++) {
+			Valoracion val = listaValoracionesUsuario.get(i);
+			suma=suma+val.getPuntuacion();
+		}
+		long media = suma/num_valoraciones;
+		v.getUsuarioValorado().setValoracionMedia(media);
 		
 		return new ResponseEntity<String>("Votacion con exito", HttpStatus.OK);
 	}

@@ -17,8 +17,7 @@ import javax.persistence.OneToOne;
 @NamedQueries({
 	@NamedQuery(name="DameListaNegociacion", query="SELECT DISTINCT n FROM Negociacion n "),
 	@NamedQuery(name="ExisteNegociacionPorID",query="SELECT n FROM Negociacion n WHERE n.id = :IdNegociacionMetido"),
-	@NamedQuery(name="EliminarNegociacionPorID",query="DELETE FROM Negociacion n WHERE n.id = :IdNegociacionMetido"),
-	@NamedQuery(name="ListaNegociacionesAValorar",query="SELECT n FROM Negociacion n JOIN n.usuario2 u WHERE u = :UsuarioMetido AND n.aceptada=true")
+	@NamedQuery(name="EliminarNegociacionPorID",query="DELETE FROM Negociacion n WHERE n.id = :IdNegociacionMetido")
 })
 
 

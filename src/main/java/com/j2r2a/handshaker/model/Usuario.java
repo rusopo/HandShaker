@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -42,14 +41,13 @@ public class Usuario{
 	private String salt;
 	private double latitud;
 	private double longitud;
-	//private long valoracion;
-	//private List<Valoracion> valoraciones;
+	private long valoracionMedia; //0-10
 	private List<Servicio> habilidades;
 	private List<Servicio> intereses;
 	
 	public Usuario(){}
 	
-	public static Usuario crearUsuario(String alias, String nombre,String rol,long edad,String email,String contrasenia,double latitud,double longitud) {
+	public static Usuario crearUsuario(String alias, String nombre,String rol,long edad,String email,String contrasenia,double latitud,double longitud,long valoracionMedia) {
 		
 		Usuario u = new Usuario();
 		u.alias = alias;
@@ -64,13 +62,11 @@ public class Usuario{
 		r.nextBytes(saltBytes);
 		u.salt = byteArrayToHexString(saltBytes);
 		u.contrasenia = generateHashedAndSalted(contrasenia,u.salt);
-		
-		//u.foto=foto;		
+				
 		u.latitud=latitud;
 		u.longitud=longitud;
 		
-		//u.valoraciones=new ArrayList<Valoracion>();
-		//u.valoracion=new ArrayList<Integer>();
+		u.valoracionMedia=valoracionMedia;
 		u.habilidades= new ArrayList<Servicio>();
 		u.intereses=new ArrayList<Servicio>();
 		
@@ -179,25 +175,14 @@ public class Usuario{
 		this.longitud = longitud;
 	}
 	
-	/*
-	public long getValoracion() {
-		return valoracion;
+	public long getValoracionMedia() {
+		return valoracionMedia;
 	}
 
-	public void setValoracion(long valoracion) {
-		this.valoracion = valoracion;
-	}
-	*/
-	/*
-	@OneToMany(targetEntity=Valoracion.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-	public List<Valoracion> getValoraciones() {
-		return valoraciones;
+	public void setValoracionMedia(long valoracionMedia) {
+		this.valoracionMedia = valoracionMedia;
 	}
 
-	public void setValoraciones(List<Valoracion> valoraciones) {
-		this.valoraciones = valoraciones;
-	}
-	*/
 	@ManyToMany(targetEntity=Servicio.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL)//Un usuario tiene n habilidades de tipo Servicio
 	@JoinTable(name="habilidadesUsuario",joinColumns = {@JoinColumn(name = "IDUsuario")}, inverseJoinColumns = {@JoinColumn(name = "IDServicio")})
 	public List<Servicio> getHabilidades() {
